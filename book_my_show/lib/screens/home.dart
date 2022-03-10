@@ -19,7 +19,9 @@ class home extends StatelessWidget {
         child: Card(
           child: Column(
             children: [
-              Stack(children: [
+              Stack(
+                fit: StackFit.loose,
+                children: [
                 Image.network(movie.movie_image),
                 Positioned(
                   bottom: 12,
@@ -38,20 +40,13 @@ class home extends StatelessWidget {
                         border: Border.all(width: 2, color: Colors.white)),
                   ),
                 ),
-                Positioned(
-                  top: -11,
-                  child: ButtonTheme(
-                    height: 28,
-                    minWidth: 40,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      color: Color.fromARGB(255, 7, 218, 77),
-                      child: Text(
-                        "New",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w400),
-                      ),
-                    ),
+                RaisedButton(
+                  onPressed: () {},
+                  color: Color.fromARGB(255, 7, 218, 77),
+                  child: Text(
+                    "New",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w400),
                   ),
                 ),
                 Positioned(
@@ -170,6 +165,8 @@ class home extends StatelessWidget {
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
+
+      //appbar can't be called like this, its not a simple stateless widget
       // appBar: appbar(
       //   leading_icon: Icons.menu,
       //   text1: "NOW SHOWING",

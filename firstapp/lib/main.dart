@@ -15,6 +15,8 @@ import 'package:firstapp/screens/stack_demo.dart';
 import 'package:firstapp/screens/stateful_demo.dart';
 import 'package:firstapp/screens/sweep_grad.dart';
 import 'package:firstapp/screens/temp.dart';
+import 'package:firstapp/screens/textBox.dart';
+import 'package:firstapp/screens/textbox_controller.dart';
 import 'package:firstapp/screens/transform_rotate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +43,9 @@ void main() {
     //home: temp(),
 
     //Stateful widget - 
-    home: stateful_demo(),
+    //home: stateful_demo(),
+    //home: textBox(),
+    home: textbox_controller(),
 
   ));
 }
