@@ -67,111 +67,104 @@ class _bmi_calcState extends State<bmi_calc> {
         backgroundColor: Color.fromARGB(255, 10, 14, 33),
         title: Center(child: Text("BMI CALCULATOR")),
       ),
-      body: Container(
-        height: deviceSize.height,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: deviceSize.height / 4.3,
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 13, 0, 9),
-                      child: genderButton(Icons.male, "MALE", deviceSize,
-                          getGender, gender_button_pressed),
-                    )),
-                    SizedBox(width: deviceSize.width / 25),
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 13, 12, 9),
-                      child: genderButton(Icons.female, "FEMALE", deviceSize,
-                          getGender, gender_button_pressed),
-                    ))
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 6, 10, 5),
-                child: Container(
-                  height: deviceSize.height / 4.1,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color.fromARGB(255, 29, 30, 51),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 14),
-                            child: Text(
-                              "HEIGHT",
-                              style: TextStyle(
-                                  color: Color.fromARGB(171, 165, 167, 190),
-                                  fontSize: 18),
-                            ),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                            textBaseline: TextBaseline.alphabetic,
-                            children: [
-                              Text("$_height",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: deviceSize.height / 11,
-                                      fontWeight: FontWeight.w900)),
-                              Text("cm",
-                                  style: TextStyle(
-                                      color: Text_color,
-                                      fontSize: deviceSize.height / 35)),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child:
-                                mySlider(deviceSize, _height, TaskeSliderValue),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                height: deviceSize.height / 3.2,
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 11, 0, 12),
-                      child:
-                          my_card("WEIGHT", _weight, deviceSize, changeWeight),
-                    )),
-                    SizedBox(width: deviceSize.width / 25),
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 11, 12, 12),
-                      child: my_card("AGE", _age, deviceSize, changeAge),
-                    ))
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: _calculate,
-                child: Text(ButtonText,
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
-                style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(255, 235, 21, 85),
-                    fixedSize: Size(deviceSize.width, 50)),
-              ),
-            ],
+      body: Column(
+        children: [
+          Expanded(
+            flex: 11,
+            child: Row(
+              children: [
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 13, 0, 9),
+                  child: genderButton(Icons.male, "MALE", deviceSize,
+                      getGender, gender_button_pressed),
+                )),
+                SizedBox(width: deviceSize.width / 25),
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 13, 12, 9),
+                  child: genderButton(Icons.female, "FEMALE", deviceSize,
+                      getGender, gender_button_pressed),
+                ))
+              ],
+            ),
           ),
-        ),
+          Expanded(
+            flex: 13,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 6, 10, 5),
+              child: Container(
+                decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color.fromARGB(255, 29, 30, 51),
+                    ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 4),
+                        Text(
+                          "HEIGHT",
+                          style: TextStyle(
+                              color: Color.fromARGB(171, 165, 167, 190),
+                              fontSize: 18),
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text("$_height",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: deviceSize.height / 12.4,
+                                    fontWeight: FontWeight.w900)),
+                            Text("cm",
+                                style: TextStyle(
+                                    color: Text_color,
+                                    fontSize: deviceSize.height / 35)),
+                          ],
+                        ),
+                        mySlider(deviceSize, _height, TaskeSliderValue),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          
+          Expanded(
+            flex: 14,
+            child: Row(
+              children: [
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 11, 0, 12),
+                  child:
+                      my_card("WEIGHT", _weight, deviceSize, changeWeight),
+                )),
+                SizedBox(width: deviceSize.width / 25),
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 11, 12, 12),
+                  child: my_card("AGE", _age, deviceSize, changeAge),
+                ))
+              ],
+            ),
+          ),
+          ElevatedButton(
+            onPressed: _calculate,
+            child: Text(ButtonText,
+                style:
+                    TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromARGB(255, 235, 21, 85),
+                fixedSize: Size(deviceSize.width, 50)
+                ),
+          ),
+        ],
       ),
     );
   }

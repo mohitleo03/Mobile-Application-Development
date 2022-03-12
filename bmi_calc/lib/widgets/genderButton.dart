@@ -33,19 +33,14 @@ class genderButton extends StatelessWidget {
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 18),
-            child:
-                Icon(icon, color: Colors.white, size: deviceSize.height / 11),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8, bottom: 25),
-            child: Text(
-              text,
-              style: TextStyle(
-                  color: Text_color, fontSize: 19),
-            ),
+          Icon(icon, color: Colors.white, size: deviceSize.height / 11),
+          SizedBox(height: 5),
+          Text(
+            text,
+            style: TextStyle(
+                color: Text_color, fontSize: 19),
           )
         ],
       ),
