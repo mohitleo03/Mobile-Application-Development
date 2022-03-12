@@ -31,13 +31,8 @@ class _emi_calc_classState extends State<emi_calc_class> {
     loanAmount = int.parse(t1.text);
     int roi = int.parse(t2.text);
     int tenure = int.parse(t3.text);
-    print("Tenure is $tenure");
-    total_interest =
-        double.parse((loanAmount * roi * tenure / 100).toStringAsFixed(2));
-    emi = double.parse(
-        ((total_interest + loanAmount) / (12 * tenure)).toStringAsFixed(2));
-    print("Total interest is $total_interest");
-    print("EMI is $emi");
+    total_interest = double.parse((loanAmount * roi * tenure / 100).toStringAsFixed(2));
+    emi = double.parse(((total_interest + loanAmount) / (12 * tenure)).toStringAsFixed(2));
     setState(() {});
   }
 
