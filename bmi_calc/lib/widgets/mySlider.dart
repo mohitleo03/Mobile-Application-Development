@@ -18,7 +18,7 @@ class mySlider extends StatelessWidget {
         min: 55,
         max: 190,
         activeColor: Colors.white,
-        inactiveColor: Colors.white,
+        inactiveColor: Colors.grey.shade700,
         thumbColor: Color.fromARGB(255, 235, 21, 85),
       ),
     );

@@ -12,6 +12,9 @@ class bmi_calc extends StatefulWidget {
 }
 
 class _bmi_calcState extends State<bmi_calc> {
+  Color Text_color = Color.fromARGB(171, 165, 167, 190);
+  int gender_button_pressed =
+      0; //0 - non selected, 1 - male selected, 2 - female selected
   String ButtonText = "CALCULATE";
   String _gender = "";
   int _height = 160;
@@ -21,6 +24,8 @@ class _bmi_calcState extends State<bmi_calc> {
 
   getGender(String value) {
     _gender = value;
+    if (_gender == "MALE") gender_button_pressed = 1;
+    if (_gender == "FEMALE") gender_button_pressed = 2;
     ButtonText = "CALCULATE";
     setState(() {});
   }
@@ -74,15 +79,15 @@ class _bmi_calcState extends State<bmi_calc> {
                     Expanded(
                         child: Padding(
                       padding: const EdgeInsets.fromLTRB(12, 13, 0, 9),
-                      child: genderButton(
-                          Icons.male, "MALE", deviceSize, getGender),
+                      child: genderButton(Icons.male, "MALE", deviceSize,
+                          getGender, gender_button_pressed),
                     )),
                     SizedBox(width: deviceSize.width / 25),
                     Expanded(
                         child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 13, 12, 9),
-                      child: genderButton(
-                          Icons.female, "FEMALE", deviceSize, getGender),
+                      child: genderButton(Icons.female, "FEMALE", deviceSize,
+                          getGender, gender_button_pressed),
                     ))
                   ],
                 ),
@@ -105,8 +110,9 @@ class _bmi_calcState extends State<bmi_calc> {
                             padding: const EdgeInsets.only(top: 14),
                             child: Text(
                               "HEIGHT",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                              style: TextStyle(
+                                  color: Color.fromARGB(171, 165, 167, 190),
+                                  fontSize: 18),
                             ),
                           ),
                           Row(
@@ -120,7 +126,7 @@ class _bmi_calcState extends State<bmi_calc> {
                                       fontWeight: FontWeight.w900)),
                               Text("cm",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Text_color,
                                       fontSize: deviceSize.height / 35)),
                             ],
                           ),

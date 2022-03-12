@@ -2,11 +2,12 @@ import 'package:bmi_calc/widgets/cust_button.dart';
 import 'package:flutter/material.dart';
 
 class my_card extends StatelessWidget {
+  Color Text_color = Color.fromARGB(171, 165, 167, 190);
   String label;
   int value;
   Size deviceSize;
   Function fn;
-  my_card(this.label, this.value, this.deviceSize,this.fn);
+  my_card(this.label, this.value, this.deviceSize, this.fn);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class my_card extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 15),
             child: Text(label,
-                style: TextStyle(fontSize: 18, color: Colors.white)),
+                style: TextStyle(fontSize: 18, color: Text_color)),
           ),
           Text("$value",
               style: TextStyle(
@@ -31,9 +32,9 @@ class my_card extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                cust_button("-",fn),
+                cust_button("-", fn),
                 SizedBox(width: 10),
-                cust_button("+",fn),
+                cust_button("+", fn),
               ],
             ),
           )
