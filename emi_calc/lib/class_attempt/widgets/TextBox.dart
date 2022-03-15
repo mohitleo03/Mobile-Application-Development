@@ -3,20 +3,22 @@ import 'package:flutter/material.dart';
 class TextBox extends StatelessWidget {
   late String label;
   late IconData icon;
-  late Function fn ;
-  setFunction(fn) {
-    this.fn = fn;
-  }
+  late var fn ;
+  // setFunction(fn) {
+  //   this.fn = fn;
+  // }
 
   late TextEditingController tc;
   TextBox({
     required String label,
     required IconData icon,
     required TextEditingController tc,
+    fn = null
   }) {
     this.label = label;
     this.tc = tc;
     this.icon = icon;
+    this.fn = fn;
   }
   //TextBox(this.label,this.icon,this.tc);
 

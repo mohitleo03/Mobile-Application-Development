@@ -12,7 +12,7 @@ class emi_calc_class extends StatefulWidget {
 }
 
 class _emi_calc_classState extends State<emi_calc_class> {
-  int _value = 1;
+  int _value = 1; //it's scope is within this dart file
   double total_interest = 0;
   int loanAmount = 0;
   TextEditingController t1 = TextEditingController();
@@ -20,10 +20,19 @@ class _emi_calc_classState extends State<emi_calc_class> {
   TextEditingController t3 = TextEditingController();
   double emi = 0.0;
 
-  TakeSliderValue(int value) {
-    _value = value; // scope increase
-    print("Recieve value from slider $value");
-    t3.text = _value.toString();
+  // TakeSliderValue(int value) {
+  //   _value = value; // scope increase
+  //   print("the value of tennure is $_value");
+  //   t3.text = _value.toString();
+  //   setState(() {});
+  // }
+  TakeSliderValue(var value) {
+    // Type type = value.runtimeType;
+    _value = value.toInt(); // scope increase
+    print("the value of tennure is $_value");
+    if (value.runtimeType == double) {
+      t3.text = value.toInt().toString();
+    }
     setState(() {});
   }
 
@@ -31,24 +40,26 @@ class _emi_calc_classState extends State<emi_calc_class> {
     loanAmount = int.parse(t1.text);
     int roi = int.parse(t2.text);
     int tenure = int.parse(t3.text);
-    total_interest = double.parse((loanAmount * roi * tenure / 100).toStringAsFixed(2));
-    emi = double.parse(((total_interest + loanAmount) / (12 * tenure)).toStringAsFixed(2));
+    total_interest =
+        double.parse((loanAmount * roi * tenure / 100).toStringAsFixed(2));
+    emi = double.parse(
+        ((total_interest + loanAmount) / (12 * tenure)).toStringAsFixed(2));
     setState(() {});
   }
 
   _getTextContainer(label, value, devicesize) {
     return Container(
       height: 45,
-      width: devicesize.width/2.2,
+      width: devicesize.width / 2.2,
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.blue), 
+          border: Border.all(color: Colors.blue),
           borderRadius: BorderRadius.circular(5)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(label,style: TextStyle(fontSize: 16)), 
+          Text(label, style: TextStyle(fontSize: 16)),
           Text("₹ $value")
-          ],
+        ],
       ),
     );
   }
@@ -60,8 +71,8 @@ class _emi_calc_classState extends State<emi_calc_class> {
       "Interest": total_interest,
       "Principal Amount": loanAmount.toDouble()
     };
-    TextBox tb = TextBox(label: 'Tenure', icon: Icons.timelapse, tc: t3);
-    tb.setFunction(TakeSliderValue);
+    // TextBox tb = TextBox(label: 'Tenure', icon: Icons.timelapse, tc: t3,fn: TakeSliderValue,);
+    // tb.setFunction(TakeSliderValue);
     return Scaffold(
       appBar: AppBar(
         title: Text("EMI Calculator"),
@@ -76,7 +87,12 @@ class _emi_calc_classState extends State<emi_calc_class> {
               tc: t1,
             ),
             TextBox(label: 'ROI', icon: Icons.attach_money, tc: t2),
-            tb,
+            TextBox(
+              label: 'Tenure',
+              icon: Icons.timelapse,
+              tc: t3,
+              fn: TakeSliderValue,
+            ),
             my_slider(TakeSliderValue,
                 _value), //pass Fn as an argument to the constructor
             ElevatedButton(
@@ -84,6 +100,10 @@ class _emi_calc_classState extends State<emi_calc_class> {
                     //backgroundColor: MaterialStateProperty
                     ),
                 onPressed: _compute,
+                // other option
+                // onPresses: (){
+                // _compute();
+                // }
                 child: Text("Compute")),
             Padding(
               padding: const EdgeInsets.only(left: 10),
@@ -96,13 +116,17 @@ class _emi_calc_classState extends State<emi_calc_class> {
                         children: [
                           Column(
                             children: [
-                              _getTextContainer("Loan EMI", emi,deviceSize),
-                              SizedBox(height: 10,),
-                              _getTextContainer(
-                                  "Total Interest Playable", total_interest,deviceSize),
-                              SizedBox(height: 10,),    
-                              _getTextContainer(
-                                  "Total Payment", loanAmount + total_interest,deviceSize)
+                              _getTextContainer("Loan EMI", emi, deviceSize),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              _getTextContainer("Total Interest Playable",
+                                  total_interest, deviceSize),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              _getTextContainer("Total Payment",
+                                  loanAmount + total_interest, deviceSize)
                             ],
                           ),
                         ],

@@ -13,7 +13,7 @@ class my_slider extends StatelessWidget {
         min: 1,
         max: 20,
         onChanged: (double value) {
-          Fn(value.toInt());
+          Fn(value);
         },
       ),
     );
