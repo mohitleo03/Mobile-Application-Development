@@ -40,13 +40,21 @@ class home extends StatelessWidget {
                         border: Border.all(width: 2, color: Colors.white)),
                   ),
                 ),
-                RaisedButton(
-                  onPressed: () {},
-                  color: Color.fromARGB(255, 7, 218, 77),
-                  child: Text(
-                    "New",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w400),
+                // Container(
+                //   color: Color.fromARGB(255, 7, 218, 77),
+                //   padding: EdgeInsets.fromLTRB(12,6,12,6),
+                //   child: Text("New",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400)),
+                // ),
+                Positioned(
+                  bottom: 0,
+                  child: RaisedButton(
+                    onPressed: () {},
+                    color: Color.fromARGB(255, 7, 218, 77),
+                    child: Text(
+                      "New",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w400),
+                    ),
                   ),
                 ),
                 Positioned(
@@ -69,7 +77,7 @@ class home extends StatelessWidget {
                               color: Color.fromARGB(255, 255, 66, 89),
                             ),
                             Text(
-                              "  $vote_percentage" + "%",
+                              "  ${movie.movie_percentage_votes}" + "%",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,

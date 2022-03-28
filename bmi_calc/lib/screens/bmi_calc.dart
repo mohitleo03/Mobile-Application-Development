@@ -13,8 +13,7 @@ class bmi_calc extends StatefulWidget {
 
 class _bmi_calcState extends State<bmi_calc> {
   Color Text_color = Color.fromARGB(171, 165, 167, 190);
-  int gender_button_pressed =
-      0; //0 - non selected, 1 - male selected, 2 - female selected
+  int gender_button_pressed =0; //0 - non selected, 1 - male selected, 2 - female selected
   String ButtonText = "CALCULATE";
   String _gender = "";
   int _height = 160;
