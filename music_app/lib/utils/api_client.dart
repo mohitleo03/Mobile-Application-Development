@@ -10,8 +10,8 @@ class ApiClient {
       String json = response.body;
       print("JSON $json");
       print(json.runtimeType);
-      json = jsonDecode(json);
-      json.results
+      final Parsedjson = jsonDecode(json);
+      Parsedjson.results;
     }).catchError((err) => print(err));
   }
 }
