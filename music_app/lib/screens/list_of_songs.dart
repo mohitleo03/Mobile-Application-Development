@@ -31,7 +31,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
   pauseOtherSongs() {
     for (int i = 0; i < songs.length; i++) {
       if (i != currentSongIndex) {
-        songs[i].isPlaying = false;
+        songs[i].isPlaying = false; 
       }
     }
   }
@@ -60,7 +60,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
             subtitle: Text(songs[index].artistName),
             trailing: IconButton(
                 onPressed: () async {
-                  pauseOtherSongs();
+                  
                   print(isPlay);
                   isPlay
                       ? await audioPlayer.pause()
@@ -69,7 +69,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
                   songs[index].isPlaying =
                       songs[index].isPlaying ? false : true;
                   currentSongIndex = index;
-
+                  pauseOtherSongs();
                   setState(() {});
                 },
                 icon: songs[index].isPlaying
