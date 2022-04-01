@@ -12,7 +12,7 @@ class Song {
     artistName = map['artistName'];
     trackName = map['trackName'];
     image = map['artworkUrl30'];
-    audio = map['audio'];
+    audio = map['previewUrl'];
   }
   Map<String, dynamic> toJSON() {
     return {

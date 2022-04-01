@@ -20,13 +20,12 @@ class ApiClient {
       //     .toList(); //traverse the lsit & get one by one map
       // and convert map into song object and song object store in a song list
       List<Song> songs = list.map((songMap) => Song.fromJSON(songMap)).toList();
-      successCallBack(songs);
-      int i = 1;
+            int i = 1;
       print(songs);
       songs.forEach((element) {
         print("${i++} ${element.audio}");
       });
-      Future.value(songs);
+      successCallBack(songs);
     }).catchError((err) => failCallBack(err));
 
   }
