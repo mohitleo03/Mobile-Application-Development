@@ -3,6 +3,7 @@ class Song {
   late String trackName; //song name
   late String image; //image URL
   late String audio; //song URL
+  bool isPlaying = false;
   Song(this.artistName, this.trackName, this.image, this.audio);
   //Manual Serialization & DeSerialization
   //Serialization - Object to Json Conversion

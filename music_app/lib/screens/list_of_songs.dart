@@ -11,7 +11,9 @@ class ListOfSongs extends StatefulWidget {
 }
 
 class _ListOfSongsState extends State<ListOfSongs> {
+  bool isPlay = false;
   List<Song> songs = [];
+  int currentSongIndex = 0;
   AudioPlayer audioPlayer = AudioPlayer();
   dynamic err;
   @override
@@ -40,20 +42,30 @@ class _ListOfSongsState extends State<ListOfSongs> {
   ListView _printSong() {
     return ListView.builder(
       itemBuilder: (BuildContext ctx, int index) {
-        bool isPlay = false;
+
         return ListTile(
             leading: Image.network(songs[index].image),
             title: Text(songs[index].trackName),
             subtitle: Text(songs[index].artistName),
             trailing: IconButton(
               onPressed: () async {
-                await audioPlayer.play(songs[index].audio);
+                print(isPlay);
+                isPlay
+                    ? await audioPlayer.pause()
+                    : await audioPlayer.play(songs[index].audio);
+                isPlay = isPlay ? false : true;
+                songs[index].isPlaying = songs[index].isPlaying ? false : true;
+                currentSongIndex = index;
+                setState(() {
+                });
               },
-              icon: Icon(
+              icon: songs[index].isPlaying ? Icon(
+                Icons.pause,
+                size: 20,
+              ):Icon(
                 Icons.play_arrow,
                 size: 20,
-              ),
-            ));
+            )));
       },
       itemCount: songs.length,
     );
