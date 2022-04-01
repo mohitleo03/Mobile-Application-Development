@@ -20,8 +20,20 @@ class _ListOfSongsState extends State<ListOfSongs> {
   void initState() {
     // TODO: implement initState
     ApiClient client = ApiClient();
-
+    audioPlayer.onPlayerCompletion.listen((event) {
+      print("song is completed");
+      songs[currentSongIndex].isPlaying = false;
+      setState(() {});
+    });
     client.getSongs(getSongsList, getSongsError);
+  }
+
+  pauseOtherSongs() {
+    for (int i = 0; i < songs.length; i++) {
+      if (i != currentSongIndex) {
+        songs[i].isPlaying = false;
+      }
+    }
   }
 
   getSongsList(List<Song> songs) {
@@ -42,30 +54,33 @@ class _ListOfSongsState extends State<ListOfSongs> {
   ListView _printSong() {
     return ListView.builder(
       itemBuilder: (BuildContext ctx, int index) {
-
         return ListTile(
             leading: Image.network(songs[index].image),
             title: Text(songs[index].trackName),
             subtitle: Text(songs[index].artistName),
             trailing: IconButton(
-              onPressed: () async {
-                print(isPlay);
-                isPlay
-                    ? await audioPlayer.pause()
-                    : await audioPlayer.play(songs[index].audio);
-                isPlay = isPlay ? false : true;
-                songs[index].isPlaying = songs[index].isPlaying ? false : true;
-                currentSongIndex = index;
-                setState(() {
-                });
-              },
-              icon: songs[index].isPlaying ? Icon(
-                Icons.pause,
-                size: 20,
-              ):Icon(
-                Icons.play_arrow,
-                size: 20,
-            )));
+                onPressed: () async {
+                  pauseOtherSongs();
+                  print(isPlay);
+                  isPlay
+                      ? await audioPlayer.pause()
+                      : await audioPlayer.play(songs[index].audio);
+                  isPlay = isPlay ? false : true;
+                  songs[index].isPlaying =
+                      songs[index].isPlaying ? false : true;
+                  currentSongIndex = index;
+
+                  setState(() {});
+                },
+                icon: songs[index].isPlaying
+                    ? Icon(
+                        Icons.pause,
+                        size: 20,
+                      )
+                    : Icon(
+                        Icons.play_arrow,
+                        size: 20,
+                      )));
       },
       itemCount: songs.length,
     );
