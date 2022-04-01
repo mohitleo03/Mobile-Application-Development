@@ -4,6 +4,7 @@ import '../models/song.dart';
 
 class ApiClient {
   getSongs() {
+    Future()
     String URL = "https://itunes.apple.com/search?term=jack+johnson&limit=25";
     Future<http.Response> future = http.get(Uri.parse(URL));
     future.then((response) {
@@ -21,6 +22,7 @@ class ApiClient {
       // and convert map into song object and song object store in a song list
       List<Song> songs = list.map((songMap) => Song.fromJSON(songMap)).toList();
       int i = 1;
+      print(songs);
       songs.forEach((element) {
         print("${i++} ${element.audio}");
       });

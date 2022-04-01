@@ -14,12 +14,17 @@ class Song {
     image = map['artworkUrl30'];
     audio = map['audio'];
   }
-  toJSON() {
+  Map<String, dynamic> toJSON() {
     return {
       "artistName": artistName,
       "trackName": trackName,
       "artworkUrl30": image,
       "previewUrl": audio
     };
+  }
+
+  @override
+  String toString() {
+    return "artistName $artistName TrackName $trackName";
   }
 }
