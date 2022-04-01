@@ -13,13 +13,17 @@ class ApiClient {
       Map<String, dynamic> map =
           jsonconvert.jsonDecode(json); //Json Convert into Map
       //print("Map is $map and Map Type is ${map.runtimeType}");
-      List<Map> list = map["results"]; //get the list from map
-      List<Song> songs = list
-          .map((element) => Song(element['artistName'], element['trackName'],
-              element['artworkUrl30'], element['previewUrl']))
-          .toList(); //traverse the lsit & get one by one map
+      List<dynamic> list = map["results"]; //get the list from map
+      // List<Song> songs = list
+      //     .map((element) => Song(element['artistName'], element['trackName'],
+      //         element['artworkUrl30'], element['previewUrl']))
+      //     .toList(); //traverse the lsit & get one by one map
       // and convert map into song object and song object store in a song list
-      print(songs);
+      List<Song> songs = list.map((songMap) => Song.fromJSON(songMap)).toList();
+      int i = 1;
+      songs.forEach((element) {
+        print("${i++} ${element.audio}");
+      });
     }).catchError((err) => print(err));
   }
 }
