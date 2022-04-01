@@ -40,6 +40,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
   ListView _printSong() {
     return ListView.builder(
       itemBuilder: (BuildContext ctx, int index) {
+        bool isPlay = false;
         return ListTile(
             leading: Image.network(songs[index].image),
             title: Text(songs[index].trackName),
