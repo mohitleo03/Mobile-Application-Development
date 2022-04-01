@@ -10,6 +10,8 @@ class ListOfSongs extends StatefulWidget {
 }
 
 class _ListOfSongsState extends State<ListOfSongs> {
+  List<Song> songs = [];
+  dynamic err;
   @override
   void initState() {
     // TODO: implement initState
@@ -17,10 +19,31 @@ class _ListOfSongsState extends State<ListOfSongs> {
     client.getSongs(getSongsList, getSongsError);
   }
   getSongsList(List<Song> songs){
-    
+    this.songs = songs;
+    setState(() {
+      
+    });
   }
   getSongsError(dynamic err){
+    this.err = err;
+    setState(() {
+      
+    });
+  }
 
+  Center _showLoading(){
+    return Center(child: CircularProgressIndicator());
+  }
+
+  ListView _printSong(){
+    return ListView.builder(itemBuilder: (BuildContext ctx , int index) {
+          return ListTile(
+            leading: Image.network(songs[index].image),
+            title:Text(songs[index].trackName),
+            subtitle: Text(songs[index].artistName),
+            trailing: Icon(Icons.play_arrow,size: 20)
+          );
+        },itemCount: songs.length,);
   }
 
   @override
@@ -30,9 +53,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
         title: Text("Songs"),
       ),
       body: Container(
-        child: ListView.builder(itemBuilder: () {
-          
-        },itemCount: ,),
+        child: songs.isEmpty?_showLoading():_printSong(),
       ),
     );
   }
