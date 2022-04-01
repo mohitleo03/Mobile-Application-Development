@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_app/models/song.dart';
 import 'package:music_app/utils/api_client.dart';
 
 class ListOfSongs extends StatefulWidget {
@@ -13,7 +14,13 @@ class _ListOfSongsState extends State<ListOfSongs> {
   void initState() {
     // TODO: implement initState
     ApiClient client = ApiClient();
-    client.getSongs();
+    client.getSongs(getSongsList, getSongsError);
+  }
+  getSongsList(List<Song> songs){
+    
+  }
+  getSongsError(dynamic err){
+
   }
 
   @override

@@ -3,8 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/song.dart';
 
 class ApiClient {
-  getSongs() {
-    Future()
+  void getSongs(Function successCallBack, Function failCallBack) {
     String URL = "https://itunes.apple.com/search?term=jack+johnson&limit=25";
     Future<http.Response> future = http.get(Uri.parse(URL));
     future.then((response) {
@@ -21,16 +20,19 @@ class ApiClient {
       //     .toList(); //traverse the lsit & get one by one map
       // and convert map into song object and song object store in a song list
       List<Song> songs = list.map((songMap) => Song.fromJSON(songMap)).toList();
+      successCallBack(songs);
       int i = 1;
       print(songs);
       songs.forEach((element) {
         print("${i++} ${element.audio}");
       });
-    }).catchError((err) => print(err));
+      Future.value(songs);
+    }).catchError((err) => failCallBack(err));
+
   }
 }
 
 void main() {
   ApiClient obj = ApiClient();
-  obj.getSongs();
+  //obj.getSongs();
 }
