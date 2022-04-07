@@ -1,31 +1,30 @@
 class Song {
-  late String artistName; //artist of the song
-  late String trackName; //song name
+  late String artistName; //Artist of the song
+  late String trackName; //title of the song
   late String image; //image URL
-  late String audio; //song URL
+  late String audio; //music audio URL
   bool isPlaying = false;
   Song(this.artistName, this.trackName, this.image, this.audio);
-  //Manual Serialization & DeSerialization
-  //Serialization - Object to Json Conversion
-  //Deserialization - Json to Object Conversion
-  //Named Constructor
+  //Manual Serialization and Deserialization
+  //Serialization - Object to JSON Converison
+  //Deserialization - JSON to Object Conversion
   Song.fromJSON(Map<String, dynamic> map) {
     artistName = map['artistName'];
     trackName = map['trackName'];
-    image = map['artworkUrl30'];
+    image = map['artworkUrl100'];
     audio = map['previewUrl'];
   }
-  Map<String, dynamic> toJSON() {
+  toJSON() {
     return {
       "artistName": artistName,
       "trackName": trackName,
-      "artworkUrl30": image,
+      "artworkUrl": image,
       "previewUrl": audio
     };
   }
-
+  //to print meaningful object use toString
   @override
   String toString() {
-    return "artistName $artistName TrackName $trackName";
+    return "artistName : $artistName , trackName : $trackName , artworkUrl100: $image , previewUrl : $audio";
   }
 }
