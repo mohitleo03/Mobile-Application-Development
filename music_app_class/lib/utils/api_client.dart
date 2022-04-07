@@ -1,10 +1,13 @@
 import 'dart:convert' as jsonconvert;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import '../models/song.dart';
 
 class ApiClient {
-  void getSongs(Function successCallBack, Function failCallBack ,{String searchValue = "AP Dhillon"}) {
-    final URL = "https://itunes.apple.com/search?term=$searchValue&limit=25";
+  void getSongs(Function successCallBack, Function failCallBack,
+      {String searchValue = "AP Dhillon"}) {
+    // final URL = "https://itunes.apple.com/search?term=$searchValue&limit=25";
+    final URL = "${dotenv.env['BASE_URL']}?term=$searchValue&limit=25";
     Future<http.Response> future = http.get(Uri.parse(URL));
     future.then((response) {
       String json = response.body;
@@ -20,14 +23,13 @@ class ApiClient {
       //     .toList(); //traverse the lsit & get one by one map
       // and convert map into song object and song object store in a song list
       List<Song> songs = list.map((songMap) => Song.fromJSON(songMap)).toList();
-            int i = 1;
+      int i = 1;
       print(songs);
       songs.forEach((element) {
         print("${i++} ${element.audio}");
       });
       successCallBack(songs);
     }).catchError((err) => failCallBack(err));
-
   }
 }
 
