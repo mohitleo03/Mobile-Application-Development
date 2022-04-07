@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_app_class/models/song.dart';
+import 'package:music_app_class/screens/Player.dart';
 import 'package:music_app_class/utils/api_client.dart';
 import 'package:audioplayers/audioplayers.dart';
 
@@ -29,6 +30,11 @@ class _ListOfSongsState extends State<ListOfSongs> {
     client.getSongs(getSongsList, getSongsError);
   }
 
+  _openPlayer(index) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (ctx) => Player(song: songs[index])));
+  }
+
   pauseOtherSongs() {
     for (int i = 0; i < songs.length; i++) {
       if (i != currentSongIndex) {
@@ -56,6 +62,9 @@ class _ListOfSongsState extends State<ListOfSongs> {
     return ListView.builder(
       itemBuilder: (BuildContext ctx, int index) {
         return ListTile(
+            onTap: () {
+              _openPlayer(index);
+            },
             leading: Image.network(songs[index].image),
             title: Text(songs[index].trackName),
             subtitle: Text(songs[index].artistName),

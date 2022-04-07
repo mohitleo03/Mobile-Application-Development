@@ -12,14 +12,14 @@ class Song {
   Song.fromJSON(Map<String, dynamic> map) {
     artistName = map['artistName'];
     trackName = map['trackName'];
-    image = map['artworkUrl30'];
+    image = map['artworkUrl100'];
     audio = map['previewUrl'];
   }
   Map<String, dynamic> toJSON() {
     return {
       "artistName": artistName,
       "trackName": trackName,
-      "artworkUrl30": image,
+      "artworkUrl100": image,
       "previewUrl": audio
     };
   }
