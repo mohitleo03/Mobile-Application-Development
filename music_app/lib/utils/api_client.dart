@@ -5,11 +5,11 @@ import '../models/song.dart';
 class ApiClient {
   _ApiClient() {}
   static ApiClient _Api = ApiClient();
-  static ApiClient client_operations_instance() {
+  static ApiClient getInstance() {
     return _Api;
   }
 
-  getSongs() {
+  void getSongs(Function successCallBack, Function failCallBack) {
     const URL = "https://itunes.apple.com/search?term=AP+Dhillon";
     Future<http.Response> future = http.get(Uri.parse(URL));
     future.then((response) {
@@ -32,9 +32,9 @@ class ApiClient {
 
       //Standard Appraoch of converting JSON to song object
       List<Song> Songs = list.map((songMap) => Song.fromJSON(songMap)).toList();
-
-      print(Songs);
+      successCallBack(Songs);
+      // print(Songs);
       // Songs.forEach((e) => print(e.artistName));
-    }).catchError((err) => print("error is $err"));
+    }).catchError((err) => failCallBack(err));
   }
 }

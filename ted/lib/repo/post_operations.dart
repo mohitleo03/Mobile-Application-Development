@@ -1,8 +1,8 @@
 import 'package:ted/models/post.dart';
 //Singleton
 class PostOperations {
-  static PostOperations _postOperations = PostOperations();
-  _PostOperation(){}
+  static PostOperations _postOperations = PostOperations._();
+  PostOperations._(){}
   static PostOperations getInstance(){
       return _postOperations;
   }
