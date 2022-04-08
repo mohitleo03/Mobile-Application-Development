@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:music_app_class/config/constants/app_constants.dart';
 import 'package:music_app_class/models/song.dart';
 import 'package:music_app_class/screens/Player.dart';
-import 'package:music_app_class/utils/api_client.dart';
+import 'package:music_app_class/utils/services/api_client.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class ListOfSongs extends StatefulWidget {
@@ -11,7 +12,7 @@ class ListOfSongs extends StatefulWidget {
   State<ListOfSongs> createState() => _ListOfSongsState();
 }
 
-class _ListOfSongsState extends State<ListOfSongs> {
+class _ListOfSongsState extends State<ListOfSongs>{
   bool isPlay = false;
   List<Song> songs = [];
   int currentSongIndex = 0;
@@ -71,7 +72,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
             trailing: IconButton(
                 onPressed: () async {
                   // print(isPlay);
-                  isPlay
+                  int result = isPlay
                       ? await audioPlayer.pause()
                       : await audioPlayer.play(songs[index].audio);
                   isPlay = isPlay ? false : true;
@@ -79,6 +80,12 @@ class _ListOfSongsState extends State<ListOfSongs> {
                       songs[index].isPlaying ? false : true;
                   currentSongIndex = index;
                   pauseOtherSongs();
+                  if(result == AppConstants.SUCCESS){
+
+                  }
+                  else{
+
+                  }
                   setState(() {});
                 },
                 icon: songs[index].isPlaying
