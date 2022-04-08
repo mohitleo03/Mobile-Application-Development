@@ -1,17 +1,28 @@
 import 'dart:convert' as jsonconvert;
+import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:music_app_class/config/constants/api_path.dart';
+import 'package:music_app_class/utils/interceptors/token.dart';
 import '../../models/song.dart';
 
 class ApiClient {
+  static Dio _dio = Dio();
+  ApiClient._() {}
+  static ApiClient _apiCleint = ApiClient._();
+  static ApiClient getInstance() {
+    tokenInterceptor(_dio);
+    return _apiCleint;
+  }
+
   void getSongs(Function successCallBack, Function failCallBack,
       {String searchValue = "AP Dhillon"}) {
     // final URL = "https://itunes.apple.com/search?term=$searchValue&limit=25";
     final URL = "${ApisPath.BASE_URL}?term=$searchValue&limit=25";
-    Future<http.Response> future = http.get(Uri.parse(URL));
+    // Future<http.Response> future = http.get(Uri.parse(URL));
+    Future<Response> future = _dio.get(URL);
     future.then((response) {
-      String json = response.body;
+      String json = response.data;
       // print("JSON $json");
       // print(json.runtimeType);
       Map<String, dynamic> map =
@@ -32,9 +43,4 @@ class ApiClient {
       successCallBack(songs);
     }).catchError((err) => failCallBack(err));
   }
-}
-
-void main() {
-  ApiClient obj = ApiClient();
-  //obj.getSongs();
 }
