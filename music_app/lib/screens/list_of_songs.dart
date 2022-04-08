@@ -10,18 +10,39 @@ class ListOfSongs extends StatefulWidget {
   State<ListOfSongs> createState() => _ListOfSongsState();
 }
 
+_icon(IconData icon, double size, Color color) {
+  return Icon(icon, size: size, color: color);
+}
+
 class _ListOfSongsState extends State<ListOfSongs> {
   AudioPlayer player = AudioPlayer();
+  int currentIndex = 0;
   List<Song> songs = [];
-  bool isPlay = false;
   ApiClient api = ApiClient.getInstance();
+  Icon playIcon = _icon(Icons.play_arrow, 20, Colors.redAccent);
+  Icon pauseIcon = _icon(Icons.pause, 20, Colors.redAccent);
+
+  _pauseOtherSongs(int index) {
+    int i = 0;
+    songs = songs.map((Song song) {
+      if (i != index) {
+        song.isPlaying = false;
+        i++;
+        return song;
+      } else {
+        i++;
+        return song;
+      }
+    }).toList();
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
-    // ApiClient.client_operations_instance().getSongs();
-    // ApiClient client = ApiClient();
-    // client.getSongs();
     api.getSongs(getSongsList, getError);
+    player.onPlayerCompletion.listen((event) {
+      songs[currentIndex].isPlaying = false;
+      setState(() {});
+    });
   }
 
   getSongsList(List<Song> songs) {
@@ -51,16 +72,15 @@ class _ListOfSongsState extends State<ListOfSongs> {
             padding: const EdgeInsets.only(right: 2),
             child: IconButton(
                 onPressed: () async {
-                  isPlay
+                  songs[index].isPlaying
                       ? await player.pause()
                       : await player.play(songs[index].audio);
-                  isPlay = !isPlay;
+                  songs[index].isPlaying = !songs[index].isPlaying;
+                  _pauseOtherSongs(index);
+                  currentIndex = index;
+                  setState(() {});
                 },
-                icon: Icon(
-                  Icons.play_arrow,
-                  size: 20,
-                  color: Colors.redAccent,
-                )),
+                icon: songs[index].isPlaying ? pauseIcon : playIcon),
           ),
         );
       },
