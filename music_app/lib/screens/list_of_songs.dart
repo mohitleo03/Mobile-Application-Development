@@ -10,7 +10,7 @@ class ListOfSongs extends StatefulWidget {
 }
 
 class _ListOfSongsState extends State<ListOfSongs> {
-  late List<Song> Songs;
+  List<Song> Songs=[];
   @override
   void initState() {
     // TODO: implement initState
@@ -39,8 +39,16 @@ class _ListOfSongsState extends State<ListOfSongs> {
 
   _printSong() {
     return ListView.builder(
-      itemBuilder: (BuildContext ctx , int index) {
-          
+      itemBuilder: (BuildContext ctx, int index) {
+        return ListTile(
+          leading:Image.network(Songs[index].image),
+          title: Text(Songs[index].trackName),
+          subtitle: Text(Songs[index].artistName),
+          trailing: Padding(
+            padding: const EdgeInsets.only(right: 2),
+            child: Icon(Icons.play_arrow,size: 20,color: Colors.redAccent),
+          ),
+        );
       },
       itemCount: Songs.length,
     );
