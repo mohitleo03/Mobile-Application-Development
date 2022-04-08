@@ -18,7 +18,7 @@ class _ListOfSongsState extends State<ListOfSongs>{
   int currentSongIndex = 0;
   AudioPlayer audioPlayer = AudioPlayer();
   TextEditingController searchCtrl = TextEditingController();
-  ApiClient client = ApiClient();
+  ApiClient client = ApiClient.getInstance*-------------------();
   dynamic err;
   @override
   void initState() {
