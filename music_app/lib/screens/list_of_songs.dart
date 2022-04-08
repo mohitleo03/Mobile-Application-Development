@@ -13,13 +13,14 @@ class ListOfSongs extends StatefulWidget {
 class _ListOfSongsState extends State<ListOfSongs> {
   AudioPlayer player = AudioPlayer();
   List<Song> songs = [];
+  bool isPlay = false;
+  ApiClient api = ApiClient.getInstance();
   @override
   void initState() {
     // TODO: implement initState
     // ApiClient.client_operations_instance().getSongs();
     // ApiClient client = ApiClient();
     // client.getSongs();
-    ApiClient api = ApiClient.getInstance();
     api.getSongs(getSongsList, getError);
   }
 
@@ -50,14 +51,16 @@ class _ListOfSongsState extends State<ListOfSongs> {
             padding: const EdgeInsets.only(right: 2),
             child: IconButton(
                 onPressed: () async {
-                  await player.play(songs[index].audio);
+                  isPlay
+                      ? await player.pause()
+                      : await player.play(songs[index].audio);
+                  isPlay = !isPlay;
                 },
                 icon: Icon(
                   Icons.play_arrow,
                   size: 20,
                   color: Colors.redAccent,
-                )
-                ),
+                )),
           ),
         );
       },
