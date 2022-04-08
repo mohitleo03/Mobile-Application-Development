@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/models/song.dart';
 import 'package:music_app/utils/api_client.dart';
@@ -10,7 +11,8 @@ class ListOfSongs extends StatefulWidget {
 }
 
 class _ListOfSongsState extends State<ListOfSongs> {
-  List<Song> Songs=[];
+  AudioPlayer player = AudioPlayer();
+  List<Song> songs = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -21,8 +23,8 @@ class _ListOfSongsState extends State<ListOfSongs> {
     api.getSongs(getSongsList, getError);
   }
 
-  getSongsList(List<Song> Songs) {
-    this.Songs = Songs;
+  getSongsList(List<Song> songs) {
+    this.songs = songs;
     setState(() {});
   }
 
@@ -41,16 +43,25 @@ class _ListOfSongsState extends State<ListOfSongs> {
     return ListView.builder(
       itemBuilder: (BuildContext ctx, int index) {
         return ListTile(
-          leading:Image.network(Songs[index].image),
-          title: Text(Songs[index].trackName),
-          subtitle: Text(Songs[index].artistName),
+          leading: Image.network(songs[index].image),
+          title: Text(songs[index].trackName),
+          subtitle: Text(songs[index].artistName),
           trailing: Padding(
             padding: const EdgeInsets.only(right: 2),
-            child: Icon(Icons.play_arrow,size: 20,color: Colors.redAccent),
+            child: IconButton(
+                onPressed: () async {
+                  await player.play(songs[index].audio);
+                },
+                icon: Icon(
+                  Icons.play_arrow,
+                  size: 20,
+                  color: Colors.redAccent,
+                )
+                ),
           ),
         );
       },
-      itemCount: Songs.length,
+      itemCount: songs.length,
     );
   }
 
@@ -60,6 +71,6 @@ class _ListOfSongsState extends State<ListOfSongs> {
         appBar: AppBar(
           title: Text('Songs'),
         ),
-        body: Container(child: Songs.isEmpty ? _showLoading() : _printSong()));
+        body: Container(child: songs.isEmpty ? _showLoading() : _printSong()));
   }
 }
