@@ -17,6 +17,7 @@ _icon(IconData icon, double size, Color color) {
 }
 
 class _ListOfSongsState extends State<ListOfSongs> {
+  bool loading = true;
   AudioPlayer player = AudioPlayer();
   int currentIndex = -1;
   List<Song> songs = [];
@@ -58,6 +59,10 @@ class _ListOfSongsState extends State<ListOfSongs> {
       // Do stuff on phone shake
       _playSong();
     });
+    Future.delayed(Duration(seconds: 3), () {
+      loading = false;
+      setState(() {});
+    });
   }
 
   getSongsList(List<Song> songs) {
@@ -88,6 +93,25 @@ class _ListOfSongsState extends State<ListOfSongs> {
     _toastMessage(
         title: "Playing next Song", message: songs[currentIndex].trackName);
     setState(() {});
+  }
+
+  Center _showLoadingError() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 100),
+        child: Column(
+          children: [
+            IconButton(
+                onPressed: () {
+                  loading = true;
+                  setState(() {});
+                },
+                icon: Icon(Icons.error)),
+            Text("Netwrok Issue \n Tap to reload")
+          ],
+        ),
+      ),
+    );
   }
 
   _printSong() {
@@ -126,10 +150,16 @@ class _ListOfSongsState extends State<ListOfSongs> {
 
   @override
   Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           title: Text('Songs'),
         ),
-        body: Container(child: songs.isEmpty ? _showLoading() : _printSong()));
+        body: Container(
+            child: songs.isEmpty
+                ? loading
+                    ? _showLoading()
+                    : _showLoadingError()
+                : _printSong()));
   }
 }
