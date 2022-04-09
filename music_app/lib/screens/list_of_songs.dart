@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/models/song.dart';
@@ -22,6 +23,14 @@ class _ListOfSongsState extends State<ListOfSongs> {
   ApiClient api = ApiClient.getInstance();
   Icon playIcon = _icon(Icons.play_arrow, 20, Colors.redAccent);
   Icon pauseIcon = _icon(Icons.pause, 20, Colors.redAccent);
+
+  _toastMessage({required String title, required String message}) {
+    Flushbar(
+      title: title,
+      message: message,
+      duration: Duration(seconds: 2),
+    )..show(context);
+  }
 
   _pauseOtherSongs(int index) {
     int i = 0;
@@ -76,6 +85,8 @@ class _ListOfSongsState extends State<ListOfSongs> {
     _pauseOtherSongs(currentIndex);
     songs[currentIndex].isPlaying = true;
     player.play(songs[currentIndex].audio);
+    _toastMessage(
+        title: "Playing next Song", message: songs[currentIndex].trackName);
     setState(() {});
   }
 
@@ -96,6 +107,13 @@ class _ListOfSongsState extends State<ListOfSongs> {
                   songs[index].isPlaying = !songs[index].isPlaying;
                   _pauseOtherSongs(index);
                   currentIndex = index;
+                  songs[index].isPlaying
+                      ? _toastMessage(
+                          title: "Song is Playing",
+                          message: songs[index].trackName)
+                      : _toastMessage(
+                          title: "Song is Paused",
+                          message: songs[index].trackName);
                   setState(() {});
                 },
                 icon: songs[index].isPlaying ? pauseIcon : playIcon),
