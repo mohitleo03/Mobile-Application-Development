@@ -2,6 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/models/song.dart';
 import 'package:music_app/utils/api_client.dart';
+import 'package:shake/shake.dart';
 
 class ListOfSongs extends StatefulWidget {
   const ListOfSongs({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ _icon(IconData icon, double size, Color color) {
 
 class _ListOfSongsState extends State<ListOfSongs> {
   AudioPlayer player = AudioPlayer();
-  int currentIndex = 0;
+  int currentIndex = -1;
   List<Song> songs = [];
   ApiClient api = ApiClient.getInstance();
   Icon playIcon = _icon(Icons.play_arrow, 20, Colors.redAccent);
@@ -34,14 +35,19 @@ class _ListOfSongsState extends State<ListOfSongs> {
         return song;
       }
     }).toList();
+    setState(() {});
   }
 
   @override
   void initState() {
     api.getSongs(getSongsList, getError);
     player.onPlayerCompletion.listen((event) {
-      songs[currentIndex].isPlaying = false;
-      setState(() {});
+      // songs[currentIndex].isPlaying = false;   //done in _playNextSong()
+      _playSong();
+    });
+    ShakeDetector detector = ShakeDetector.autoStart(onPhoneShake: () {
+      // Do stuff on phone shake
+      _playSong();
     });
   }
 
@@ -59,6 +65,18 @@ class _ListOfSongsState extends State<ListOfSongs> {
     return Center(
       child: CircularProgressIndicator(),
     );
+  }
+
+  _playSong() {
+    if (currentIndex < songs.length - 1) {
+      currentIndex++;
+    } else {
+      currentIndex = 0;
+    }
+    _pauseOtherSongs(currentIndex);
+    songs[currentIndex].isPlaying = true;
+    player.play(songs[currentIndex].audio);
+    setState(() {});
   }
 
   _printSong() {

@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.4
   audioplayers: ^0.20.1
+  another_flushbar: ^1.10.28
+  shake: ^2.0.0
 
 dev_dependencies:
   flutter_test:
