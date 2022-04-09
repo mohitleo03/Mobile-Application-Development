@@ -18,6 +18,7 @@ _icon(IconData icon, double size, Color color) {
 
 class _ListOfSongsState extends State<ListOfSongs> {
   bool loading = true;
+  dynamic error;
   AudioPlayer player = AudioPlayer();
   int currentIndex = -1;
   List<Song> songs = [];
@@ -150,7 +151,6 @@ class _ListOfSongsState extends State<ListOfSongs> {
 
   @override
   Widget build(BuildContext context) {
-    Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           title: Text('Songs'),
