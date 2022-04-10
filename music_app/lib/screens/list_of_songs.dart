@@ -1,6 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:music_app/Screens/player.dart';
 import 'package:music_app/models/song.dart';
 import 'package:music_app/utils/api_client.dart';
 import 'package:shake/shake.dart';
@@ -17,6 +18,7 @@ _icon(IconData icon, double size, Color color) {
 }
 
 class _ListOfSongsState extends State<ListOfSongs> {
+  String searchArtist = "";
   TextEditingController searchCtrl = TextEditingController();
   bool loading = true;
   AudioPlayer player = AudioPlayer();
@@ -40,6 +42,9 @@ class _ListOfSongsState extends State<ListOfSongs> {
     Future.delayed(Duration(seconds: 3), () {
       loading = false;
       setState(() {});
+    });
+    Future.delayed(Duration(seconds: 5), () {
+      Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Player()));
     });
   }
 
@@ -151,11 +156,16 @@ class _ListOfSongsState extends State<ListOfSongs> {
   }
 
   _searchSongs() {
-    print("called search");
-    String searchArtist = searchCtrl.text;
     api.getSongs(getSongsList, getError, searchArtist: searchArtist);
+    player.stop();
     songs = [];
     setState(() {});
+  }
+
+  _openPlayer() {
+    Future.delayed(Duration(seconds: 5), () {
+      Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Player()));
+    });
   }
 
   @override
@@ -166,17 +176,21 @@ class _ListOfSongsState extends State<ListOfSongs> {
             title: Container(
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: TextField(
-                controller: searchCtrl,
-                decoration: InputDecoration(
-                  // border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                  suffixIcon: IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: () {
-                        _searchSongs();
-                      }),
-                  hintText: "Type to Search",
-                  labelText: "Search here",
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: TextField(
+                  onChanged: (String value) => {searchArtist = value},
+                  controller: searchCtrl,
+                  decoration: InputDecoration(
+                    // border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    suffixIcon: IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: () {
+                          _searchSongs();
+                        }),
+                    hintText: "Type to Search",
+                    labelText: "Search here",
+                  ),
                 ),
               ),
             )),
