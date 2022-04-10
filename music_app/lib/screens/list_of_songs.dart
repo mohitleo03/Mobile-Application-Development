@@ -126,7 +126,9 @@ class _ListOfSongsState extends State<ListOfSongs> {
     return ListView.builder(
       itemBuilder: (BuildContext ctx, int index) {
         return ListTile(
-          onTap: _openPlayer,
+          onTap: () {
+            _openPlayer(index);
+          },
           leading: Image.network(songs[index].image),
           title: Text(songs[index].trackName),
           subtitle: Text(songs[index].artistName),
@@ -164,8 +166,8 @@ class _ListOfSongsState extends State<ListOfSongs> {
     setState(() {});
   }
 
-  _openPlayer() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Player()));
+  _openPlayer(int index) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Player(songs[index])));
   }
 
   @override

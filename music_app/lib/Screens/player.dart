@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:music_app/models/song.dart';
 
 class Player extends StatefulWidget {
-  const Player({ Key? key }) : super(key: key);
+  Song song;
+  Player(this.song);
 
   @override
   State<Player> createState() => _PlayerState();
