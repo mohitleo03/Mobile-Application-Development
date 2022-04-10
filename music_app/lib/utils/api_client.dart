@@ -9,8 +9,8 @@ class ApiClient {
     return _Api;
   }
 
-  void getSongs(Function successCallBack, Function failCallBack) {
-    const URL = "https://itunes.apple.com/search?term=AP+Dhillon";
+  void getSongs(Function successCallBack, Function failCallBack,{String searchArtist="AP Dhillon"}) {
+    final URL = "https://itunes.apple.com/search?term=$searchArtist";
     Future<http.Response> future = http.get(Uri.parse(URL));
     future.then((response) {
       String json = response.body;

@@ -17,6 +17,7 @@ _icon(IconData icon, double size, Color color) {
 }
 
 class _ListOfSongsState extends State<ListOfSongs> {
+  TextEditingController searchCtrl = TextEditingController();
   bool loading = true;
   AudioPlayer player = AudioPlayer();
   int currentIndex = -1;
@@ -25,7 +26,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
   Icon playIcon = _icon(Icons.play_arrow, 20, Colors.redAccent);
   Icon pauseIcon = _icon(Icons.pause, 20, Colors.redAccent);
 
-    @override
+  @override
   void initState() {
     api.getSongs(getSongsList, getError);
     player.onPlayerCompletion.listen((event) {
@@ -115,6 +116,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
   }
 
   _printSong() {
+    loading = true;
     return ListView.builder(
       itemBuilder: (BuildContext ctx, int index) {
         return ListTile(
@@ -148,33 +150,36 @@ class _ListOfSongsState extends State<ListOfSongs> {
     );
   }
 
+  _searchSongs() {
+    print("called search");
+    String searchArtist = searchCtrl.text;
+    api.getSongs(getSongsList, getError, searchArtist: searchArtist);
+    songs = [];
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 80,
-          title: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10)
-            ),
-            child: Column(
-              children: [
-                Container(
-                  height: 10,
-                ),                
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                    suffixIcon: Icon(Icons.search),
-                    hintText: "Type to Search",
-                    labelText: "Search here",
-                  ),
+            toolbarHeight: 80,
+            title: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                controller: searchCtrl,
+                decoration: InputDecoration(
+                  // border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  suffixIcon: IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () {
+                        _searchSongs();
+                      }),
+                  hintText: "Type to Search",
+                  labelText: "Search here",
                 ),
-              ],
-            ),
-          )
-        ),
+              ),
+            )),
         body: Container(
             child: songs.isEmpty
                 ? loading
