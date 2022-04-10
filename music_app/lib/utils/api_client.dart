@@ -4,15 +4,15 @@ import 'dart:convert' as jsonconvert;
 import '../models/song.dart';
 
 class ApiClient {
-  _ApiClient() {}
-  static ApiClient _Api = ApiClient();
+  ApiClient._() {}
+  static ApiClient _Api = ApiClient._();
   static ApiClient getInstance() {
     return _Api;
   }
 
   void getSongs(Function successCallBack, Function failCallBack,
-      {String searchArtist = "AP Dhillon"}) {
-    final URL = "${dotenv.env['BASE_URL']}?term=$searchArtist&limit=15";
+      {String searchValue = "AP Dhillon"}) {
+    final URL = "${dotenv.env['BASE_URL']}?term=$searchValue&limit=15";
     Future<http.Response> future = http.get(Uri.parse(URL));
     future.then((response) {
       String json = response.body;

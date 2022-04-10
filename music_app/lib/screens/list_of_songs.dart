@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/Screens/player.dart';
+import 'package:music_app/Services/SongsServices.dart';
 import 'package:music_app/models/song.dart';
 import 'package:music_app/utils/api_client.dart';
 import 'package:shake/shake.dart';
@@ -18,18 +19,21 @@ _icon(IconData icon, double size, Color color) {
 }
 
 class _ListOfSongsState extends State<ListOfSongs> {
-  String searchArtist = "";
+  String searchValue = "";
   TextEditingController searchCtrl = TextEditingController();
   bool loading = true;
   AudioPlayer player = AudioPlayer();
   int currentIndex = -1;
   List<Song> songs = [];
+  // songsServices songsService = songsServices.getInstance();
   ApiClient api = ApiClient.getInstance();
   Icon playIcon = _icon(Icons.play_arrow, 20, Colors.redAccent);
   Icon pauseIcon = _icon(Icons.pause, 20, Colors.redAccent);
 
   @override
   void initState() {
+    // songsService.initialize();
+    // songs = songsService.getSongsList();
     api.getSongs(getSongsList, getError);
     player.onPlayerCompletion.listen((event) {
       // songs[currentIndex].isPlaying = false;   //done in _playNextSong()
@@ -42,9 +46,6 @@ class _ListOfSongsState extends State<ListOfSongs> {
     Future.delayed(Duration(seconds: 3), () {
       loading = false;
       setState(() {});
-    });
-    Future.delayed(Duration(seconds: 5), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Player()));
     });
   }
 
@@ -125,6 +126,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
     return ListView.builder(
       itemBuilder: (BuildContext ctx, int index) {
         return ListTile(
+          onTap: _openPlayer,
           leading: Image.network(songs[index].image),
           title: Text(songs[index].trackName),
           subtitle: Text(songs[index].artistName),
@@ -156,16 +158,14 @@ class _ListOfSongsState extends State<ListOfSongs> {
   }
 
   _searchSongs() {
-    api.getSongs(getSongsList, getError, searchArtist: searchArtist);
+    api.getSongs(getSongsList, getError, searchValue: searchValue);
     player.stop();
     songs = [];
     setState(() {});
   }
 
   _openPlayer() {
-    Future.delayed(Duration(seconds: 5), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Player()));
-    });
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Player()));
   }
 
   @override
@@ -179,7 +179,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 15),
                 child: TextField(
-                  onChanged: (String value) => {searchArtist = value},
+                  onChanged: (String value) => {searchValue = value},
                   controller: searchCtrl,
                   decoration: InputDecoration(
                     // border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
