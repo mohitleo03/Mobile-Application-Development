@@ -18,7 +18,6 @@ _icon(IconData icon, double size, Color color) {
 
 class _ListOfSongsState extends State<ListOfSongs> {
   bool loading = true;
-  dynamic error;
   AudioPlayer player = AudioPlayer();
   int currentIndex = -1;
   List<Song> songs = [];
@@ -26,30 +25,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
   Icon playIcon = _icon(Icons.play_arrow, 20, Colors.redAccent);
   Icon pauseIcon = _icon(Icons.pause, 20, Colors.redAccent);
 
-  _toastMessage({required String title, required String message}) {
-    Flushbar(
-      title: title,
-      message: message,
-      duration: Duration(seconds: 2),
-    )..show(context);
-  }
-
-  _pauseOtherSongs(int index) {
-    int i = 0;
-    songs = songs.map((Song song) {
-      if (i != index) {
-        song.isPlaying = false;
-        i++;
-        return song;
-      } else {
-        i++;
-        return song;
-      }
-    }).toList();
-    setState(() {});
-  }
-
-  @override
+    @override
   void initState() {
     api.getSongs(getSongsList, getError);
     player.onPlayerCompletion.listen((event) {
@@ -76,12 +52,6 @@ class _ListOfSongsState extends State<ListOfSongs> {
     setState(() {});
   }
 
-  Center _showLoading() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-
   _playSong() {
     if (currentIndex < songs.length - 1) {
       currentIndex++;
@@ -94,6 +64,35 @@ class _ListOfSongsState extends State<ListOfSongs> {
     _toastMessage(
         title: "Playing next Song", message: songs[currentIndex].trackName);
     setState(() {});
+  }
+
+  _pauseOtherSongs(int index) {
+    int i = 0;
+    songs = songs.map((Song song) {
+      if (i != index) {
+        song.isPlaying = false;
+        i++;
+        return song;
+      } else {
+        i++;
+        return song;
+      }
+    }).toList();
+    setState(() {});
+  }
+
+  _toastMessage({required String title, required String message}) {
+    Flushbar(
+      title: title,
+      message: message,
+      duration: Duration(seconds: 2),
+    )..show(context);
+  }
+
+  Center _showLoading() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
   }
 
   Center _showLoadingError() {
@@ -153,7 +152,28 @@ class _ListOfSongsState extends State<ListOfSongs> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Songs'),
+          toolbarHeight: 80,
+          title: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10)
+            ),
+            child: Column(
+              children: [
+                Container(
+                  height: 10,
+                ),                
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    suffixIcon: Icon(Icons.search),
+                    hintText: "Type to Search",
+                    labelText: "Search here",
+                  ),
+                ),
+              ],
+            ),
+          )
         ),
         body: Container(
             child: songs.isEmpty
