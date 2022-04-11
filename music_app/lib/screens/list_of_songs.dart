@@ -25,21 +25,22 @@ class _ListOfSongsState extends State<ListOfSongs> {
   AudioPlayer player = AudioPlayer();
   int currentIndex = -1;
   List<Song> songs = [];
-  // songsServices songsService = songsServices.getInstance();
+  songsServices songsService = songsServices.getInstance();
   ApiClient api = ApiClient.getInstance();
+  late ShakeDetector detector;
   Icon playIcon = _icon(Icons.play_arrow, 20, Colors.redAccent);
   Icon pauseIcon = _icon(Icons.pause, 20, Colors.redAccent);
 
   @override
   void initState() {
-    // songsService.initialize();
+    songsService.initialize(getSongsList);
     // songs = songsService.getSongsList();
-    api.getSongs(getSongsList, getError);
+    // api.getSongs(getSongsList, getError);
     player.onPlayerCompletion.listen((event) {
       // songs[currentIndex].isPlaying = false;   //done in _playNextSong()
       _playSong();
     });
-    ShakeDetector detector = ShakeDetector.autoStart(onPhoneShake: () {
+    detector = ShakeDetector.autoStart(onPhoneShake: () {
       // Do stuff on phone shake
       _playSong();
     });
@@ -167,7 +168,10 @@ class _ListOfSongsState extends State<ListOfSongs> {
   }
 
   _openPlayer(int index) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Player(songs[index])));
+    detector.stopListening();
+    player.stop();
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (ctx) => Player(songs[index], index)));
   }
 
   @override

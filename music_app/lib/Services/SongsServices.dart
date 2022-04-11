@@ -9,6 +9,8 @@ class songsServices {
   int currentIndex = -1;
   AudioPlayer player = AudioPlayer();
   ApiClient api = ApiClient.getInstance();
+  late Function getSongsList;
+  late Function callSetState;
   static songsServices Services = songsServices._();
   static songsServices getInstance() {
     return Services;
@@ -16,60 +18,62 @@ class songsServices {
 
   songsServices._() {}
 
-  initialize() {
+  initialize(Function getSongsList) {
+    this.getSongsList = getSongsList;
+    // this.callSetState = callSetState;
     api.getSongs(setSongsList, getError);
-    ShakeDetector detector = ShakeDetector.autoStart(onPhoneShake: () {
-      // Do stuff on phone shake
-      playSong();
-    });
-    player.onPlayerCompletion.listen((event) {
-      // songs[currentIndex].isPlaying = false;   //done in _playNextSong()
-      playSong();
-    });
+    // ShakeDetector detector = ShakeDetector.autoStart(onPhoneShake: () {
+    //   // Do stuff on phone shake
+    //   playSong();
+    // });
+    // player.onPlayerCompletion.listen((event) {
+    //   // songs[currentIndex].isPlaying = false;   //done in _playNextSong()
+    //   playSong();
+    // });
   }
 
   setSongsList(List<Song> songs) {
     this.songs = songs;
-  }
-
-  List<Song> getSongsList() {
-    return songs;
+    getSongsList(songs);
   }
 
   getError(dynamic error) {
     print("Error found in network call $error");
   }
 
-  playSong() {
-    if (currentIndex < songs.length - 1) {
-      currentIndex++;
-    } else {
-      currentIndex = 0;
-    }
-    pauseOtherSongs(currentIndex);
-    songs[currentIndex].isPlaying = true;
-    player.play(songs[currentIndex].audio);
-    toastMessage(
-        title: "Playing next Song", message: songs[currentIndex].trackName);
+  Song getSong(int index) {
+    return songs[index];
   }
+//   playSong() {
+//     if (currentIndex < songs.length - 1) {
+//       currentIndex++;
+//     } else {
+//       currentIndex = 0;
+//     }
+//     pauseOtherSongs(currentIndex);
+//     songs[currentIndex].isPlaying = true;
+//     player.play(songs[currentIndex].audio);
+//     callSetState();
+//   }
 
-  pauseOtherSongs(int index) {
-    int i = 0;
-    songs = songs.map((Song song) {
-      if (i != index) {
-        song.isPlaying = false;
-        i++;
-        return song;
-      } else {
-        i++;
-        return song;
-      }
-    }).toList();
-  }
+//   List<Song> pauseOtherSongs(int index) {
+//     int i = 0;
+//     songs = songs.map((Song song) {
+//       if (i != index) {
+//         song.isPlaying = false;
+//         i++;
+//         return song;
+//       } else {
+//         i++;
+//         return song;
+//       }
+//     }).toList();
+//     callSetState();
+//     return songs;
+//   }
 
-  searchSongs(searchValue) {
-    api.getSongs(setSongsList, getError, searchValue: searchValue);
-    player.stop();
-    songs = [];
-  }
+//   searchSongs(searchValue) {
+//     api.getSongs(setSongsList, getError, searchValue: searchValue);
+//     callSetState();
+//   }
 }
