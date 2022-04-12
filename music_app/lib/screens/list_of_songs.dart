@@ -40,10 +40,11 @@ class _ListOfSongsState extends State<ListOfSongs> {
       // songs[currentIndex].isPlaying = false;   //done in _playNextSong()
       _playSong();
     });
-    detector = ShakeDetector.autoStart(onPhoneShake: () {
+    detector = ShakeDetector.waitForStart(onPhoneShake: () {
       // Do stuff on phone shake
       _playSong();
     });
+    detector.startListening();
     Future.delayed(Duration(seconds: 3), () {
       loading = false;
       setState(() {});
@@ -170,8 +171,19 @@ class _ListOfSongsState extends State<ListOfSongs> {
   _openPlayer(int index) {
     detector.stopListening();
     player.stop();
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (ctx) => Player(songs[index], index)));
+    songs[index].isPlaying = false;
+    currentIndex = -1;
+    pauseAllSongs();
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (ctx) => Player(songs[index], index, detector,pauseAllSongs)));
+  }
+
+  pauseAllSongs() {
+    songs = songs.map((Song song) {
+      song.isPlaying = false;
+      return song;
+    }).toList();
+    setState(() {});
   }
 
   @override

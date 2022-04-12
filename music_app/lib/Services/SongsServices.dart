@@ -20,6 +20,7 @@ class songsServices {
 
   initialize(Function getSongsList) {
     this.getSongsList = getSongsList;
+
     // this.callSetState = callSetState;
     api.getSongs(setSongsList, getError);
     // ShakeDetector detector = ShakeDetector.autoStart(onPhoneShake: () {
@@ -33,7 +34,11 @@ class songsServices {
   }
 
   setSongsList(List<Song> songs) {
-    this.songs = songs;
+    this.songs = songs.map((Song song) {
+      song.trackName = reduceStringLength(song.trackName, 30);
+      song.artistName = reduceStringLength(song.artistName, 20);
+      return song;
+    }).toList();
     getSongsList(songs);
   }
 
@@ -42,7 +47,16 @@ class songsServices {
   }
 
   Song getSong(int index) {
+    print("hello ${songs}");
     return songs[index];
+  }
+
+  String reduceStringLength(String string, int length) {
+    String shortString = string;
+    if (shortString.length > length) {
+      shortString = shortString.substring(0, length) + "...";
+    }
+    return shortString;
   }
 //   playSong() {
 //     if (currentIndex < songs.length - 1) {

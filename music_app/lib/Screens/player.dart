@@ -7,23 +7,12 @@ import 'package:shake/shake.dart';
 class Player extends StatefulWidget {
   Song song;
   int currentIndex;
-  Player(this.song, this.currentIndex) {
-    if (song.trackName.length > 30)
-      song.trackName = reduceStringLength(song.trackName, 30);
-    if (song.artistName.length > 20)
-      song.artistName = reduceStringLength(song.artistName, 20);
-  }
+  ShakeDetector parent_detector;
+  Function pauseAllSongs;
+  Player(this.song, this.currentIndex, this.parent_detector, this.pauseAllSongs);
 
   @override
   State<Player> createState() => _PlayerState();
-}
-
-String reduceStringLength(String string, int length) {
-  String shortString = string;
-  if (shortString.length > length) {
-    shortString = shortString.substring(0, length) + "...";
-  }
-  return shortString;
 }
 
 class _PlayerState extends State<Player> {
@@ -38,7 +27,7 @@ class _PlayerState extends State<Player> {
 
   @override
   void initState() {
-    // songsService.initialize(getSongsList);
+    songsService.initialize(getSongsList);
     widget.song.isPlaying = true;
     player.play(widget.song.audio);
     player.onPlayerCompletion.listen((event) {
@@ -51,10 +40,10 @@ class _PlayerState extends State<Player> {
     });
   }
 
-  // getSongsList(List<Song> songs) {
-  //   this.songs = songs;
-  //   setState(() {});
-  // }
+  getSongsList(List<Song> songs) {
+    this.songs = songs;
+    setState(() {});
+  }
 
   _play() {
     widget.song.isPlaying = !widget.song.isPlaying;
@@ -69,21 +58,24 @@ class _PlayerState extends State<Player> {
   }
 
   _getSong(int index) {
+    player.pause();
     widget.currentIndex += index;
     widget.song = songsService.getSong(widget.currentIndex);
-    player.pause();
     player.play(widget.song.audio);
     widget.song.isPlaying = true;
-    widget.song.trackName = reduceStringLength(widget.song.trackName, 30);
-    widget.song.artistName = reduceStringLength(widget.song.artistName, 20);
-    // widget.song = songs[widget.currentIndex + index];
+    widget.song = songs[widget.currentIndex + index];
     setState(() {});
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
+    super.dispose();
     detector.stopListening();
+    player.stop();
+    widget.parent_detector
+        .startListening(); //this will start shake detector of parent screen / previous screen
+    // widget.pauseAllSongs();  //exception list of songs is locked
   }
 
   @override
