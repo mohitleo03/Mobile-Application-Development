@@ -99,6 +99,10 @@ class _ListOfSongsState extends State<ListOfSongs> {
   }
 
   Center _showLoading() {
+    Future.delayed(Duration(seconds: 3), () {
+      loading = false;
+      setState(() {});
+    });
     return Center(
       child: CircularProgressIndicator(),
     );
@@ -112,7 +116,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
           children: [
             IconButton(
                 onPressed: () {
-                  songsService.initialize(getSongsList);  //try to call api again when user taps on retry
+                  songsService.initialize(getSongsList);  //call api again when user taps on retry
                   loading = true;
                   setState(() {});
                 },
