@@ -195,8 +195,9 @@ class _ListOfSongsState extends State<ListOfSongs> {
 
   _searchSongs() {
     //anything user types in search box will be joined with API URL for getting desired result
-    api.getSongs(getSongsList, getError,
-        searchValue: searchValue); //doing API call again
+    // songsService.initialize(getSongsList,
+    //     searchValue: searchValue); //doing API call again
+    api.getSongs(getSongsList, getError, searchValue: searchValue);
     player.stop();
     songs =
         []; //empty the songs list otherwise user will be displayed old songs untill backend loading or in case of errro too

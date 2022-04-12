@@ -92,7 +92,7 @@ class _PlayerState extends State<Player> {
       "minutes": "0",
       "seconds": "0"
     }; //so currentPoint of time is set to in starting 0 once
-    player.pause(); //pause previous song
+    player.stop(); //stop previous song
     widget.currentIndex +=
         index; //increase currentIndex by the index which might be -1 or 1
     if (widget.currentIndex == widget.songsLength) {
