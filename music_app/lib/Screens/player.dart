@@ -5,11 +5,13 @@ import 'package:music_app/models/song.dart';
 import 'package:shake/shake.dart';
 
 class Player extends StatefulWidget {
+  int songsLength;
   Song song;
   int currentIndex;
   ShakeDetector parent_detector;
   Function pauseAllSongs;
-  Player(this.song, this.currentIndex, this.parent_detector, this.pauseAllSongs);
+  Player(this.song, this.currentIndex, this.parent_detector, this.pauseAllSongs,
+      this.songsLength);
 
   @override
   State<Player> createState() => _PlayerState();
@@ -58,12 +60,18 @@ class _PlayerState extends State<Player> {
   }
 
   _getSong(int index) {
+    print("object");
     player.pause();
     widget.currentIndex += index;
+    if (widget.currentIndex == widget.songsLength) {
+      widget.currentIndex = 0;
+    }
+    if (widget.currentIndex == -1) {
+      widget.currentIndex = widget.songsLength - 1;
+    }
     widget.song = songsService.getSong(widget.currentIndex);
     player.play(widget.song.audio);
     widget.song.isPlaying = true;
-    widget.song = songs[widget.currentIndex + index];
     setState(() {});
   }
 

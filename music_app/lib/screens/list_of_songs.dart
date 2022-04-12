@@ -112,6 +112,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
           children: [
             IconButton(
                 onPressed: () {
+                  songsService.initialize(getSongsList);  //try to call api again when user taps on retry
                   loading = true;
                   setState(() {});
                 },
@@ -175,7 +176,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
     currentIndex = -1;
     pauseAllSongs();
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (ctx) => Player(songs[index], index, detector,pauseAllSongs)));
+        builder: (ctx) => Player(songs[index], index, detector,pauseAllSongs,songs.length)));
   }
 
   pauseAllSongs() {

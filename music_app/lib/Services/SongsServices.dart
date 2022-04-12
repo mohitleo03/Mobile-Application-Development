@@ -47,7 +47,6 @@ class songsServices {
   }
 
   Song getSong(int index) {
-    print("hello ${songs}");
     return songs[index];
   }
 
