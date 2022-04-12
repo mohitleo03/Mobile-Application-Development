@@ -19,27 +19,19 @@ class songsServices {
   songsServices._() {}
 
   initialize(Function getSongsList) {
-    this.getSongsList = getSongsList;
+    this.getSongsList = getSongsList;//increasing scope of the function which will send songs to other file so that we can call it when we get songs
 
     // this.callSetState = callSetState;
-    api.getSongs(setSongsList, getError);
-    // ShakeDetector detector = ShakeDetector.autoStart(onPhoneShake: () {
-    //   // Do stuff on phone shake
-    //   playSong();
-    // });
-    // player.onPlayerCompletion.listen((event) {
-    //   // songs[currentIndex].isPlaying = false;   //done in _playNextSong()
-    //   playSong();
-    // });
+    api.getSongs(setSongsList, getError); //calling API
   }
 
   setSongsList(List<Song> songs) {
-    this.songs = songs.map((Song song) {
-      song.trackName = reduceStringLength(song.trackName, 30);
-      song.artistName = reduceStringLength(song.artistName, 20);
+    this.songs = songs.map((Song song) {  //increasing scope of songs
+      song.trackName = reduceStringLength(song.trackName, 30);//reducing length of trackName 
+      song.artistName = reduceStringLength(song.artistName, 20);//reducing length of trackName 
       return song;
     }).toList();
-    getSongsList(songs);
+    getSongsList(songs);  //sending sings back to the class by calling this function & passing the songs as an argument
   }
 
   getError(dynamic error) {
@@ -47,46 +39,14 @@ class songsServices {
   }
 
   Song getSong(int index) {
-    return songs[index];
+    return songs[index];  //sending single songs on the given index
   }
 
-  String reduceStringLength(String string, int length) {
+  String reduceStringLength(String string, int length) {  //function to reduce the length of content so that it won't look bad on screen
     String shortString = string;
     if (shortString.length > length) {
       shortString = shortString.substring(0, length) + "...";
     }
     return shortString;
   }
-//   playSong() {
-//     if (currentIndex < songs.length - 1) {
-//       currentIndex++;
-//     } else {
-//       currentIndex = 0;
-//     }
-//     pauseOtherSongs(currentIndex);
-//     songs[currentIndex].isPlaying = true;
-//     player.play(songs[currentIndex].audio);
-//     callSetState();
-//   }
-
-//   List<Song> pauseOtherSongs(int index) {
-//     int i = 0;
-//     songs = songs.map((Song song) {
-//       if (i != index) {
-//         song.isPlaying = false;
-//         i++;
-//         return song;
-//       } else {
-//         i++;
-//         return song;
-//       }
-//     }).toList();
-//     callSetState();
-//     return songs;
-//   }
-
-//   searchSongs(searchValue) {
-//     api.getSongs(setSongsList, getError, searchValue: searchValue);
-//     callSetState();
-//   }
 }

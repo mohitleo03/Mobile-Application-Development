@@ -33,50 +33,62 @@ class _ListOfSongsState extends State<ListOfSongs> {
 
   @override
   void initState() {
-    songsService.initialize(getSongsList);
-    // songs = songsService.getSongsList();
-    // api.getSongs(getSongsList, getError);
+    songsService.initialize(
+        getSongsList); //initialize method songsService in which API is called
+    // songs = songsService.getSongsList();     //songs will coe later through API call so we were not getting any songs here
+    // api.getSongs(getSongsList, getError);    //shifted API call to songsService, Widget class should be used only for rendering GUI
     player.onPlayerCompletion.listen((event) {
+      //on completion event of audio of player
       // songs[currentIndex].isPlaying = false;   //done in _playNextSong()
-      _playSong();
+      _playSong(); //play next song on completion
     });
     detector = ShakeDetector.waitForStart(onPhoneShake: () {
+      //detect phone shake
       // Do stuff on phone shake
-      _playSong();
+      _playSong(); //play next song on phone shake
     });
-    detector.startListening();
+    detector.startListening(); //started shake listening event
     Future.delayed(Duration(seconds: 3), () {
-      loading = false;
-      setState(() {});
+      //after 3 seconds loading should stop & Network error will be shown
+      loading =
+          false; //if loading is false it will show error after re-rendering
+      setState(() {}); //re-render after 3 seconds
     });
   }
 
   getSongsList(List<Song> songs) {
-    this.songs = songs;
-    setState(() {});
+    //this funtion is passed into songsService initialize function which will call this function when we get songs through API call & pass those songs into this function as argument to this file while calling this function
+    this.songs =
+        songs; //increase scope of songs list so that we can use it outside
+    setState(() {}); //re-render so that they will be displayed
   }
 
   getError(dynamic error) {
+    //this function is passed into songsService initialize function which will call this function on error with API call
     print("Error found in network call $error");
     setState(() {});
   }
 
   _playSong() {
+    //this function will play next song
     if (currentIndex < songs.length - 1) {
       currentIndex++;
     } else {
-      currentIndex = 0;
+      currentIndex =
+          0; //if ewew reached to last item of list then next song will be the fisrt song
     }
-    _pauseOtherSongs(currentIndex);
-    songs[currentIndex].isPlaying = true;
-    player.play(songs[currentIndex].audio);
+    _pauseOtherSongs(currentIndex); //pausing all other songs
+    songs[currentIndex].isPlaying =
+        true; //isPlaying true for showing pause button
+    player.play(songs[currentIndex].audio); //playing song by audio player
     _toastMessage(
         title: "Playing next Song", message: songs[currentIndex].trackName);
     setState(() {});
   }
 
   _pauseOtherSongs(int index) {
-    int i = 0;
+    //pausing all other songs leaving the sog on this index
+    int i = 0; //for comparing index
     songs = songs.map((Song song) {
       if (i != index) {
         song.isPlaying = false;
@@ -87,7 +99,8 @@ class _ListOfSongsState extends State<ListOfSongs> {
         return song;
       }
     }).toList();
-    setState(() {});
+    setState(
+        () {}); //re-render will display pause icon on all other songs leaving the song on the index because it' isPlaying is true
   }
 
   _toastMessage({required String title, required String message}) {
@@ -99,8 +112,11 @@ class _ListOfSongsState extends State<ListOfSongs> {
   }
 
   Center _showLoading() {
+    //Simple loading till we get songs
     Future.delayed(Duration(seconds: 3), () {
-      loading = false;
+      //if still loading till 3 sec
+      loading =
+          false; //switch loading bool value to false & re-render which will show Network error
       setState(() {});
     });
     return Center(
@@ -109,16 +125,20 @@ class _ListOfSongsState extends State<ListOfSongs> {
   }
 
   Center _showLoadingError() {
+    //after 3 seconds this error will be displayed
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(top: 100),
+        padding: const EdgeInsets.only(top: 200),
         child: Column(
           children: [
             IconButton(
                 onPressed: () {
-                  songsService.initialize(getSongsList);  //call api again when user taps on retry
-                  loading = true;
-                  setState(() {});
+                  songsService.initialize(
+                      getSongsList); //call api again when user taps on retry otherwise
+                  loading =
+                      true; //user will stuck in loading forever becuase if user's network was down
+                  setState(
+                      () {}); //then network call will give error in response so we have to do call this API after user clicks on tap to retry
                 },
                 icon: Icon(Icons.error)),
             Text("Netwrok Issue \n Tap to reload")
@@ -129,9 +149,11 @@ class _ListOfSongsState extends State<ListOfSongs> {
   }
 
   _printSong() {
+    //printing songs via ListView
     loading = true;
     return ListView.builder(
       itemBuilder: (BuildContext ctx, int index) {
+        //building each item while iterarting the list
         return ListTile(
           onTap: () {
             _openPlayer(index);
@@ -142,23 +164,28 @@ class _ListOfSongsState extends State<ListOfSongs> {
           trailing: Padding(
             padding: const EdgeInsets.only(right: 2),
             child: IconButton(
-                onPressed: () async {
-                  songs[index].isPlaying
-                      ? await player.pause()
-                      : await player.play(songs[index].audio);
-                  songs[index].isPlaying = !songs[index].isPlaying;
-                  _pauseOtherSongs(index);
-                  currentIndex = index;
-                  songs[index].isPlaying
-                      ? _toastMessage(
-                          title: "Song is Playing",
-                          message: songs[index].trackName)
-                      : _toastMessage(
-                          title: "Song is Paused",
-                          message: songs[index].trackName);
-                  setState(() {});
-                },
-                icon: songs[index].isPlaying ? pauseIcon : playIcon),
+              icon: songs[index].isPlaying ? pauseIcon : playIcon,
+              onPressed: () async {
+                songs[index].isPlaying
+                    ? await player
+                        .pause() //if isPlaying is true then & button is pressed then pause the song
+                    : await player.play(songs[index]
+                        .audio); //if isPlaying is false then & button is pressed then play the song
+                songs[index].isPlaying = !songs[index]
+                    .isPlaying; //toggle the value after user pressed the button
+                _pauseOtherSongs(
+                    index); //call pause other songs so that all songs or previous song will show pause button
+                currentIndex = index; //increase scope of index
+                songs[index].isPlaying //display toast message accrodingly
+                    ? _toastMessage(
+                        title: "Song is Playing",
+                        message: songs[index].trackName)
+                    : _toastMessage(
+                        title: "Song is Paused",
+                        message: songs[index].trackName);
+                setState(() {});
+              },
+            ),
           ),
         );
       },
@@ -167,23 +194,31 @@ class _ListOfSongsState extends State<ListOfSongs> {
   }
 
   _searchSongs() {
-    api.getSongs(getSongsList, getError, searchValue: searchValue);
+    //anything user types in search box will be joined with API URL for getting desired result
+    api.getSongs(getSongsList, getError,
+        searchValue: searchValue); //doing API call again
     player.stop();
-    songs = [];
+    songs =
+        []; //empty the songs list otherwise user will be displayed old songs untill backend loading or in case of errro too
     setState(() {});
   }
 
   _openPlayer(int index) {
-    detector.stopListening();
-    player.stop();
-    songs[index].isPlaying = false;
-    currentIndex = -1;
-    pauseAllSongs();
+    //navigates to a player screen which is dedicatedly built for playing song on which user tapped
+    detector
+        .stopListening(); //as we are moving to next screen we have to stop the shake detector otherwise when user shakes on next screen preevious detector will also listen & start doing it's functionality
+    player.stop(); //stop this screens song
+    songs[index].isPlaying = false; //also change isPlaying value of that song
+    currentIndex = -1; //giving initial value to currentIndex
+    pauseAllSongs(); //trying to pause all songs but last song which was playing is not showing pause button
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (ctx) => Player(songs[index], index, detector,pauseAllSongs,songs.length)));
+        //navigation command / code
+        builder: (ctx) => Player(
+            songs[index], index, detector, pauseAllSongs, songs.length)));
   }
 
   pauseAllSongs() {
+    //all songs are paused
     songs = songs.map((Song song) {
       song.isPlaying = false;
       return song;
@@ -209,7 +244,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
                     suffixIcon: IconButton(
                         icon: Icon(Icons.search),
                         onPressed: () {
-                          _searchSongs();
+                          _searchSongs(); //after user pressed this search button function will be called which was calling API
                         }),
                     hintText: "Type to Search",
                     labelText: "Search here",
@@ -219,9 +254,9 @@ class _ListOfSongsState extends State<ListOfSongs> {
             )),
         body: Container(
             child: songs.isEmpty
-                ? loading
-                    ? _showLoading()
-                    : _showLoadingError()
-                : _printSong()));
+                ? loading //if songs list is empty means songs are yet to be loaded from API call
+                    ? _showLoading() //if loading is true show loading
+                    : _showLoadingError() //if app was loading from 3 seconds show error
+                : _printSong())); //print all songs if we get songs from API call
   }
 }
