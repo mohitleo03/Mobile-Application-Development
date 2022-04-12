@@ -36,8 +36,10 @@ class _PlayerState extends State<Player> {
     "minutes": "0",
     "seconds": "0"
   }; //complete duration of song
-  int totalTimeInSeconds = 400; // we may get total time in secods of any song
+  int totalTimeInSeconds = 29; // we may get total time in secods of any song
   late ShakeDetector detector; //shake detector of this screen
+  late Duration totalDuration;
+  late Duration position;
 
   songsServices songsService = songsServices.getInstance();
 
@@ -48,6 +50,8 @@ class _PlayerState extends State<Player> {
     widget.song.isPlaying =
         true; //the songs on which user tapped will be playing by default
     player.play(widget.song.audio);
+    _getDurationOfSong();
+    _getPositionOfSong();
     player.onPlayerCompletion.listen((event) {
       //using onCompletion event to play next song
       // songs[currentIndex].isPlaying = false;   //done in _playNextSong()
@@ -106,6 +110,7 @@ class _PlayerState extends State<Player> {
     widget.song = songsService.getSong(widget.currentIndex);
     _toastMessage(title: "Playing Next Song", message: widget.song.trackName);
     player.play(widget.song.audio);
+    _getDurationOfSong();
     widget.song.isPlaying =
         true; //isPlaying true so that it will display pause icon
     setState(() {});
@@ -128,9 +133,29 @@ class _PlayerState extends State<Player> {
           ? (timeInSeconds % 60) == 0
               ? "00" //if seconds modules 60 is 0 then store 00
               : "0${timeInSeconds % 60}" //if seconds modules 60 is lessthan 10 then store single digit we get from modules & 0 before that digit
-          : (timeInSeconds % 60).toString() //if modules is more than or equal to 10 store it as it is
+          : (timeInSeconds % 60)
+              .toString() //if modules is more than or equal to 10 store it as it is
     };
     return timeInMinuteSeconds; //return map
+  }
+
+  _seekTo(int seconds) {
+    player.seek(Duration(
+        seconds: seconds)); //this event let you seek at that point of song
+  }
+
+  _getDurationOfSong() async{
+    await player.onDurationChanged.listen((Duration d) {
+      print('Max duration: $d');
+      setState(() => totalDuration = d);
+    });
+  }
+
+  _getPositionOfSong() async{
+    await player.onAudioPositionChanged.listen((Duration p) {
+      print('Current position: $p');
+      setState(() => position = p);
+    });
   }
 
   @override
@@ -138,8 +163,9 @@ class _PlayerState extends State<Player> {
     // TODO: implement dispose
     super.dispose();
     detector.stopListening(); //detector of this screen should be stopped
-    player.stop();  //if any song is playing stop it
-    widget.parent_detector  //as we currently don't have any event whcih triggers when we get back to parent screen, 
+    player.stop(); //if any song is playing stop it
+    widget
+        .parent_detector //as we currently don't have any event whcih triggers when we get back to parent screen,
         .startListening(); //so while this screen is disposed we start listening the parent detector which we passed from parent screen while navigating
     // widget.pauseAllSongs();  //exception list of songs is locked
   }
@@ -195,10 +221,11 @@ class _PlayerState extends State<Player> {
                   Slider(
                       min: 0.0,
                       value: skipToInSeconds.toDouble(),
-                      max: 400,
+                      max: totalTimeInSeconds.toDouble(),
                       onChanged: (value) {
                         skipToInSeconds = value.toInt();
                         currentPointOfTime = _getStandardTime(value.toInt());
+                        _seekTo(value.toInt());
                         setState(() {});
                       }),
                   Container(
@@ -208,7 +235,8 @@ class _PlayerState extends State<Player> {
                       children: [
                         Text(
                             "${currentPointOfTime["minutes"]}:${currentPointOfTime["seconds"]}"),
-                        Text("${totalTime["minutes"]}:${totalTime["seconds"]}")
+                        // Text("${totalTime["minutes"]}:${totalTime["seconds"]}")
+                        Text(totalDuration.inSeconds.toString())
                       ],
                     ),
                   )
@@ -231,7 +259,8 @@ class _PlayerState extends State<Player> {
                       color: Colors.purpleAccent,
                     )),
                 IconButton(
-                    onPressed: () { //play or pause song
+                    onPressed: () {
+                      //play or pause song
                       widget.song.isPlaying ? _pause() : _play();
                     },
                     icon: Icon(
@@ -241,7 +270,7 @@ class _PlayerState extends State<Player> {
                     )),
                 IconButton(
                     onPressed: () {
-                      _getSong(1);  //call next song by passing 1
+                      _getSong(1); //call next song by passing 1
                       _toastMessage(
                           title: "Playing Next Song",
                           message: widget.song.trackName);
