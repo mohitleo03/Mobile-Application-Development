@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:another_flushbar/flushbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +36,7 @@ class _PlayerState extends State<Player> {
   songsServices songsService = songsServices.getInstance();
   playingMode playingIn = playingMode();
   late int songPlayingMode;
+  Random random = Random();
 
   @override
   void initState() {
@@ -47,7 +50,12 @@ class _PlayerState extends State<Player> {
     player.onPlayerCompletion.listen((event) {
       //using onCompletion event to play next song
       // songs[currentIndex].isPlaying = false;   //done in _playNextSong()
-      _getSong(1); //first get next song 1 menas add one index and get song
+      if (songPlayingMode == playingIn.playSingle) {
+        player.play(widget.song.audio);
+        print("object");
+      } else {
+        _getSong(1); //first get next song 1 menas add one index and get song
+      }
     });
     detector = ShakeDetector.autoStart(onPhoneShake: () {
       //shake detector of this screen to play next song on phone shake
@@ -59,11 +67,15 @@ class _PlayerState extends State<Player> {
   }
 
   IconData _getFloatingActionButtonIcon(int playingMode) {
+    // print("previous song playing mode $songPlayingMode");
     if (playingMode == playingIn.playLinear) {
+      // print("current song playing mode $songPlayingMode");
       return Icons.loop_outlined;
     } else if (playingMode == playingIn.shuffle) {
+      // print("current song playing mode $songPlayingMode");
       return Icons.shuffle_on_outlined;
     } else {
+      // print("current song playing mode $songPlayingMode");
       return Icons.looks_one_outlined;
     }
   }
@@ -104,8 +116,12 @@ class _PlayerState extends State<Player> {
   _getSong(int index) {
     //getting song from songsService
     player.stop(); //stop previous song
-    widget.currentIndex +=
-        index; //increase currentIndex by the index which might be -1 or 1
+    if (playingMode == playingIn.playLinear) {
+      widget.currentIndex +=
+          index; //increase currentIndex by the index which might be -1 or 1
+    } else {
+      widget.currentIndex = random.nextInt(widget.songsLength - 1);
+    }
     if (widget.currentIndex == widget.songsLength) {
       //if we pressed next on last song of list we have to start from first element
       widget.currentIndex = 0;
@@ -121,6 +137,8 @@ class _PlayerState extends State<Player> {
     widget.song.isPlaying =
         true; //isPlaying true so that it will display pause icon
     setState(() {});
+    // totalDuration.inMinutes = Duration(minutes: 0);
+    // position = Duration();
   }
 
   _toastMessage({required String title, required String message}) {
@@ -166,8 +184,10 @@ class _PlayerState extends State<Player> {
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 55, 55, 55),
       appBar: AppBar(
         title: Text("Song Player"),
+        backgroundColor: Color.fromARGB(255, 69, 69, 69),
       ),
       body: Column(
         children: [
@@ -175,7 +195,7 @@ class _PlayerState extends State<Player> {
             child: Container(
               child: Center(
                 child: CircleAvatar(
-                  backgroundColor: Colors.orange,
+                  backgroundColor: Colors.blueAccent,
                   radius: 132,
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(widget.song.image),
@@ -185,15 +205,17 @@ class _PlayerState extends State<Player> {
               ),
             ),
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                  Colors.deepPurpleAccent,
-                  Colors.purpleAccent,
-                  Colors.purpleAccent,
-                  Colors.pinkAccent
-                ])),
+                gradient: SweepGradient(stops: [
+              0.12,
+              0.3,
+              0.64,
+              1.0
+            ], colors: [
+              Color.fromARGB(255, 220, 45, 122),
+              Color.fromARGB(255, 254, 197, 102),
+              Color.fromARGB(255, 78, 97, 208),
+              Color.fromARGB(255, 220, 45, 122),
+            ])),
             height: deviceSize.height / 2.5,
             width: deviceSize.width,
           ),
@@ -212,6 +234,9 @@ class _PlayerState extends State<Player> {
             child: Column(
               children: [
                 Slider(
+                    activeColor: Colors.deepPurpleAccent,
+                    inactiveColor: Colors.pinkAccent,
+                    thumbColor: Colors.pink,
                     min: 0.0,
                     value: position == null
                         ? 0.0
@@ -229,9 +254,11 @@ class _PlayerState extends State<Player> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                          "${position == null ? 0.0 : "${position?.inMinutes}:${position!.inSeconds}"}"),
+                          "${position == null ? 0.0 : "${position?.inMinutes}:${position!.inSeconds < 10 ? '0' + '${position!.inSeconds}' : position!.inSeconds}"}",
+                          style: TextStyle(color: Colors.white)),
                       Text(
-                          "${totalDuration == null ? 0.0 : "${totalDuration?.inMinutes}:${totalDuration!.inSeconds}"}")
+                          "${totalDuration == null ? 0.0 : "${totalDuration?.inMinutes}:${totalDuration!.inSeconds}"}",
+                          style: TextStyle(color: Colors.white))
                     ],
                   ),
                 )
@@ -281,10 +308,20 @@ class _PlayerState extends State<Player> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.purpleAccent,
           onPressed: () {
             _changeSongPlayingMode();
+            if (songPlayingMode == playingIn.playLinear) {
+              _toastMessage(title: "Song Playing Mode", message: "Normal");
+            }
+            else if (songPlayingMode == playingIn.shuffle) {
+              _toastMessage(title: "Song Playing Mode", message: "Shuffled");
+            }
+            else {
+              _toastMessage(title: "Song Playing Mode", message: "Repeat One Song");
+            }
           },
-          child: Icon(_getFloatingActionButtonIcon(playingIn.playLinear))),
+          child: Icon(_getFloatingActionButtonIcon(songPlayingMode))),
     );
   }
 }

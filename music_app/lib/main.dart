@@ -5,6 +5,7 @@ import 'Screens/List_of_songs.dart';
 void main() async {
   await dotenv.load(fileName: ".env");
   runApp(MaterialApp(
+    // theme: ThemeData.dark(),
     debugShowCheckedModeBanner: false,
     title: "Music App 2022",
     home: ListOfSongs(),
