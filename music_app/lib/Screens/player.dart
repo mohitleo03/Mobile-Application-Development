@@ -3,6 +3,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/Services/songsServices.dart';
 import 'package:music_app/animations/waves.dart';
+import 'package:music_app/constants/constants.dart';
 import 'package:music_app/models/song.dart';
 import 'package:shake/shake.dart';
 
@@ -31,6 +32,8 @@ class _PlayerState extends State<Player> {
   Duration? totalDuration;
   Duration? position;
   songsServices songsService = songsServices.getInstance();
+  playingMode playingIn = playingMode();
+  late int songPlayingMode;
 
   @override
   void initState() {
@@ -52,6 +55,28 @@ class _PlayerState extends State<Player> {
       _getSong(1);
     });
     player.play(widget.song.audio);
+    songPlayingMode = playingIn.playLinear;
+  }
+
+  IconData _getFloatingActionButtonIcon(int playingMode) {
+    if (playingMode == playingIn.playLinear) {
+      return Icons.loop_outlined;
+    } else if (playingMode == playingIn.shuffle) {
+      return Icons.shuffle_on_outlined;
+    } else {
+      return Icons.looks_one_outlined;
+    }
+  }
+
+  _changeSongPlayingMode() {
+    if (songPlayingMode == playingIn.playLinear) {
+      songPlayingMode = playingIn.shuffle;
+    } else if (songPlayingMode == playingIn.shuffle) {
+      songPlayingMode = playingIn.playSingle;
+    } else {
+      songPlayingMode = playingIn.playLinear;
+    }
+    setState(() {});
   }
 
   getSongsList(List<Song> songs) {
@@ -141,7 +166,9 @@ class _PlayerState extends State<Player> {
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Song Player"),
+      ),
       body: Column(
         children: [
           Container(
@@ -253,6 +280,11 @@ class _PlayerState extends State<Player> {
           // waves()
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _changeSongPlayingMode();
+          },
+          child: Icon(_getFloatingActionButtonIcon(playingIn.playLinear))),
     );
   }
 }
