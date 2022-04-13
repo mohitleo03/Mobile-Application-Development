@@ -52,7 +52,6 @@ class _PlayerState extends State<Player> {
       // songs[currentIndex].isPlaying = false;   //done in _playNextSong()
       if (songPlayingMode == playingIn.playSingle) {
         player.play(widget.song.audio);
-        print("object");
       } else {
         _getSong(1); //first get next song 1 menas add one index and get song
       }
@@ -67,15 +66,11 @@ class _PlayerState extends State<Player> {
   }
 
   IconData _getFloatingActionButtonIcon(int playingMode) {
-    // print("previous song playing mode $songPlayingMode");
     if (playingMode == playingIn.playLinear) {
-      // print("current song playing mode $songPlayingMode");
       return Icons.loop_outlined;
     } else if (playingMode == playingIn.shuffle) {
-      // print("current song playing mode $songPlayingMode");
       return Icons.shuffle_on_outlined;
     } else {
-      // print("current song playing mode $songPlayingMode");
       return Icons.looks_one_outlined;
     }
   }
@@ -116,7 +111,7 @@ class _PlayerState extends State<Player> {
   _getSong(int index) {
     //getting song from songsService
     player.stop(); //stop previous song
-    if (playingMode == playingIn.playLinear) {
+    if (songPlayingMode == playingIn.playLinear || songPlayingMode == playingIn.playSingle) {
       widget.currentIndex +=
           index; //increase currentIndex by the index which might be -1 or 1
     } else {
@@ -313,12 +308,11 @@ class _PlayerState extends State<Player> {
             _changeSongPlayingMode();
             if (songPlayingMode == playingIn.playLinear) {
               _toastMessage(title: "Song Playing Mode", message: "Normal");
-            }
-            else if (songPlayingMode == playingIn.shuffle) {
+            } else if (songPlayingMode == playingIn.shuffle) {
               _toastMessage(title: "Song Playing Mode", message: "Shuffled");
-            }
-            else {
-              _toastMessage(title: "Song Playing Mode", message: "Repeat One Song");
+            } else {
+              _toastMessage(
+                  title: "Song Playing Mode", message: "Repeat One Song");
             }
           },
           child: Icon(_getFloatingActionButtonIcon(songPlayingMode))),

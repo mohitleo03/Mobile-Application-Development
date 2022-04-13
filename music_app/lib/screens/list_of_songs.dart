@@ -169,11 +169,12 @@ class _ListOfSongsState extends State<ListOfSongs> {
             child: IconButton(
               icon: songs[index].isPlaying ? pauseIcon : playIcon,
               onPressed: () async {
+                print("song is playing ? : ${songs[index].isPlaying}");
                 songs[index].isPlaying
                     ? await player
                         .pause() //if isPlaying is true then & button is pressed then pause the song
                     : await player.play(songs[index]
-                        .audio); //if isPlaying is false then & button is pressed then play the song
+                        .audio); //if isPlaying is false then & bu70tton is pressed then play the song
                 songs[index].isPlaying = !songs[index]
                     .isPlaying; //toggle the value after user pressed the button
                 _pauseOtherSongs(
