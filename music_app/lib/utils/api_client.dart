@@ -11,7 +11,7 @@ class ApiClient {
   }
 
   void getSongs(Function successCallBack, Function failCallBack,
-      {String searchValue = "AP Dhillon"}) {
+      {String searchValue = "honey singh"}) {
     final URL = "${dotenv.env['BASE_URL']}?term=$searchValue&limit=15";
     Future<http.Response> future = http.get(Uri.parse(URL));
     future.then((response) {

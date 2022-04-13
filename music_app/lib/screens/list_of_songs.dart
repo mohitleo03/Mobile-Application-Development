@@ -2,7 +2,9 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/Screens/player.dart';
+import 'package:music_app/Screens/testing.dart';
 import 'package:music_app/Services/SongsServices.dart';
+import 'package:music_app/animations/waves.dart';
 import 'package:music_app/models/song.dart';
 import 'package:music_app/utils/api_client.dart';
 import 'package:shake/shake.dart';
@@ -54,6 +56,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
           false; //if loading is false it will show error after re-rendering
       setState(() {}); //re-render after 3 seconds
     });
+    // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => {testing()}));
   }
 
   getSongsList(List<Song> songs) {
@@ -216,6 +219,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
         //navigation command / code
         builder: (ctx) => Player(
             songs[index], index, detector, pauseAllSongs, songs.length)));
+    // songs[index], index, detector, pauseAllSongs, songs.length,songsService)));  //can't send songsService object from here??
   }
 
   pauseAllSongs() {

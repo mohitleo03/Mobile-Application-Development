@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/Services/songsServices.dart';
+import 'package:music_app/animations/waves.dart';
 import 'package:music_app/models/song.dart';
 import 'package:shake/shake.dart';
 
@@ -9,10 +10,13 @@ class Player extends StatefulWidget {
   int songsLength; //songsLength is needed so that we can get correct song on boundary values
   Song song;
   int currentIndex;
+  // songsServices songService;
   ShakeDetector
       parent_detector; //we have to start parent shake detector while this screen is closed so that on previous screen it will start detecting phone shake
   Function
       pauseAllSongs; //trying to pause all songs on previous screen when we get navigated to player screen but not working currently
+  // Player(this.song, this.currentIndex, this.parent_detector, this.pauseAllSongs,
+  //     this.songsLength,this.songService);
   Player(this.song, this.currentIndex, this.parent_detector, this.pauseAllSongs,
       this.songsLength);
 
@@ -23,24 +27,9 @@ class Player extends StatefulWidget {
 class _PlayerState extends State<Player> {
   AudioPlayer player = AudioPlayer();
   List<Song> songs = [];
-  int skipToInSeconds = 0; //getting value from slider
-  Map<String, String> skipTo = {
-    "minutes": "0",
-    "seconds": "0"
-  }; //still thinking it's utitlity
-  Map<String, String> currentPointOfTime = {
-    "minutes": "0",
-    "seconds": "0"
-  }; //to store & utilize the current point of time of song
-  Map<String, String> totalTime = {
-    "minutes": "0",
-    "seconds": "0"
-  }; //complete duration of song
-  int totalTimeInSeconds = 29; // we may get total time in secods of any song
   late ShakeDetector detector; //shake detector of this screen
-  late Duration totalDuration;
-  late Duration position;
-
+  Duration? totalDuration;
+  Duration? position;
   songsServices songsService = songsServices.getInstance();
 
   @override
@@ -50,7 +39,7 @@ class _PlayerState extends State<Player> {
     widget.song.isPlaying =
         true; //the songs on which user tapped will be playing by default
     player.play(widget.song.audio);
-    _getDurationOfSong();
+    _getDurationOfSong(); //get total duration of first song initially to display
     _getPositionOfSong();
     player.onPlayerCompletion.listen((event) {
       //using onCompletion event to play next song
@@ -63,8 +52,6 @@ class _PlayerState extends State<Player> {
       _getSong(1);
     });
     player.play(widget.song.audio);
-    totalTime = _getStandardTime(
-        totalTimeInSeconds); //del this line when we get orignal total time
   }
 
   getSongsList(List<Song> songs) {
@@ -91,11 +78,6 @@ class _PlayerState extends State<Player> {
 
   _getSong(int index) {
     //getting song from songsService
-    skipToInSeconds = 0; //on next song song will start from 0
-    currentPointOfTime = {
-      "minutes": "0",
-      "seconds": "0"
-    }; //so currentPoint of time is set to in starting 0 once
     player.stop(); //stop previous song
     widget.currentIndex +=
         index; //increase currentIndex by the index which might be -1 or 1
@@ -124,36 +106,21 @@ class _PlayerState extends State<Player> {
     )..show(context);
   }
 
-  Map<String, String> _getStandardTime(int timeInSeconds) {
-    //this function converts seconds into map variable which stores minutes & secodns as integer
-    Map<String, String> timeInMinuteSeconds = {
-      "minutes": (timeInSeconds ~/ 60)
-          .toString(), //minutes = total seconds / 60 to int
-      "seconds": (timeInSeconds % 60) < 10 //seconds = total seconds modules 60
-          ? (timeInSeconds % 60) == 0
-              ? "00" //if seconds modules 60 is 0 then store 00
-              : "0${timeInSeconds % 60}" //if seconds modules 60 is lessthan 10 then store single digit we get from modules & 0 before that digit
-          : (timeInSeconds % 60)
-              .toString() //if modules is more than or equal to 10 store it as it is
-    };
-    return timeInMinuteSeconds; //return map
-  }
-
-  _seekTo(int seconds) {
+  _seekTo(int microseconds) {
     player.seek(Duration(
-        seconds: seconds)); //this event let you seek at that point of song
+        microseconds:
+            microseconds)); //this event let you seek at that point of song
+    _getPositionOfSong();
   }
 
-  _getDurationOfSong() async{
+  _getDurationOfSong() async {
     await player.onDurationChanged.listen((Duration d) {
-      print('Max duration: $d');
       setState(() => totalDuration = d);
     });
   }
 
-  _getPositionOfSong() async{
+  _getPositionOfSong() async {
     await player.onAudioPositionChanged.listen((Duration p) {
-      print('Current position: $p');
       setState(() => position = p);
     });
   }
@@ -175,115 +142,116 @@ class _PlayerState extends State<Player> {
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              child: Container(
-                child: Center(
+      body: Column(
+        children: [
+          Container(
+            child: Container(
+              child: Center(
+                child: CircleAvatar(
+                  backgroundColor: Colors.orange,
+                  radius: 132,
                   child: CircleAvatar(
-                    backgroundColor: Colors.orange,
-                    radius: 132,
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(widget.song.image),
-                      radius: 130,
-                    ),
+                    backgroundImage: NetworkImage(widget.song.image),
+                    radius: 130,
                   ),
                 ),
               ),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                    Colors.deepPurpleAccent,
-                    Colors.purpleAccent,
-                    Colors.purpleAccent,
-                    Colors.pinkAccent
-                  ])),
-              height: deviceSize.height / 2.5,
-              width: deviceSize.width,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 8),
-              child: Text(widget.song.trackName,
-                  style: TextStyle(
-                      color: Colors.purpleAccent,
-                      fontSize: deviceSize.width / 18)),
-            ),
-            Text(widget.song.artistName,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                  Colors.deepPurpleAccent,
+                  Colors.purpleAccent,
+                  Colors.purpleAccent,
+                  Colors.pinkAccent
+                ])),
+            height: deviceSize.height / 2.5,
+            width: deviceSize.width,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 8),
+            child: Text(widget.song.trackName,
                 style: TextStyle(
-                    color: Colors.blueAccent, fontSize: deviceSize.width / 24)),
-            Container(
-              width: deviceSize.width - 30,
-              child: Column(
-                children: [
-                  Slider(
-                      min: 0.0,
-                      value: skipToInSeconds.toDouble(),
-                      max: totalTimeInSeconds.toDouble(),
-                      onChanged: (value) {
-                        skipToInSeconds = value.toInt();
-                        currentPointOfTime = _getStandardTime(value.toInt());
-                        _seekTo(value.toInt());
-                        setState(() {});
-                      }),
-                  Container(
-                    width: deviceSize.width - 70,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                            "${currentPointOfTime["minutes"]}:${currentPointOfTime["seconds"]}"),
-                        // Text("${totalTime["minutes"]}:${totalTime["seconds"]}")
-                        Text(totalDuration.inSeconds.toString())
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+                    color: Colors.purpleAccent,
+                    fontSize: deviceSize.width / 18)),
+          ),
+          Text(widget.song.artistName,
+              style: TextStyle(
+                  color: Colors.blueAccent, fontSize: deviceSize.width / 24)),
+          Container(
+            width: deviceSize.width - 30,
+            child: Column(
               children: [
-                IconButton(
-                    onPressed: () {
-                      _getSong(-1); //get previous song by passing -1
-                      _toastMessage(
-                          title: "Playing Previous Song",
-                          message: widget.song.trackName);
-                    },
-                    icon: Icon(
-                      Icons.skip_previous,
-                      size: 45,
-                      color: Colors.purpleAccent,
-                    )),
-                IconButton(
-                    onPressed: () {
-                      //play or pause song
-                      widget.song.isPlaying ? _pause() : _play();
-                    },
-                    icon: Icon(
-                      widget.song.isPlaying ? Icons.pause : Icons.play_arrow,
-                      size: 45,
-                      color: Colors.blueAccent,
-                    )),
-                IconButton(
-                    onPressed: () {
-                      _getSong(1); //call next song by passing 1
-                      _toastMessage(
-                          title: "Playing Next Song",
-                          message: widget.song.trackName);
-                    },
-                    icon: Icon(
-                      Icons.skip_next,
-                      size: 45,
-                      color: Colors.purpleAccent,
-                    ))
+                Slider(
+                    min: 0.0,
+                    value: position == null
+                        ? 0.0
+                        : position!.inMicroseconds.toDouble(),
+                    max: totalDuration == null
+                        ? 0.0
+                        : totalDuration!.inMicroseconds.toDouble(),
+                    onChanged: (value) {
+                      _seekTo(value.toInt());
+                      setState(() {});
+                    }),
+                Container(
+                  width: deviceSize.width - 70,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          "${position == null ? 0.0 : "${position?.inMinutes}:${position!.inSeconds}"}"),
+                      Text(
+                          "${totalDuration == null ? 0.0 : "${totalDuration?.inMinutes}:${totalDuration!.inSeconds}"}")
+                    ],
+                  ),
+                )
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    _getSong(-1); //get previous song by passing -1
+                    _toastMessage(
+                        title: "Playing Previous Song",
+                        message: widget.song.trackName);
+                  },
+                  icon: Icon(
+                    Icons.skip_previous,
+                    size: 45,
+                    color: Colors.purpleAccent,
+                  )),
+              IconButton(
+                  onPressed: () {
+                    //play or pause song
+                    widget.song.isPlaying ? _pause() : _play();
+                  },
+                  icon: Icon(
+                    widget.song.isPlaying ? Icons.pause : Icons.play_arrow,
+                    size: 45,
+                    color: Colors.blueAccent,
+                  )),
+              IconButton(
+                  onPressed: () {
+                    _getSong(1); //call next song by passing 1
+                    _toastMessage(
+                        title: "Playing Next Song",
+                        message: widget.song.trackName);
+                  },
+                  icon: Icon(
+                    Icons.skip_next,
+                    size: 45,
+                    color: Colors.purpleAccent,
+                  ))
+            ],
+          ),
+          // waves()
+        ],
       ),
     );
   }
