@@ -5,7 +5,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/Services/songsServices.dart';
 import 'package:music_app/animations/waves.dart';
-import 'package:music_app/constants/constants.dart';
+import 'package:music_app/config/constants/constants.dart';
 import 'package:music_app/models/song.dart';
 import 'package:shake/shake.dart';
 

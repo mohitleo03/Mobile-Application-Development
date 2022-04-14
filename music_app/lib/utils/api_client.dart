@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:music_app/config/constants/api_path.dart';
 import 'dart:convert' as jsonconvert;
 import '../models/song.dart';
 
@@ -12,7 +13,7 @@ class ApiClient {
 
   void getSongs(Function successCallBack, Function failCallBack,
       {String searchValue = "honey singh"}) {
-    final URL = "${dotenv.env['BASE_URL']}?term=$searchValue&limit=15";
+    final URL = "${Apispath.BASE_URL}?term=$searchValue&limit=15";
     Future<http.Response> future = http.get(Uri.parse(URL));
     future.then((response) {
       String json = response.body;
