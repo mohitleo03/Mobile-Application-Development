@@ -5,7 +5,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/Services/songsServices.dart';
 import 'package:music_app/animations/waves.dart';
-import 'package:music_app/config/constants/constants.dart';
+import 'package:music_app/config/constants/app_constants.dart';
 import 'package:music_app/models/song.dart';
 import 'package:shake/shake.dart';
 
@@ -34,7 +34,7 @@ class _PlayerState extends State<Player> {
   Duration? totalDuration;
   Duration? position;
   songsServices songsService = songsServices.getInstance();
-  playingMode playingIn = playingMode();
+  playingMode playingModeIs = playingMode();
   late int songPlayingMode;
   Random random = Random();
 
@@ -50,7 +50,7 @@ class _PlayerState extends State<Player> {
     player.onPlayerCompletion.listen((event) {
       //using onCompletion event to play next song
       // songs[currentIndex].isPlaying = false;   //done in _playNextSong()
-      if (songPlayingMode == playingIn.playSingle) {
+      if (songPlayingMode == playingModeIs.repeat) {
         player.play(widget.song.audio);
       } else {
         _getSong(1); //first get next song 1 menas add one index and get song
@@ -62,13 +62,13 @@ class _PlayerState extends State<Player> {
       _getSong(1);
     });
     player.play(widget.song.audio);
-    songPlayingMode = playingIn.playLinear;
+    songPlayingMode = playingModeIs.linear;
   }
 
   IconData _getFloatingActionButtonIcon(int playingMode) {
-    if (playingMode == playingIn.playLinear) {
+    if (playingMode == playingModeIs.linear) {
       return Icons.loop_outlined;
-    } else if (playingMode == playingIn.shuffle) {
+    } else if (playingMode == playingModeIs.shuffle) {
       return Icons.shuffle_on_outlined;
     } else {
       return Icons.looks_one_outlined;
@@ -76,12 +76,12 @@ class _PlayerState extends State<Player> {
   }
 
   _changeSongPlayingMode() {
-    if (songPlayingMode == playingIn.playLinear) {
-      songPlayingMode = playingIn.shuffle;
-    } else if (songPlayingMode == playingIn.shuffle) {
-      songPlayingMode = playingIn.playSingle;
+    if (songPlayingMode == playingModeIs.linear) {
+      songPlayingMode = playingModeIs.shuffle;
+    } else if (songPlayingMode == playingModeIs.shuffle) {
+      songPlayingMode = playingModeIs.repeat;
     } else {
-      songPlayingMode = playingIn.playLinear;
+      songPlayingMode = playingModeIs.linear;
     }
     setState(() {});
   }
@@ -111,7 +111,7 @@ class _PlayerState extends State<Player> {
   _getSong(int index) {
     //getting song from songsService
     player.stop(); //stop previous song
-    if (songPlayingMode == playingIn.playLinear || songPlayingMode == playingIn.playSingle) {
+    if (songPlayingMode == playingModeIs.linear || songPlayingMode == playingModeIs.repeat) {
       widget.currentIndex +=
           index; //increase currentIndex by the index which might be -1 or 1
     } else {
@@ -306,9 +306,9 @@ class _PlayerState extends State<Player> {
           backgroundColor: Colors.purpleAccent,
           onPressed: () {
             _changeSongPlayingMode();
-            if (songPlayingMode == playingIn.playLinear) {
+            if (songPlayingMode == playingModeIs.linear) {
               _toastMessage(title: "Song Playing Mode", message: "Normal");
-            } else if (songPlayingMode == playingIn.shuffle) {
+            } else if (songPlayingMode == playingModeIs.shuffle) {
               _toastMessage(title: "Song Playing Mode", message: "Shuffled");
             } else {
               _toastMessage(
