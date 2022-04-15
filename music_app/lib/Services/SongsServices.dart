@@ -4,7 +4,7 @@ import 'package:music_app/utils/api_client.dart';
 import 'package:music_app/widgets/toast_message.dart';
 import 'package:shake/shake.dart';
 
-import '../utils/string_helper.dart';
+import '../utils/helpers/string_helper.dart';
 
 class songsServices {
   List<Song> songs = [];
