@@ -4,6 +4,8 @@ import 'package:music_app/utils/api_client.dart';
 import 'package:music_app/widgets/toast_message.dart';
 import 'package:shake/shake.dart';
 
+import '../utils/string_helper.dart';
+
 class songsServices {
   List<Song> songs = [];
   int currentIndex = -1;
@@ -48,14 +50,5 @@ class songsServices {
 
   Song getSong(int index) {
     return songs[index]; //sending single songs on the given index
-  }
-
-  String reduceStringLength(String string, int length) {
-    //function to reduce the length of content so that it won't look bad on screen
-    String shortString = string;
-    if (shortString.length > length) {
-      shortString = shortString.substring(0, length) + "...";
-    }
-    return shortString;
   }
 }

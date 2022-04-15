@@ -10,6 +10,8 @@ import 'package:music_app/models/song.dart';
 import 'package:music_app/utils/api_client.dart';
 import 'package:shake/shake.dart';
 
+import '../widgets/toast_message.dart';
+
 class ListOfSongs extends StatefulWidget {
   const ListOfSongs({Key? key}) : super(key: key);
 
@@ -31,8 +33,8 @@ class _ListOfSongsState extends State<ListOfSongs> {
   songsServices songsService = songsServices.getInstance();
   ApiClient api = ApiClient.getInstance();
   late ShakeDetector detector;
-  Icon playIcon = _icon(Icons.play_arrow, 20, Colors.redAccent);
-  Icon pauseIcon = _icon(Icons.pause, 20, Colors.redAccent);
+  Icon playIcon = _icon(Icons.play_arrow, 20, Color.fromARGB(255, 2, 38, 67));
+  Icon pauseIcon = _icon(Icons.pause, 20,Color.fromARGB(255, 2, 38, 67));
 
   @override
   void initState() {
@@ -87,6 +89,8 @@ class _ListOfSongsState extends State<ListOfSongs> {
     player.play(songs[currentIndex].audio); //playing song by audio player
     _toastMessage(
         title: "Playing next Song", message: songs[currentIndex].trackName);
+    // toastMessage(
+    //     title: "Playing next Song", message: songs[currentIndex].trackName,context: context,);
     setState(() {});
   }
 
@@ -170,7 +174,6 @@ class _ListOfSongsState extends State<ListOfSongs> {
             child: IconButton(
               icon: songs[index].isPlaying ? pauseIcon : playIcon,
               onPressed: () async {
-                print("song is playing ? : ${songs[index].isPlaying}");
                 int result = songs[index].isPlaying
                     ? await player
                         .pause() //if isPlaying is true then & button is pressed then pause the song

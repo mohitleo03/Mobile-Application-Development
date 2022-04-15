@@ -178,10 +178,10 @@ class _PlayerState extends State<Player> {
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 55, 55, 55),
+      backgroundColor: Color.fromARGB(255, 2, 38, 67),
       appBar: AppBar(
         title: Text("Song Player"),
-        backgroundColor: Color.fromARGB(255, 69, 69, 69),
+        backgroundColor: Color.fromARGB(255, 2, 38, 67),
       ),
       body: Column(
         children: [
