@@ -1,5 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 import '/config/constants/api_path.dart';
 import 'dart:convert' as jsonconvert;
 import '/models/song.dart';
@@ -7,6 +8,8 @@ import '/models/song.dart';
 class ApiClient {
   ApiClient._() {}
   static ApiClient _Api = ApiClient._();
+
+  Dio _dio = Dio();
   static ApiClient getInstance() {
     return _Api;
   }
@@ -14,9 +17,10 @@ class ApiClient {
   void getSongs(Function successCallBack, Function failCallBack,
       {String searchValue = "honey singh"}) {
     final URL = "${Apispath.BASE_URL}?term=$searchValue&limit=15";
-    Future<http.Response> future = http.get(Uri.parse(URL));
+    // Future<http.Response> future = http.get(Uri.parse(URL));
+    Future<Response> future = _dio.get(URL);
     future.then((response) {
-      String json = response.body;
+      String json = response.data;
       //Doing JSON conversion and Store in Song model
       Map<String, dynamic> map =
           jsonconvert.jsonDecode(json); //JSON convert into Map

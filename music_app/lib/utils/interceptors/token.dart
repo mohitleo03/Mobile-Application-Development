@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 
 tokenInterceptor(Dio dio){
-
   dio.interceptors.add(InterceptorsWrapper(
     onRequest:(options, handler){
      // Do something before request is sent
