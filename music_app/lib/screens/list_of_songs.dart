@@ -7,9 +7,10 @@ import 'package:music_app/Operations/songsOperations.dart';
 import 'package:music_app/animations/waves.dart';
 import 'package:music_app/config/constants/app_constants.dart';
 import 'package:music_app/models/song.dart';
-import 'package:music_app/utils/api_client.dart';
 import 'package:shake/shake.dart';
 
+
+import '../utils/services/api_client.dart';
 import '../widgets/toast_message.dart';
 
 class ListOfSongs extends StatefulWidget {
@@ -30,7 +31,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
   AudioPlayer player = AudioPlayer();
   int currentIndex = -1;
   List<Song> songs = [];
-  songsServices songsService = songsServices.getInstance();
+  songsOperations songsOperation = songsOperations.getInstance();
   ApiClient api = ApiClient.getInstance();
   late ShakeDetector detector;
   Icon playIcon = _icon(Icons.play_arrow, 20, Color.fromARGB(255, 2, 38, 67));
@@ -38,7 +39,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
 
   @override
   void initState() {
-    songsService.initialize(
+    songsOperation.initialize(
         getSongsList); //initialize method songsService in which API is called
     // songs = songsService.getSongsList();     //songs will coe later through API call so we were not getting any songs here
     // api.getSongs(getSongsList, getError);    //shifted API call to songsService, Widget class should be used only for rendering GUI
@@ -141,7 +142,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
           children: [
             IconButton(
                 onPressed: () {
-                  songsService.initialize(
+                  songsOperation.initialize(
                       getSongsList); //call api again when user taps on retry otherwise
                   loading =
                       true; //user will stuck in loading forever becuase if user's network was down

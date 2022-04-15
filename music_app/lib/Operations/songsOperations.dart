@@ -1,24 +1,24 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:music_app/models/song.dart';
-import 'package:music_app/utils/api_client.dart';
 import 'package:music_app/widgets/toast_message.dart';
 import 'package:shake/shake.dart';
 
 import '../utils/helpers/string_helper.dart';
+import '../utils/services/api_client.dart';
 
-class songsServices {
+class songsOperations {
   List<Song> songs = [];
   int currentIndex = -1;
   AudioPlayer player = AudioPlayer();
   ApiClient api = ApiClient.getInstance();
   late Function getSongsList;
   late Function callSetState;
-  static songsServices Services = songsServices._();
-  static songsServices getInstance() {
-    return Services;
+  static songsOperations Operations = songsOperations._();
+  static songsOperations getInstance() {
+    return Operations;
   }
 
-  songsServices._() {}
+  songsOperations._() {}
 
   initialize(Function getSongsList) {
     // initialize(Function getSongsList, {String searchValue = ""}) { //not getting result if i am passing a search parameter??

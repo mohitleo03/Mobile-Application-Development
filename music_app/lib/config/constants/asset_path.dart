@@ -1,0 +1,1 @@
+//write path of local assets here

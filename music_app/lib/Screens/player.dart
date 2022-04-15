@@ -33,13 +33,13 @@ class _PlayerState extends State<Player> {
   late ShakeDetector detector; //shake detector of this screen
   Duration? totalDuration;
   Duration? position;
-  songsServices songsService = songsServices.getInstance();
+  songsOperations songsOperation = songsOperations.getInstance();
   late int songPlayingMode;
   Random random = Random();
 
   @override
   void initState() {
-    songsService.initialize(
+    songsOperation.initialize(
         getSongsList); //need to initialize songsService so that songsService can send required songs
     widget.song.isPlaying =
         true; //the songs on which user tapped will be playing by default
@@ -124,7 +124,7 @@ class _PlayerState extends State<Player> {
       //if we pressed previous on first song of list then we have to play last song
       widget.currentIndex = widget.songsLength - 1;
     }
-    widget.song = songsService.getSong(widget.currentIndex);
+    widget.song = songsOperation.getSong(widget.currentIndex);
     _toastMessage(title: "Playing Next Song", message: widget.song.trackName);
     player.play(widget.song.audio);
     _getDurationOfSong();
