@@ -5,6 +5,7 @@ import 'package:music_app/Screens/player.dart';
 import 'package:music_app/Screens/testing.dart';
 import 'package:music_app/Services/SongsServices.dart';
 import 'package:music_app/animations/waves.dart';
+import 'package:music_app/config/constants/app_constants.dart';
 import 'package:music_app/models/song.dart';
 import 'package:music_app/utils/api_client.dart';
 import 'package:shake/shake.dart';
@@ -170,11 +171,17 @@ class _ListOfSongsState extends State<ListOfSongs> {
               icon: songs[index].isPlaying ? pauseIcon : playIcon,
               onPressed: () async {
                 print("song is playing ? : ${songs[index].isPlaying}");
-                songs[index].isPlaying
+                int result = songs[index].isPlaying
                     ? await player
                         .pause() //if isPlaying is true then & button is pressed then pause the song
                     : await player.play(songs[index]
                         .audio); //if isPlaying is false then & bu70tton is pressed then play the song
+                if (result == AppConstants.SUCCESS) {
+                  print("Song is playing");
+                } else {
+                  print("Some issue with playing song");
+                  //we can maintain logs here beucase we have issues if reached else
+                }
                 songs[index].isPlaying = !songs[index]
                     .isPlaying; //toggle the value after user pressed the button
                 _pauseOtherSongs(

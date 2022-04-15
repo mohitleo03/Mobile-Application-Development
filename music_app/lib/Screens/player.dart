@@ -34,7 +34,6 @@ class _PlayerState extends State<Player> {
   Duration? totalDuration;
   Duration? position;
   songsServices songsService = songsServices.getInstance();
-  playingMode playingModeIs = playingMode();
   late int songPlayingMode;
   Random random = Random();
 
