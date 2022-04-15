@@ -1,8 +1,8 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:music_app/config/constants/api_path.dart';
+import '/config/constants/api_path.dart';
 import 'dart:convert' as jsonconvert;
-import '../../models/song.dart';
+import '/models/song.dart';
 
 class ApiClient {
   ApiClient._() {}

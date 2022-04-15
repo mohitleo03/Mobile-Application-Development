@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/animations/waves.dart';
+import '/utils/animations/waves.dart';
 
 class testing extends StatelessWidget {
 

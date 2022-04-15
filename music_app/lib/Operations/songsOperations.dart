@@ -1,10 +1,10 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:music_app/models/song.dart';
-import 'package:music_app/widgets/toast_message.dart';
+import '/models/song.dart';
+import '/widgets/toast_message.dart';
 import 'package:shake/shake.dart';
 
-import '../utils/helpers/string_helper.dart';
-import '../utils/services/api_client.dart';
+import '/utils/helpers/string_helper.dart';
+import '/utils/services/api_client.dart';
 
 class songsOperations {
   List<Song> songs = [];

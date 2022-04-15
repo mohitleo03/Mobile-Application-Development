@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:music_app/config/themes/color_theme.dart';
+import '/config/themes/color_theme.dart';
 import 'Screens/List_of_songs.dart';
 
 void main() async {
