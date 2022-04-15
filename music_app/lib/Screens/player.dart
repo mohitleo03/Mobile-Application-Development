@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:music_app/Services/songsServices.dart';
+import 'package:music_app/Operations/songsOperations.dart';
 import 'package:music_app/animations/waves.dart';
 import 'package:music_app/config/constants/app_constants.dart';
 import 'package:music_app/models/song.dart';
