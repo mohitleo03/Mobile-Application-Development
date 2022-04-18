@@ -9,11 +9,11 @@ A Simple music application with Few features
    You can skip the Song to a point in audio player screen
 ## Screenshots
 
-<img src="Screenshots_Videos/Music_app_1.jpg" height = 650px, width = 350>
-<img src="Screenshots_Videos/Music_app_2.jpg" height = 650px, width = 350>
-<img src="Screenshots_Videos/Music_app_3.jpg" height = 650px, width = 350>
-<img src="Screenshots_Videos/Music_app_4.jpg" height = 650px, width = 350>
-<img src="Screenshots_Videos/Music_app_5.jpg" height = 650px, width = 350>
-<img src="Screenshots_Videos/Music_app_6.jpg" height = 650px, width = 350>
-<img src="Screenshots_Videos/Music_app_7.jpg" height = 650px, width = 350>
-<img src="Screenshots_Videos/Music_app_8.jpg" height = 650px, width = 350>
+<img src="Screenshots_Videos/Music_app_1.jpg" height = 650px, width = 350 ,align = left>
+<img src="Screenshots_Videos/Music_app_2.jpg" height = 650px, width = 350 ,align = right>
+<img src="Screenshots_Videos/Music_app_3.jpg" height = 650px, width = 350 ,align = left>
+<img src="Screenshots_Videos/Music_app_4.jpg" height = 650px, width = 350 ,align = right>
+<img src="Screenshots_Videos/Music_app_5.jpg" height = 650px, width = 350 ,align = left>
+<img src="Screenshots_Videos/Music_app_6.jpg" height = 650px, width = 350 ,align = right>
+<img src="Screenshots_Videos/Music_app_7.jpg" height = 650px, width = 350 ,align = left>
+<img src="Screenshots_Videos/Music_app_8.jpg" height = 650px, width = 350 ,align = right>
