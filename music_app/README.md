@@ -1,6 +1,6 @@
 # EMI Calculator Application
 
-I created this application by Flutter Framework While learning State Managemet
+A Simple music application with Few features
 
 ## Screenshots
 
