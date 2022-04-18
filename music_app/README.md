@@ -7,7 +7,7 @@ A Simple music application with Few features
    You can search any song in search box by Song Name or Artist Name
    Tap on any song to open music player, where you can play songs in different modes like normal, shuffled, repeat
    You can skip the Song to a point in audio player screen
-## Screenshots
+## Screenshots & Video
 
 <img src="Screenshots_Videos/Music_app_1.jpg" height = 650px, width = 350>
 <img src="Screenshots_Videos/Music_app_2.jpg" height = 650px, width = 350>
