@@ -1,4 +1,4 @@
-# EMI Calculator Application
+# MUSIC Application
 
 A Simple music application with Few features
 
