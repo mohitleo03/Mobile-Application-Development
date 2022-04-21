@@ -23,7 +23,18 @@ class UserOperations {
   }
 
   //login
-  read() {}
+  Future<Message> read(UserClass.User user) async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+          email: user.userid, password: user.password);
+      return Message.takeMessage(
+          message: 'Login Successful', code: Constants.SUCCESS);
+    } catch (e) {
+      print("Error is $e");
+      return Message.takeMessage(message: 'Login Fail', code: Constants.FAIL);
+    }
+  }
+
   //change password
   update() {}
   //account deactivate

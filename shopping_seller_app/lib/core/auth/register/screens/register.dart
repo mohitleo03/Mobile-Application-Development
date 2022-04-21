@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/core/auth/register/services/user_operations.dart';
+import 'package:shopping_seller_app/utils/animations/toast.dart';
 
 import '../../../../config/constants/AppConstants.dart';
 import '../models/message.dart';
@@ -17,19 +18,21 @@ class _RegisterState extends State<Register> {
     Navigator.pushNamed(context, RouteConstants.LOGIN);
   }
 
-  _register() async{
+  _register() async {
     String message = '';
     String userid = useridCtrl.text;
     String password = passwordCtrl.text;
     String appId = appidCtrl.text;
     if (appId != Constants.appId) {
       message = 'Wrong App Id';
+      createToast(message, context);
     } else {
       User userObject =
           User.takeInput(userid: userid, password: password, appId: appId);
       UserOperations opr = UserOperations();
       Message messageObject = await opr.add(userObject);
-      
+      createToast(messageObject.message, context);
+      Future.delayed(Duration(seconds: 3), moveToLogin());
     }
   }
 
