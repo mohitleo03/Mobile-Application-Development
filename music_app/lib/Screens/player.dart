@@ -13,15 +13,15 @@ class Player extends StatefulWidget {
   int songsLength; //songsLength is needed so that we can get correct song on boundary values
   Song song;
   int currentIndex;
-  // songsServices songService;
+  songsOperations songService;
   ShakeDetector
       parent_detector; //we have to start parent shake detector while this screen is closed so that on previous screen it will start detecting phone shake
   Function
       pauseAllSongs; //trying to pause all songs on previous screen when we get navigated to player screen but not working currently
-  // Player(this.song, this.currentIndex, this.parent_detector, this.pauseAllSongs,
-  //     this.songsLength,this.songService);
   Player(this.song, this.currentIndex, this.parent_detector, this.pauseAllSongs,
-      this.songsLength);
+      this.songsLength,this.songService);
+  // Player(this.song, this.currentIndex, this.parent_detector, this.pauseAllSongs,
+  //     this.songsLength);
 
   @override
   State<Player> createState() => _PlayerState();

@@ -2,6 +2,8 @@ abstract class Constants {
   static String loginIcon =
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_LXC_AYa_L-un_DWQKmzOiOcsGI1Qwi491Q&usqp=CAU';
   static String appId = 'A111';
+  static int SUCCESS = 1;
+  static int FAIL = 2;
 }
 
 abstract class RouteConstants {

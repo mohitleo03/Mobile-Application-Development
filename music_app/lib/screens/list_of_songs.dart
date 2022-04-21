@@ -230,8 +230,8 @@ class _ListOfSongsState extends State<ListOfSongs> {
     Navigator.of(context).push(MaterialPageRoute(
         //navigation command / code
         builder: (ctx) => Player(
-            songs[index], index, detector, pauseAllSongs, songs.length)));
-    // songs[index], index, detector, pauseAllSongs, songs.length,songsService)));  //can't send songsService object from here??
+            // songs[index], index, detector, pauseAllSongs, songs.length)));
+    songs[index], index, detector, pauseAllSongs, songs.length,songsOperation)));  //can't send songsService object from here??
   }
 
   pauseAllSongs() {

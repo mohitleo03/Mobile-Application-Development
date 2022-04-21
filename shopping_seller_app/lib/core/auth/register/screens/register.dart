@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_seller_app/core/auth/register/services/user_operations.dart';
 
 import '../../../../config/constants/AppConstants.dart';
+import '../models/message.dart';
+import '../models/user.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -14,8 +17,33 @@ class _RegisterState extends State<Register> {
     Navigator.pushNamed(context, RouteConstants.LOGIN);
   }
 
-  _register(){
-    
+  _register() async{
+    String message = '';
+    String userid = useridCtrl.text;
+    String password = passwordCtrl.text;
+    String appId = appidCtrl.text;
+    if (appId != Constants.appId) {
+      message = 'Wrong App Id';
+    } else {
+      User userObject =
+          User.takeInput(userid: userid, password: password, appId: appId);
+      UserOperations opr = UserOperations();
+      Message messageObject = await opr.add(userObject);
+      
+    }
+  }
+
+  late TextEditingController useridCtrl;
+  late TextEditingController passwordCtrl;
+  late TextEditingController appidCtrl;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    useridCtrl = TextEditingController();
+    passwordCtrl = TextEditingController();
+    appidCtrl = TextEditingController();
   }
 
   @override
@@ -34,6 +62,7 @@ class _RegisterState extends State<Register> {
             Container(
               margin: EdgeInsets.all(10),
               child: TextField(
+                controller: useridCtrl,
                 decoration: InputDecoration(
                     hintText: 'Type UserId here',
                     prefix: Icon(Icons.app_registration),
@@ -44,9 +73,22 @@ class _RegisterState extends State<Register> {
             Container(
               margin: EdgeInsets.all(10),
               child: TextField(
+                controller: passwordCtrl,
                 obscureText: true,
                 decoration: InputDecoration(
                     hintText: 'Type Password here',
+                    prefix: Icon(Icons.password),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10))),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: TextField(
+                controller: appidCtrl,
+                obscureText: true,
+                decoration: InputDecoration(
+                    hintText: 'Type App Id here',
                     prefix: Icon(Icons.password),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
