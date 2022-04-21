@@ -1,36 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+import '../../../../config/constants/AppConstants.dart';
+
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
-  moveToRegister() {
-    Navigator.pushNamed(context, RouteConstants.REGISTER);
+class _RegisterState extends State<Register> {
+  moveToLogin() {
+    Navigator.pushNamed(context, RouteConstants.LOGIN);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
+            appBar: AppBar(
+        title: Text('Register'),
       ),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(Constants.loginIcon),
+            Image.network(
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_LXC_AYa_L-un_DWQKmzOiOcsGI1Qwi491Q&usqp=CAU'),
             Container(
               margin: EdgeInsets.all(10),
               child: TextField(
                 decoration: InputDecoration(
                     hintText: 'Type UserId here',
-                    prefix: Icon(Icons.login),
+                    prefix: Icon(Icons.app_registration),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
               ),
@@ -51,15 +53,15 @@ class _LoginState extends State<Login> {
               children: [
                 Container(
                     margin: EdgeInsets.all(5),
-                    child:
-                        ElevatedButton(onPressed: () {}, child: Text('Login'))),
+                    child: ElevatedButton(
+                        onPressed: () {}, child: Text('Register'))),
                 Container(
                     margin: EdgeInsets.all(5),
                     child: ElevatedButton(
                         onPressed: () {
-                          moveToRegister();
+                          moveToLogin();
                         },
-                        child: Text('Register'))),
+                        child: Text('Login'))),
               ],
             )
           ],
