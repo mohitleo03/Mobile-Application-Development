@@ -14,10 +14,14 @@ class _RegisterState extends State<Register> {
     Navigator.pushNamed(context, RouteConstants.LOGIN);
   }
 
+  _register(){
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            appBar: AppBar(
+      appBar: AppBar(
         title: Text('Register'),
       ),
       body: SafeArea(
@@ -54,7 +58,10 @@ class _RegisterState extends State<Register> {
                 Container(
                     margin: EdgeInsets.all(5),
                     child: ElevatedButton(
-                        onPressed: () {}, child: Text('Register'))),
+                        onPressed: () {
+                          _register();
+                        },
+                        child: Text('Register'))),
                 Container(
                     margin: EdgeInsets.all(5),
                     child: ElevatedButton(
