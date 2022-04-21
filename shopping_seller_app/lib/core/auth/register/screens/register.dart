@@ -14,8 +14,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  moveToLogin() {
-    Navigator.pushNamed(context, RouteConstants.LOGIN);
+  _moveToLogin() {
+    Navigator.pushReplacementNamed(context, RouteConstants.LOGIN);
   }
 
   _register() async {
@@ -32,7 +32,7 @@ class _RegisterState extends State<Register> {
       UserRegisterOperations opr = UserRegisterOperations();
       Message messageObject = await opr.add(userObject);
       createToast(messageObject.message, context);
-      Future.delayed(Duration(seconds: 3), moveToLogin);
+      Future.delayed(Duration(seconds: 3), _moveToLogin);
     }
   }
 
@@ -59,16 +59,15 @@ class _RegisterState extends State<Register> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Container(
-          height: deviceSize.height - 90,
+          height: deviceSize.height - 100,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
-                  Image.network(
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_LXC_AYa_L-un_DWQKmzOiOcsGI1Qwi491Q&usqp=CAU'),
+                  Image.network(Constants.REGISTRATION_IMAGE,height: 250,),
                   Container(
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(8), 
                     child: TextField(
                       controller: useridCtrl,
                       decoration: InputDecoration(
@@ -79,7 +78,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(8),
                     child: TextField(
                       controller: passwordCtrl,
                       obscureText: true,
@@ -91,7 +90,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(8),
                     child: TextField(
                       controller: appidCtrl,
                       obscureText: true,
@@ -103,7 +102,8 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   Container(
-                      margin: EdgeInsets.all(5),
+                    width: 200,
+                      margin: EdgeInsets.all(3),
                       child: ElevatedButton(
                           onPressed: () {
                             _register();
@@ -118,7 +118,7 @@ class _RegisterState extends State<Register> {
                       margin: EdgeInsets.only(top: 5),
                       child: ElevatedButton(
                         onPressed: () {
-                          moveToLogin();
+                          _moveToLogin();
                         },
                         child: Text(
                           'Login',

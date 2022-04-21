@@ -1,6 +1,6 @@
 //all application routes are placed here
 //Routes - Navigation
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../core/auth/login/screens/login.dart';
 import '../../core/auth/register/screens/register.dart';

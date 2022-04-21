@@ -15,8 +15,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  moveToRegister() {
-    Navigator.pushNamed(context, RouteConstants.REGISTER);
+  _moveToRegister() {
+    Navigator.pushReplacementNamed(context, RouteConstants.REGISTER);
   }
 
   late TextEditingController useridCtrl;
@@ -59,7 +59,7 @@ class _LoginState extends State<Login> {
             children: [
               Column(
                 children: [
-                  Image.network(Constants.loginIcon),
+                  Image.network(Constants.LOGIN_IMAGE),
                   Container(
                     margin: EdgeInsets.all(10),
                     child: TextField(
@@ -84,6 +84,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   Container(
+                    width: 200,
                       margin: EdgeInsets.all(5),
                       child: ElevatedButton(
                           onPressed: () {
@@ -99,7 +100,7 @@ class _LoginState extends State<Login> {
                       margin: EdgeInsets.only(top:5),
                       child: ElevatedButton(
                           onPressed: () {
-                            moveToRegister();
+                            _moveToRegister();
                           },
                           child: Text('Register',style: TextStyle(color: Colors.blue),),
                           style: ElevatedButton.styleFrom(

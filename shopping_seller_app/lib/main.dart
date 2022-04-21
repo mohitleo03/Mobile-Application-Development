@@ -9,8 +9,7 @@ void main(List<String> args) async {
   WidgetsFlutterBinding();
   await Firebase.initializeApp();
   runApp(MaterialApp(
-    // home: Login(),
-    // home: Register(),  //once initial route defined no need to mention home
+    // home: Login(), //once initial route defined no need to mention home
     initialRoute: RouteConstants.LOGIN, //inital or base route
     routes: getRoutes(), //all routes are loaded here
   ));
