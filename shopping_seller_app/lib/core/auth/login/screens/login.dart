@@ -22,12 +22,11 @@ class _LoginState extends State<Login> {
   late TextEditingController useridCtrl;
   late TextEditingController passwordCtrl;
 
-  _login() async{
+  _login() async {
     String userid = useridCtrl.text;
     String password = passwordCtrl.text;
-    UserLogin userObject = UserLogin.takeInput(
-        userid: userid, password: password
-    );
+    UserLogin userObject =
+        UserLogin.takeInput(userid: userid, password: password);
     UserLoginOperations opr = UserLoginOperations();
     Message messageObject = await opr.read(userObject);
     createToast(messageObject.message, context);
@@ -45,59 +44,73 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
       ),
       body: SafeArea(
           child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.network(Constants.loginIcon),
-            Container(
-              margin: EdgeInsets.all(10),
-              child: TextField(
-                controller: useridCtrl,
-                decoration: InputDecoration(
-                    hintText: 'Type UserId here',
-                    prefix: Icon(Icons.login),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
+        child: Container(
+          height: deviceSize.height -90,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Column(
+                children: [
+                  Image.network(Constants.loginIcon),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: TextField(
+                      controller: useridCtrl,
+                      decoration: InputDecoration(
+                          hintText: 'Type UserId here',
+                          prefix: Icon(Icons.login),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: TextField(
+                      controller: passwordCtrl,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          hintText: 'Type Password here',
+                          prefix: Icon(Icons.password),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.all(5),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            _login();
+                          },
+                          child: Text('Login'))),
+                ],
               ),
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              child: TextField(
-                controller: passwordCtrl,
-                obscureText: true,
-                decoration: InputDecoration(
-                    hintText: 'Type Password here',
-                    prefix: Icon(Icons.password),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                    margin: EdgeInsets.all(5),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          _login();
-                        },
-                        child: Text('Login'))),
-                Container(
-                    margin: EdgeInsets.all(5),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          moveToRegister();
-                        },
-                        child: Text('Register'))),
-              ],
-            )
-          ],
+              Column(
+                children: [
+                  Text('If you are a new Seller you can Register'),
+                  Container(
+                      margin: EdgeInsets.only(top:5),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            moveToRegister();
+                          },
+                          child: Text('Register',style: TextStyle(color: Colors.blue),),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white
+                          ),
+                      )
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       )),
     );

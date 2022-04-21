@@ -32,7 +32,7 @@ class _RegisterState extends State<Register> {
       UserRegisterOperations opr = UserRegisterOperations();
       Message messageObject = await opr.add(userObject);
       createToast(messageObject.message, context);
-      Future.delayed(Duration(seconds: 3), moveToLogin());
+      Future.delayed(Duration(seconds: 3), moveToLogin);
     }
   }
 
@@ -51,72 +51,85 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text('Register'),
       ),
       body: SafeArea(
           child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_LXC_AYa_L-un_DWQKmzOiOcsGI1Qwi491Q&usqp=CAU'),
-            Container(
-              margin: EdgeInsets.all(10),
-              child: TextField(
-                controller: useridCtrl,
-                decoration: InputDecoration(
-                    hintText: 'Type UserId here',
-                    prefix: Icon(Icons.app_registration),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
+        child: Container(
+          height: deviceSize.height - 90,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  Image.network(
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_LXC_AYa_L-un_DWQKmzOiOcsGI1Qwi491Q&usqp=CAU'),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: TextField(
+                      controller: useridCtrl,
+                      decoration: InputDecoration(
+                          hintText: 'Type UserId here',
+                          prefix: Icon(Icons.app_registration),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: TextField(
+                      controller: passwordCtrl,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          hintText: 'Type Password here',
+                          prefix: Icon(Icons.password),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: TextField(
+                      controller: appidCtrl,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          hintText: 'Type App Id here',
+                          prefix: Icon(Icons.password),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.all(5),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            _register();
+                          },
+                          child: Text('Register'))),
+                ],
               ),
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              child: TextField(
-                controller: passwordCtrl,
-                obscureText: true,
-                decoration: InputDecoration(
-                    hintText: 'Type Password here',
-                    prefix: Icon(Icons.password),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              child: TextField(
-                controller: appidCtrl,
-                obscureText: true,
-                decoration: InputDecoration(
-                    hintText: 'Type App Id here',
-                    prefix: Icon(Icons.password),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                    margin: EdgeInsets.all(5),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          _register();
-                        },
-                        child: Text('Register'))),
-                Container(
-                    margin: EdgeInsets.all(5),
-                    child: ElevatedButton(
+              Column(
+                children: [
+                  Text('If you are an existing Seller you should Login'),
+                  Container(
+                      margin: EdgeInsets.only(top: 5),
+                      child: ElevatedButton(
                         onPressed: () {
                           moveToLogin();
                         },
-                        child: Text('Login'))),
-              ],
-            )
-          ],
+                        child: Text(
+                          'Login',
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                        style: ElevatedButton.styleFrom(primary: Colors.white),
+                      )),
+                ],
+              )
+            ],
+          ),
         ),
       )),
     );
