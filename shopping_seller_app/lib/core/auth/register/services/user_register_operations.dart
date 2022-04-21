@@ -3,7 +3,7 @@ import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 import 'package:shopping_seller_app/core/auth/register/models/message.dart';
 import '../models/user.dart' as UserClass;
 
-class UserOperations {
+class UserRegisterOperations {
   //step 1 - create an instance of firebase auth service
   final FirebaseAuth _auth = FirebaseAuth.instance;
   //register
@@ -22,18 +22,7 @@ class UserOperations {
     }
   }
 
-  //login
-  Future<Message> read(UserClass.User user) async {
-    try {
-      await _auth.signInWithEmailAndPassword(
-          email: user.userid, password: user.password);
-      return Message.takeMessage(
-          message: 'Login Successful', code: Constants.SUCCESS);
-    } catch (e) {
-      print("Error is $e");
-      return Message.takeMessage(message: 'Login Fail', code: Constants.FAIL);
-    }
-  }
+
 
   //change password
   update() {}

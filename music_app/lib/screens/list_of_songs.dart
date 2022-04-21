@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:another_flushbar/flushbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,6 @@ import '/utils/animations/waves.dart';
 import '/config/constants/app_constants.dart';
 import '/models/song.dart';
 import 'package:shake/shake.dart';
-
 
 import '../utils/services/api_client.dart';
 import '../widgets/toast_message.dart';
@@ -35,7 +36,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
   ApiClient api = ApiClient.getInstance();
   late ShakeDetector detector;
   Icon playIcon = _icon(Icons.play_arrow, 20, Color.fromARGB(255, 2, 38, 67));
-  Icon pauseIcon = _icon(Icons.pause, 20,Color.fromARGB(255, 2, 38, 67));
+  Icon pauseIcon = _icon(Icons.pause, 20, Color.fromARGB(255, 2, 38, 67));
 
   @override
   void initState() {
@@ -162,6 +163,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
     loading = true;
     return ListView.builder(
       itemBuilder: (BuildContext ctx, int index) {
+        print(songs[index].isPlaying);
         //building each item while iterarting the list
         return ListTile(
           onTap: () {
@@ -227,11 +229,17 @@ class _ListOfSongsState extends State<ListOfSongs> {
     songs[index].isPlaying = false; //also change isPlaying value of that song
     currentIndex = -1; //giving initial value to currentIndex
     pauseAllSongs(); //trying to pause all songs but last song which was playing is not showing pause button
+    // print(songs[index].isPlaying);
     Navigator.of(context).push(MaterialPageRoute(
         //navigation command / code
         builder: (ctx) => Player(
             // songs[index], index, detector, pauseAllSongs, songs.length)));
-    songs[index], index, detector, pauseAllSongs, songs.length,songsOperation)));  //can't send songsService object from here??
+            songs[index],
+            index,
+            detector,
+            pauseAllSongs,
+            songs.length,
+            songsOperation))); //can't send songsService object from here??
   }
 
   pauseAllSongs() {
