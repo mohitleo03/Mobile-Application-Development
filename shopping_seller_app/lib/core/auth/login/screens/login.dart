@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
+import 'package:shopping_seller_app/core/auth/login/models/userLogin.dart';
 import 'package:shopping_seller_app/core/auth/register/models/user.dart';
-import 'package:shopping_seller_app/core/auth/register/services/user_operations.dart';
+import 'package:shopping_seller_app/core/auth/login/services/user_login_operations.dart';
 
 import '../../../../utils/animations/toast.dart';
-import '../../register/models/message.dart';
+import '../../../../utils/services/message.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -24,9 +25,10 @@ class _LoginState extends State<Login> {
   _login() async{
     String userid = useridCtrl.text;
     String password = passwordCtrl.text;
-    User userObject = User.takeInput(
-        userid: userid, password: password, appId: Constants.appId);
-    UserOperations opr = UserOperations();
+    UserLogin userObject = UserLogin.takeInput(
+        userid: userid, password: password
+    );
+    UserLoginOperations opr = UserLoginOperations();
     Message messageObject = await opr.read(userObject);
     createToast(messageObject.message, context);
     // Future.delayed(Duration(seconds: 3)

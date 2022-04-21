@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../config/constants/AppConstants.dart';
 import '../../login/models/userLogin.dart' as UserClass;
-import '../../register/models/message.dart';
+import '../../../../utils/services/message.dart';
 
-class userLoginOperations{
+class UserLoginOperations{
     //step 1 - create an instance of firebase auth service
   final FirebaseAuth _auth = FirebaseAuth.instance;
     //login

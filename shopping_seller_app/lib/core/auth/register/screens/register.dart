@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_seller_app/core/auth/register/services/user_operations.dart';
+import 'package:shopping_seller_app/core/auth/register/services/user_register_operations.dart';
 import 'package:shopping_seller_app/utils/animations/toast.dart';
 
 import '../../../../config/constants/AppConstants.dart';
-import '../models/message.dart';
+import '../../../../utils/services/message.dart';
 import '../models/user.dart';
 
 class Register extends StatefulWidget {
@@ -29,7 +29,7 @@ class _RegisterState extends State<Register> {
     } else {
       User userObject =
           User.takeInput(userid: userid, password: password, appId: appId);
-      UserOperations opr = UserOperations();
+      UserRegisterOperations opr = UserRegisterOperations();
       Message messageObject = await opr.add(userObject);
       createToast(messageObject.message, context);
       Future.delayed(Duration(seconds: 3), moveToLogin());
