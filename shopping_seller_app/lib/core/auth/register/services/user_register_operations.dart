@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 import 'package:shopping_seller_app/utils/services/message.dart';
-import '../models/user.dart' as UserClass;
+import '../models/userRegister.dart' as UserClass;
 
 class UserRegisterOperations {
   //step 1 - create an instance of firebase auth service
   final FirebaseAuth _auth = FirebaseAuth.instance;
   //register
-  Future<Message> add(UserClass.User user) async {
+  Future<Message> add(UserClass.UserRegister user) async {
     try {
       UserCredential userCred = await _auth.createUserWithEmailAndPassword(
           email: user.userid, password: user.password);

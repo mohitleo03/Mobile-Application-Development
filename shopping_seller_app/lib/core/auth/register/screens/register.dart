@@ -4,7 +4,7 @@ import 'package:shopping_seller_app/utils/animations/toast.dart';
 
 import '../../../../config/constants/AppConstants.dart';
 import '../../../../utils/services/message.dart';
-import '../models/user.dart';
+import '../models/userRegister.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -27,8 +27,8 @@ class _RegisterState extends State<Register> {
       message = 'Wrong App Id';
       createToast(message, context);
     } else {
-      User userObject =
-          User.takeInput(userid: userid, password: password, appId: appId);
+      UserRegister userObject =
+          UserRegister.takeInput(userid: userid, password: password, appId: appId);
       UserRegisterOperations opr = UserRegisterOperations();
       Message messageObject = await opr.add(userObject);
       createToast(messageObject.message, context);

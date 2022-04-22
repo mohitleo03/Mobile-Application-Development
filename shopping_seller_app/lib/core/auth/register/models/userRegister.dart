@@ -1,9 +1,9 @@
-class User {
+class UserRegister {
   late String userid;
   late String password;
   late String appId;
-  User() {}
-  User.takeInput(
+  UserRegister() {}
+  UserRegister.takeInput(
       {required String userid,
       required String password,
       required String appId}) {

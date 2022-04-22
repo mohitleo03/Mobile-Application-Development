@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 import 'package:shopping_seller_app/core/auth/login/models/userLogin.dart';
-import 'package:shopping_seller_app/core/auth/register/models/user.dart';
+import 'package:shopping_seller_app/core/auth/register/models/userRegister.dart';
 import 'package:shopping_seller_app/core/auth/login/services/user_login_operations.dart';
 
 import '../../../../utils/animations/toast.dart';
