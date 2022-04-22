@@ -6,19 +6,19 @@ import 'package:shake/shake.dart';
 import '/utils/helpers/string_helper.dart';
 import '/utils/services/api_client.dart';
 
-class songsOperations {
+class songsServices {
   List<Song> songs = [];
   int currentIndex = -1;
   AudioPlayer player = AudioPlayer();
   ApiClient api = ApiClient.getInstance();
   late Function getSongsList;
   late Function callSetState;
-  static songsOperations Operations = songsOperations._();
-  static songsOperations getInstance() {
+  static songsServices Operations = songsServices._();
+  static songsServices getInstance() {
     return Operations;
   }
 
-  songsOperations._() {}
+  songsServices._() {}
 
   initialize(Function getSongsList) {
     // initialize(Function getSongsList, {String searchValue = ""}) { //not getting result if i am passing a search parameter??

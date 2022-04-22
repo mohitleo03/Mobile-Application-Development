@@ -1,9 +1,8 @@
 import 'dart:math';
-
 import 'package:another_flushbar/flushbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import '/Operations/songsOperations.dart';
+import '../Services/songsServices.dart';
 import '../utils/animations/waves.dart';
 import '/config/constants/app_constants.dart';
 import '/models/song.dart';
@@ -13,15 +12,13 @@ class Player extends StatefulWidget {
   int songsLength; //songsLength is needed so that we can get correct song on boundary values
   Song song;
   int currentIndex;
-  songsOperations songService;
+  songsServices songService;  //will get the same instance of songServices so that we don't have to get the songs again
   ShakeDetector
       parent_detector; //we have to start parent shake detector while this screen is closed so that on previous screen it will start detecting phone shake
   Function
       pauseAllSongs; //trying to pause all songs on previous screen when we get navigated to player screen but not working currently
   Player(this.song, this.currentIndex, this.parent_detector, this.pauseAllSongs,
       this.songsLength,this.songService);
-  // Player(this.song, this.currentIndex, this.parent_detector, this.pauseAllSongs,
-  //     this.songsLength);
 
   @override
   State<Player> createState() => _PlayerState();
@@ -33,14 +30,11 @@ class _PlayerState extends State<Player> {
   late ShakeDetector detector; //shake detector of this screen
   Duration? totalDuration;
   Duration? position;
-  songsOperations songsOperation = songsOperations.getInstance();
   late int songPlayingMode;
   Random random = Random();
 
   @override
   void initState() {
-    songsOperation.initialize(
-        getSongsList); //need to initialize songsService so that songsService can send required songs
     widget.song.isPlaying =
         true; //the songs on which user tapped will be playing by default
     player.play(widget.song.audio);
@@ -85,12 +79,6 @@ class _PlayerState extends State<Player> {
     setState(() {});
   }
 
-  getSongsList(List<Song> songs) {
-    //just getting songs because we were not able to get songs without initializing it
-    this.songs = songs;
-    setState(() {});
-  }
-
   _play() {
     //if user press on play button
     widget.song.isPlaying = !widget.song.isPlaying;
@@ -124,7 +112,7 @@ class _PlayerState extends State<Player> {
       //if we pressed previous on first song of list then we have to play last song
       widget.currentIndex = widget.songsLength - 1;
     }
-    widget.song = songsOperation.getSong(widget.currentIndex);
+    widget.song = widget.songService.getSong(widget.currentIndex);
     _toastMessage(title: "Playing Next Song", message: widget.song.trackName);
     player.play(widget.song.audio);
     _getDurationOfSong();

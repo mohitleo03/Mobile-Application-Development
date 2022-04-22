@@ -5,7 +5,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import '/Screens/player.dart';
 import '/Screens/testing.dart';
-import '/Operations/songsOperations.dart';
+import '../Services/songsServices.dart';
 import '/utils/animations/waves.dart';
 import '/config/constants/app_constants.dart';
 import '/models/song.dart';
@@ -32,7 +32,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
   AudioPlayer player = AudioPlayer();
   int currentIndex = -1;
   List<Song> songs = [];
-  songsOperations songsOperation = songsOperations.getInstance();
+  songsServices songsService = songsServices.getInstance();
   ApiClient api = ApiClient.getInstance();
   late ShakeDetector detector;
   Icon playIcon = _icon(Icons.play_arrow, 20, Color.fromARGB(255, 2, 38, 67));
@@ -40,7 +40,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
 
   @override
   void initState() {
-    songsOperation.initialize(
+    songsService.initialize(
         getSongsList); //initialize method songsService in which API is called
     // songs = songsService.getSongsList();     //songs will coe later through API call so we were not getting any songs here
     // api.getSongs(getSongsList, getError);    //shifted API call to songsService, Widget class should be used only for rendering GUI
@@ -143,7 +143,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
           children: [
             IconButton(
                 onPressed: () {
-                  songsOperation.initialize(
+                  songsService.initialize(
                       getSongsList); //call api again when user taps on retry otherwise
                   loading =
                       true; //user will stuck in loading forever becuase if user's network was down
@@ -163,7 +163,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
     loading = true;
     return ListView.builder(
       itemBuilder: (BuildContext ctx, int index) {
-        print(songs[index].isPlaying);
+        // print(songs[index].isPlaying);
         //building each item while iterarting the list
         return ListTile(
           onTap: () {
@@ -239,7 +239,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
             detector,
             pauseAllSongs,
             songs.length,
-            songsOperation))); //can't send songsService object from here??
+            songsService))); //can't send songsService object from here??
   }
 
   pauseAllSongs() {
