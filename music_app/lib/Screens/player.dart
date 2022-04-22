@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import '../Services/songsServices.dart';
 import '../utils/animations/waves.dart';
+import '../widgets/toast_message.dart';
 import '/config/constants/app_constants.dart';
 import '/models/song.dart';
 import 'package:shake/shake.dart';
@@ -12,13 +13,15 @@ class Player extends StatefulWidget {
   int songsLength; //songsLength is needed so that we can get correct song on boundary values
   Song song;
   int currentIndex;
-  songsServices songService;  //will get the same instance of songServices so that we don't have to get the songs again
+  songsServices
+      songService; //will get the same instance of songServices so that we don't have to get the songs again
   ShakeDetector
       parent_detector; //we have to start parent shake detector while this screen is closed so that on previous screen it will start detecting phone shake
   Function
       pauseAllSongs; //trying to pause all songs on previous screen when we get navigated to player screen but not working currently
   Player(this.song, this.currentIndex, this.parent_detector, this.pauseAllSongs,
-      this.songsLength,this.songService);
+      this.songsLength, this.songService);
+
 
   @override
   State<Player> createState() => _PlayerState();
@@ -32,6 +35,7 @@ class _PlayerState extends State<Player> {
   Duration? position;
   late int songPlayingMode;
   Random random = Random();
+    late BuildContext ctx;
 
   @override
   void initState() {
@@ -82,7 +86,7 @@ class _PlayerState extends State<Player> {
   _play() {
     //if user press on play button
     widget.song.isPlaying = !widget.song.isPlaying;
-    _toastMessage(title: "Playing Song", message: widget.song.trackName);
+    toastMessage(title: "Playing Song", message: widget.song.trackName,context: ctx);
     player.play(widget.song.audio);
     setState(() {});
   }
@@ -90,7 +94,7 @@ class _PlayerState extends State<Player> {
   _pause() {
     //if user press on pause button
     widget.song.isPlaying = !widget.song.isPlaying;
-    _toastMessage(title: "Song Paused", message: widget.song.trackName);
+    toastMessage(title: "Song Paused", message: widget.song.trackName,context: ctx);
     player.pause();
     setState(() {});
   }
@@ -98,7 +102,8 @@ class _PlayerState extends State<Player> {
   _getSong(int index) {
     //getting song from songsService
     player.stop(); //stop previous song
-    if (songPlayingMode == playingModeIs.linear || songPlayingMode == playingModeIs.repeat) {
+    if (songPlayingMode == playingModeIs.linear ||
+        songPlayingMode == playingModeIs.repeat) {
       widget.currentIndex +=
           index; //increase currentIndex by the index which might be -1 or 1
     } else {
@@ -113,7 +118,7 @@ class _PlayerState extends State<Player> {
       widget.currentIndex = widget.songsLength - 1;
     }
     widget.song = widget.songService.getSong(widget.currentIndex);
-    _toastMessage(title: "Playing Next Song", message: widget.song.trackName);
+    toastMessage(title: "Playing Next Song", message: widget.song.trackName,context: ctx);
     player.play(widget.song.audio);
     _getDurationOfSong();
     widget.song.isPlaying =
@@ -121,14 +126,6 @@ class _PlayerState extends State<Player> {
     setState(() {});
     // totalDuration.inMinutes = Duration(minutes: 0);
     // position = Duration();
-  }
-
-  _toastMessage({required String title, required String message}) {
-    Flushbar(
-      title: title,
-      message: message,
-      duration: Duration(seconds: 2),
-    )..show(context);
   }
 
   _seekTo(int microseconds) {
@@ -164,6 +161,7 @@ class _PlayerState extends State<Player> {
 
   @override
   Widget build(BuildContext context) {
+    ctx = context;
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 2, 38, 67),
@@ -253,9 +251,9 @@ class _PlayerState extends State<Player> {
               IconButton(
                   onPressed: () {
                     _getSong(-1); //get previous song by passing -1
-                    _toastMessage(
+                    toastMessage(
                         title: "Playing Previous Song",
-                        message: widget.song.trackName);
+                        message: widget.song.trackName,context: context);
                   },
                   icon: Icon(
                     Icons.skip_previous,
@@ -275,9 +273,9 @@ class _PlayerState extends State<Player> {
               IconButton(
                   onPressed: () {
                     _getSong(1); //call next song by passing 1
-                    _toastMessage(
+                    toastMessage(
                         title: "Playing Next Song",
-                        message: widget.song.trackName);
+                        message: widget.song.trackName,context: context);
                   },
                   icon: Icon(
                     Icons.skip_next,
@@ -294,12 +292,12 @@ class _PlayerState extends State<Player> {
           onPressed: () {
             _changeSongPlayingMode();
             if (songPlayingMode == playingModeIs.linear) {
-              _toastMessage(title: "Song Playing Mode", message: "Normal");
+              toastMessage(title: "Song Playing Mode", message: "Normal",context: context);
             } else if (songPlayingMode == playingModeIs.shuffle) {
-              _toastMessage(title: "Song Playing Mode", message: "Shuffled");
+              toastMessage(title: "Song Playing Mode", message: "Shuffled",context: context);
             } else {
-              _toastMessage(
-                  title: "Song Playing Mode", message: "Repeat One Song");
+              toastMessage(
+                  title: "Song Playing Mode", message: "Repeat One Song",context: context);
             }
           },
           child: Icon(_getFloatingActionButtonIcon(songPlayingMode))),

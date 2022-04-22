@@ -37,6 +37,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
   late ShakeDetector detector;
   Icon playIcon = _icon(Icons.play_arrow, 20, Color.fromARGB(255, 2, 38, 67));
   Icon pauseIcon = _icon(Icons.pause, 20, Color.fromARGB(255, 2, 38, 67));
+  late BuildContext ctx;
 
   @override
   void initState() {
@@ -90,10 +91,13 @@ class _ListOfSongsState extends State<ListOfSongs> {
     songs[currentIndex].isPlaying =
         true; //isPlaying true for showing pause button
     player.play(songs[currentIndex].audio); //playing song by audio player
-    _toastMessage(
-        title: "Playing next Song", message: songs[currentIndex].trackName);
-    // toastMessage(
-    //     title: "Playing next Song", message: songs[currentIndex].trackName,context: context,);
+    // _toastMessage(
+    //     title: "Playing next Song", message: songs[currentIndex].trackName);
+    toastMessage(
+      title: "Playing next Song",
+      message: songs[currentIndex].trackName,
+      context: ctx,
+    );
     setState(() {});
   }
 
@@ -114,13 +118,13 @@ class _ListOfSongsState extends State<ListOfSongs> {
         () {}); //re-render will display pause icon on all other songs leaving the song on the index because it' isPlaying is true
   }
 
-  _toastMessage({required String title, required String message}) {
-    Flushbar(
-      title: title,
-      message: message,
-      duration: Duration(seconds: 2),
-    )..show(context);
-  }
+  // _toastMessage({required String title, required String message}) {
+  //   Flushbar(
+  //     title: title,
+  //     message: message,
+  //     duration: Duration(seconds: 2),
+  //   )..show(context);
+  // }
 
   Center _showLoading() {
     //Simple loading till we get songs
@@ -196,12 +200,12 @@ class _ListOfSongsState extends State<ListOfSongs> {
                     index); //call pause other songs so that all songs or previous song will show pause button
                 currentIndex = index; //increase scope of index
                 songs[index].isPlaying //display toast message accrodingly
-                    ? _toastMessage(
+                    ? toastMessage(
                         title: "Song is Playing",
-                        message: songs[index].trackName)
-                    : _toastMessage(
+                        message: songs[index].trackName,context: ctx,)
+                    : toastMessage(
                         title: "Song is Paused",
-                        message: songs[index].trackName);
+                        message: songs[index].trackName,context: ctx,);
                 setState(() {});
               },
             ),
@@ -242,7 +246,6 @@ class _ListOfSongsState extends State<ListOfSongs> {
             pauseAllSongs,
             songs.length,
             songsService))); //can't send songsService object from here??
-    
   }
 
   pauseAllSongs() {
@@ -256,6 +259,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
 
   @override
   Widget build(BuildContext context) {
+    ctx = context;
     return Scaffold(
         appBar: AppBar(
             toolbarHeight: 80,
