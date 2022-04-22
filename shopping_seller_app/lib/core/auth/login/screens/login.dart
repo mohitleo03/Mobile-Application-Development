@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
                       controller: useridCtrl,
                       decoration: InputDecoration(
                           hintText: 'Type UserId here',
-                          prefix: Icon(Icons.login),
+                          prefixIcon: Icon(Icons.login),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10))),
                     ),
@@ -83,7 +83,7 @@ class _LoginState extends State<Login> {
                       obscureText: true,
                       decoration: InputDecoration(
                           hintText: 'Type Password here',
-                          prefix: Icon(Icons.password),
+                          prefixIcon: Icon(Icons.password),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10))),
                     ),

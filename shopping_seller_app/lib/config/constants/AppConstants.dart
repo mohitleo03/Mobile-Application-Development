@@ -12,3 +12,7 @@ abstract class RouteConstants {
   static String REGISTER = '/register';
   static String DASHBOARD = '/dashboard';
 }
+
+class Collections {
+  static String PRODUCTS = 'products';
+}
