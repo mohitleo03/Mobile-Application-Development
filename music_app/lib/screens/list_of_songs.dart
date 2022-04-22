@@ -4,7 +4,6 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import '/Screens/player.dart';
-import '/Screens/testing.dart';
 import '../Services/songsServices.dart';
 import '/utils/animations/waves.dart';
 import '/config/constants/app_constants.dart';

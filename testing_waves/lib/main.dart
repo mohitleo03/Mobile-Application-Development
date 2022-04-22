@@ -18,9 +18,8 @@ class WaveDemoApp extends StatelessWidget {
 }
 
 class WaveDemoHomePage extends StatefulWidget {
-  WaveDemoHomePage({Key key, this.title}) : super(key: key);
-
   final String title;
+  WaveDemoHomePage({required this.title});
 
   @override
   _WaveDemoHomePageState createState() => _WaveDemoHomePageState();
@@ -28,9 +27,9 @@ class WaveDemoHomePage extends StatefulWidget {
 
 class _WaveDemoHomePageState extends State<WaveDemoHomePage> {
   _buildCard({
-    Config config,
+    required Config config,
     Color backgroundColor = Colors.transparent,
-    DecorationImage backgroundImage,
+    DecorationImage? backgroundImage,
     double height = 152.0,
   }) {
     return Container(
@@ -53,9 +52,9 @@ class _WaveDemoHomePageState extends State<WaveDemoHomePage> {
     );
   }
 
-  MaskFilter _blur;
+  MaskFilter? _blur;
   final List<MaskFilter> _blurs = [
-    null,
+    
     MaskFilter.blur(BlurStyle.normal, 10.0),
     MaskFilter.blur(BlurStyle.inner, 10.0),
     MaskFilter.blur(BlurStyle.outer, 10.0),
@@ -99,7 +98,7 @@ class _WaveDemoHomePageState extends State<WaveDemoHomePage> {
               config: CustomConfig(
                 gradients: [
                   [Colors.red, Color(0xEEF44336)],
-                  [Colors.red[800], Color(0x77E57373)],
+                  [Colors.red, Color(0x77E57373)],
                   [Colors.orange, Color(0x66FF9800)],
                   [Colors.yellow, Color(0x55FFEB3B)]
                 ],
@@ -122,10 +121,10 @@ class _WaveDemoHomePageState extends State<WaveDemoHomePage> {
               ),
               config: CustomConfig(
                 colors: [
-                  Colors.pink[400],
-                  Colors.pink[300],
-                  Colors.pink[200],
-                  Colors.pink[100]
+                  Colors.pink,
+                  Colors.pink,
+                  Colors.pink,
+                  Colors.pink
                 ],
                 durations: [18000, 8000, 5000, 12000],
                 heightPercentages: [0.85, 0.86, 0.88, 0.90],
@@ -144,7 +143,7 @@ class _WaveDemoHomePageState extends State<WaveDemoHomePage> {
                   heightPercentages: [0.25, 0.26, 0.28, 0.31],
                   blur: _blur,
                 ),
-                backgroundColor: Colors.blue[600]),
+                backgroundColor: Colors.blue),
           ],
         ),
       ),
