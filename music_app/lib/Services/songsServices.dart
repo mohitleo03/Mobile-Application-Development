@@ -26,6 +26,7 @@ class songsServices {
         getSongsList; //increasing scope of the function which will send songs to other file so that we can call it when we get songs
 
     // this.callSetState = callSetState;
+    searchValue==""?api.getSongs(setSongsList, getError,):
     api.getSongs(setSongsList, getError,
         searchValue: searchValue); //calling API
     // api.getSongs(setSongsList, getError); //calling API

@@ -216,7 +216,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
     //anything user types in search box will be joined with API URL for getting desired result
     songsService.initialize(
         getSongsList: getSongsList,
-        searchValue: searchValue); //doing API call again
+        searchValue: searchCtrl.text); //doing API call again
     // api.getSongs(getSongsList, getError, searchValue: searchValue);
     player.stop();
     songs =
@@ -229,14 +229,20 @@ class _ListOfSongsState extends State<ListOfSongs> {
     detector
         .stopListening(); //as we are moving to next screen we have to stop the shake detector otherwise when user shakes on next screen preevious detector will also listen & start doing it's functionality
     player.stop(); //stop this screens song
-    songs[index].isPlaying = false; //also change isPlaying value of that song
     currentIndex = -1; //giving initial value to currentIndex
     pauseAllSongs(); //trying to pause all songs but last song which was playing is not showing pause button
     // print(songs[index].isPlaying);
     Navigator.of(context).push(MaterialPageRoute(
         //navigation command / code
-        builder: (ctx) => Player(songs[index], index, detector, pauseAllSongs,
-            songs.length, songsService)));
+        builder: (ctx) => Player(
+            // songs[index], index, detector, pauseAllSongs, songs.length)));
+            songs[index],
+            index,
+            detector,
+            pauseAllSongs,
+            songs.length,
+            songsService))); //can't send songsService object from here??
+    
   }
 
   pauseAllSongs() {
