@@ -32,6 +32,7 @@ class _LoginState extends State<Login> {
     createToast(messageObject.message, context);
     // Future.delayed(Duration(seconds: 3)
     // ,moveToRegister());
+    Navigator.pushNamed(context, RouteConstants.DASHBOARD);
   }
 
   @override
@@ -52,7 +53,7 @@ class _LoginState extends State<Login> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Container(
-          height: deviceSize.height -90,
+          height: deviceSize.height - 90,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.max,
@@ -84,7 +85,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   Container(
-                    width: 200,
+                      width: 200,
                       margin: EdgeInsets.all(5),
                       child: ElevatedButton(
                           onPressed: () {
@@ -97,17 +98,17 @@ class _LoginState extends State<Login> {
                 children: [
                   Text('If you are a new Seller you can Register'),
                   Container(
-                      margin: EdgeInsets.only(top:5),
+                      margin: EdgeInsets.only(top: 5),
                       child: ElevatedButton(
-                          onPressed: () {
-                            _moveToRegister();
-                          },
-                          child: Text('Register',style: TextStyle(color: Colors.blue),),
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.white
-                          ),
-                      )
-                  ),
+                        onPressed: () {
+                          _moveToRegister();
+                        },
+                        child: Text(
+                          'Register',
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                        style: ElevatedButton.styleFrom(primary: Colors.white),
+                      )),
                 ],
               )
             ],
