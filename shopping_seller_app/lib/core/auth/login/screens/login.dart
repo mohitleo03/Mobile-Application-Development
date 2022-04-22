@@ -32,7 +32,7 @@ class _LoginState extends State<Login> {
     createToast(messageObject.message, context);
     // Future.delayed(Duration(seconds: 3)
     // ,moveToRegister());
-    Navigator.pushNamed(context, RouteConstants.DASHBOARD);
+    Navigator.pushNamed(context, RouteConstants.DASHBOARD,arguments: {'userid':useridCtrl.text});
   }
 
   @override

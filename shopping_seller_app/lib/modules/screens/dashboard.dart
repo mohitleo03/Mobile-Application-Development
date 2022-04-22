@@ -12,8 +12,8 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   List<Map<String, dynamic>> _loadAllPages() {
     return [
-      {'page': AddPrduct(), 'title': 'Add Product'},
-      {'page': ViewProduct(), 'title': 'View Product'}
+      {'page': AddPrduct(), 'title': 'Add Product', 'icon': Icons.add},
+      {'page': ViewProduct(), 'title': 'View Product', 'icon': Icons.list}
     ];
   }
 
@@ -25,9 +25,22 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
     _allPages = _loadAllPages();
   }
+
   @override
   Widget build(BuildContext context) {
+    Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    String userid = arguments['userid'];
     return Scaffold(
+      appBar: AppBar(),
+      drawer: Drawer(
+        child: UserAccountsDrawerHeader(
+          currentAccountPicture: CircleAvatar(
+            maxRadius: 40,
+            backgroundImage: NetworkImage(
+            'https://cdn5.vectorstock.com/i/1000x1000/51/99/icon-of-user-avatar-for-web-site-or-mobile-app-vector-3125199.jpg'),),
+          accountName: Text(userid.split("@")[0],style: TextStyle(fontSize: 30)),
+          accountEmail: Text(userid,style: TextStyle(fontSize: 30)))
+      ),
       body: SafeArea(child: _allPages[currentPage]['page']),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentPage,
@@ -35,10 +48,16 @@ class _DashboardState extends State<Dashboard> {
             currentPage = currentPageIndex;
             setState(() {});
           },
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.add),label: 'Add Product'),
-            BottomNavigationBarItem(icon: Icon(Icons.list),label: 'View Product'),
-          ]),
+          items: _allPages
+              .map((element) => BottomNavigationBarItem(
+                  icon: Icon(element['icon']),
+                  label: _allPages[0]['page'].toString()))
+              .toList()
+          // [
+          // BottomNavigationBarItem(icon: Icon(Icons.add),label: _allPages[0]['page'].toString()),
+          // BottomNavigationBarItem(icon: Icon(Icons.list),label: _allPages[1]['page'].toString()),
+          // ]
+          ),
     );
   }
 }
