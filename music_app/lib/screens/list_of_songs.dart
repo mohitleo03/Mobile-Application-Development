@@ -41,7 +41,8 @@ class _ListOfSongsState extends State<ListOfSongs> {
   @override
   void initState() {
     songsService.initialize(
-        getSongsList); //initialize method songsService in which API is called
+        getSongsList:
+            getSongsList); //initialize method songsService in which API is called
     // songs = songsService.getSongsList();     //songs will coe later through API call so we were not getting any songs here
     // api.getSongs(getSongsList, getError);    //shifted API call to songsService, Widget class should be used only for rendering GUI
     player.onPlayerCompletion.listen((event) {
@@ -144,7 +145,8 @@ class _ListOfSongsState extends State<ListOfSongs> {
             IconButton(
                 onPressed: () {
                   songsService.initialize(
-                      getSongsList); //call api again when user taps on retry otherwise
+                      getSongsList:
+                          getSongsList); //call api again when user taps on retry otherwise
                   loading =
                       true; //user will stuck in loading forever becuase if user's network was down
                   setState(
@@ -212,9 +214,10 @@ class _ListOfSongsState extends State<ListOfSongs> {
 
   _searchSongs() {
     //anything user types in search box will be joined with API URL for getting desired result
-    // songsService.initialize(getSongsList,
-    //     searchValue: searchValue); //doing API call again
-    api.getSongs(getSongsList, getError, searchValue: searchValue);
+    songsService.initialize(
+        getSongsList: getSongsList,
+        searchValue: searchValue); //doing API call again
+    // api.getSongs(getSongsList, getError, searchValue: searchValue);
     player.stop();
     songs =
         []; //empty the songs list otherwise user will be displayed old songs untill backend loading or in case of errro too
@@ -232,14 +235,8 @@ class _ListOfSongsState extends State<ListOfSongs> {
     // print(songs[index].isPlaying);
     Navigator.of(context).push(MaterialPageRoute(
         //navigation command / code
-        builder: (ctx) => Player(
-            // songs[index], index, detector, pauseAllSongs, songs.length)));
-            songs[index],
-            index,
-            detector,
-            pauseAllSongs,
-            songs.length,
-            songsService))); //can't send songsService object from here??
+        builder: (ctx) => Player(songs[index], index, detector, pauseAllSongs,
+            songs.length, songsService)));
   }
 
   pauseAllSongs() {
