@@ -8,15 +8,19 @@ class AddPrduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        CustomText(label: 'Type Name Here', tc: nameCtrl),
-        CustomText(label: 'Type Description Here', tc: descCtrl, isMultiLine: true,),
-        Slider(value: 1, onChanged: (currentValue){
-
-        }),
-        //Image Upload
-        CustomText(label: 'Type Quantity Here', tc: qtyCtrl)
-      ],
-    );
+        children: [
+          Text('ADD PRODUCT', style: TextStyle(fontSize: 40)),
+          CustomText(label: 'Type Name Here', tc: nameCtrl),
+          CustomText(
+            label: 'Type Description Here',
+            tc: descCtrl,
+            isMultiLine: true,
+          ),
+          Slider(value: 1, onChanged: (currentValue) {}),
+          //Image Upload
+          CustomText(label: 'Type Quantity Here', tc: qtyCtrl),
+          ElevatedButton(onPressed: () {}, child: Text('ADD PRODUCT'))
+        ],
+      );
   }
 }
