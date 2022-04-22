@@ -30,9 +30,13 @@ class _LoginState extends State<Login> {
     UserLoginOperations opr = UserLoginOperations();
     Message messageObject = await opr.read(userObject);
     createToast(messageObject.message, context);
-    // Future.delayed(Duration(seconds: 3)
-    // ,moveToRegister());
-    Navigator.pushNamed(context, RouteConstants.DASHBOARD,arguments: {'userid':useridCtrl.text});
+    if (messageObject.code == Constants.SUCCESS) {
+      Navigator.pushNamed(context, RouteConstants.DASHBOARD,
+          arguments: {'userid': useridCtrl.text});
+    }
+    else{
+    createToast(messageObject.message, context);
+    }
   }
 
   @override

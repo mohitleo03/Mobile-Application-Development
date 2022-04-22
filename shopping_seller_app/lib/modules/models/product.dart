@@ -5,8 +5,12 @@ class product {
   late int productQty;
   product() {}
   product.takeInput(
-      {required String this.productName,
-      required String this.productDesc,
-      required double this.produtPrice,
-      required int this.productQty});
+      {required this.productName,
+      required this.productDesc,
+      required this.produtPrice,
+      required this.productQty});
+  @override
+  String toString() {
+    return "Product name is $productName , Product Description is $productDesc , Product Price is $produtPrice , Product Quantity is $productQty";
+  }
 }
