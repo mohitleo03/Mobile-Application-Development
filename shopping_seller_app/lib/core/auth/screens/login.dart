@@ -24,7 +24,7 @@ class _LoginState extends State<Login> {
     String userid = useridCtrl.text;
     String password = passwordCtrl.text;
     User userObject = User.takeInput(userid: userid, password: password);
-    UserOperations opr = UserOperations();
+    UserOperations opr = UserOperations.getInstance();
     Message messageObject = await opr.read(userObject);
     createToast(messageObject.message, context);
     if (messageObject.code == Constants.SUCCESS) {

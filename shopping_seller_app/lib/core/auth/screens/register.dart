@@ -28,7 +28,7 @@ class _RegisterState extends State<Register> {
       createToast(message, context);
     } else {
       User userObject = User.takeInput(userid: userid, password: password);
-      UserOperations opr = UserOperations();
+      UserOperations opr = UserOperations.getInstance();
       Message messageObject = await opr.add(userObject);
       createToast(messageObject.message, context);
       if (messageObject.code == Constants.SUCCESS) {
