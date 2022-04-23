@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_seller_app/core/auth/register/services/user_register_operations.dart';
+import 'package:shopping_seller_app/core/auth/services/user_operations.dart';
 import 'package:shopping_seller_app/utils/animations/toast.dart';
 
 import '../../../../config/constants/AppConstants.dart';
 import '../../../../utils/services/message.dart';
-import '../models/userRegister.dart';
+import '../models/user.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -27,9 +27,9 @@ class _RegisterState extends State<Register> {
       message = 'Wrong App Id';
       createToast(message, context);
     } else {
-      UserRegister userObject =
-          UserRegister.takeInput(userid: userid, password: password, appId: appId);
-      UserRegisterOperations opr = UserRegisterOperations();
+      User userObject =
+          User.takeInput(userid: userid, password: password, appId: appId);
+      UserOperations opr = UserOperations();
       Message messageObject = await opr.add(userObject);
       createToast(messageObject.message, context);
       Future.delayed(Duration(seconds: 3), _moveToLogin);

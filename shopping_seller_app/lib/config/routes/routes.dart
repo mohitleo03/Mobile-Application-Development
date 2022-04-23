@@ -3,10 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 import 'package:shopping_seller_app/modules/screens/dashboard.dart';
-import 'package:shopping_seller_app/modules/widgets/add_product.dart';
 
-import '../../core/auth/login/screens/login.dart';
-import '../../core/auth/register/screens/register.dart';
+import '../../core/auth/screens/login.dart';
+import '../../core/auth/screens/register.dart';
 
 Map<String,WidgetBuilder>getRoutes() {
   return {

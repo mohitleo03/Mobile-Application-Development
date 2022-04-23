@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
-import 'package:shopping_seller_app/core/auth/login/models/userLogin.dart';
-import 'package:shopping_seller_app/core/auth/register/models/userRegister.dart';
-import 'package:shopping_seller_app/core/auth/login/services/user_login_operations.dart';
-
 import '../../../../utils/animations/toast.dart';
 import '../../../../utils/services/message.dart';
+import '../models/user.dart';
+import '../services/user_operations.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -25,17 +23,16 @@ class _LoginState extends State<Login> {
   _login() async {
     String userid = useridCtrl.text;
     String password = passwordCtrl.text;
-    UserLogin userObject =
-        UserLogin.takeInput(userid: userid, password: password);
-    UserLoginOperations opr = UserLoginOperations();
+    User userObject =
+        User.takeInput(userid: userid, password: password,appId: Constants.appId);
+    UserOperations opr = UserOperations();
     Message messageObject = await opr.read(userObject);
     createToast(messageObject.message, context);
     if (messageObject.code == Constants.SUCCESS) {
       Navigator.pushNamed(context, RouteConstants.DASHBOARD,
           arguments: {'userid': useridCtrl.text});
-    }
-    else{
-    createToast(messageObject.message, context);
+    } else {
+      createToast(messageObject.message, context);
     }
   }
 
