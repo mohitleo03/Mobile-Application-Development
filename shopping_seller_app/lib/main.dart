@@ -4,7 +4,7 @@ import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 import 'package:shopping_seller_app/config/routes/routes.dart';
 
 void main(List<String> args) async {
-  WidgetsFlutterBinding();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
     // home: Login(), //once initial route defined no need to mention home

@@ -3,7 +3,7 @@ import 'package:shopping_seller_app/core/auth/services/user_operations.dart';
 import 'package:shopping_seller_app/utils/animations/toast.dart';
 
 import '../../../../config/constants/AppConstants.dart';
-import '../../../../utils/services/message.dart';
+import '../../../utils/models/message.dart';
 import '../models/user.dart';
 
 class Register extends StatefulWidget {
@@ -32,8 +32,10 @@ class _RegisterState extends State<Register> {
       UserOperations opr = UserOperations();
       Message messageObject = await opr.add(userObject);
       createToast(messageObject.message, context);
-      Future.delayed(Duration(seconds: 3), _moveToLogin);
-    }
+      if (messageObject.code == Constants.SUCCESS) {
+        _moveToLogin();
+      }
+    } 
   }
 
   late TextEditingController useridCtrl;
@@ -65,9 +67,12 @@ class _RegisterState extends State<Register> {
             children: [
               Column(
                 children: [
-                  Image.network(Constants.REGISTRATION_IMAGE,height: 250,),
+                  Image.network(
+                    Constants.REGISTRATION_IMAGE,
+                    height: 250,
+                  ),
                   Container(
-                    margin: EdgeInsets.all(8), 
+                    margin: EdgeInsets.all(8),
                     child: TextField(
                       controller: useridCtrl,
                       decoration: InputDecoration(
@@ -102,7 +107,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   Container(
-                    width: 200,
+                      width: 200,
                       margin: EdgeInsets.all(3),
                       child: ElevatedButton(
                           onPressed: () {

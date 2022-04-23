@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
-import 'package:shopping_seller_app/utils/services/message.dart';
+import 'package:shopping_seller_app/utils/models/message.dart';
 import '../models/user.dart' as UserClass;
 
 class UserOperations {

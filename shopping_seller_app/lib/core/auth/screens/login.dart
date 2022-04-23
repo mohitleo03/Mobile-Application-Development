@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 import '../../../../utils/animations/toast.dart';
-import '../../../../utils/services/message.dart';
+import '../../../utils/models/message.dart';
 import '../models/user.dart';
 import '../services/user_operations.dart';
 
