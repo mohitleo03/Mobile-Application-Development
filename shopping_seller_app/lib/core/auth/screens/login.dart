@@ -23,8 +23,8 @@ class _LoginState extends State<Login> {
   _login() async {
     String userid = useridCtrl.text;
     String password = passwordCtrl.text;
-    User userObject =
-        User.takeInput(userid: userid, password: password,appId: Constants.appId);
+    User userObject = User.takeInput(
+        userid: userid, password: password);
     UserOperations opr = UserOperations();
     Message messageObject = await opr.read(userObject);
     createToast(messageObject.message, context);
@@ -34,6 +34,7 @@ class _LoginState extends State<Login> {
     } else {
       createToast(messageObject.message, context);
     }
+    passwordCtrl.clear();
   }
 
   @override

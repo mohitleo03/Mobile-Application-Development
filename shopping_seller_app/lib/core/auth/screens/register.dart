@@ -28,14 +28,16 @@ class _RegisterState extends State<Register> {
       createToast(message, context);
     } else {
       User userObject =
-          User.takeInput(userid: userid, password: password, appId: appId);
+          User.takeInput(userid: userid, password: password);
       UserOperations opr = UserOperations();
       Message messageObject = await opr.add(userObject);
       createToast(messageObject.message, context);
       if (messageObject.code == Constants.SUCCESS) {
         _moveToLogin();
       }
-    } 
+    passwordCtrl.clear();
+    appidCtrl.clear();
+    }
   }
 
   late TextEditingController useridCtrl;
