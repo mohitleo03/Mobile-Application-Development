@@ -27,16 +27,17 @@ class _RegisterState extends State<Register> {
       message = 'Wrong App Id';
       createToast(message, context);
     } else {
-      User userObject =
-          User.takeInput(userid: userid, password: password);
+      User userObject = User.takeInput(userid: userid, password: password);
       UserOperations opr = UserOperations();
       Message messageObject = await opr.add(userObject);
       createToast(messageObject.message, context);
       if (messageObject.code == Constants.SUCCESS) {
-        _moveToLogin();
+        Future.delayed(Duration(milliseconds: 1500), () {
+          _moveToLogin();
+        });
       }
-    passwordCtrl.clear();
-    appidCtrl.clear();
+      passwordCtrl.clear();
+      appidCtrl.clear();
     }
   }
 

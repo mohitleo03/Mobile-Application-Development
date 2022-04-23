@@ -23,14 +23,16 @@ class _LoginState extends State<Login> {
   _login() async {
     String userid = useridCtrl.text;
     String password = passwordCtrl.text;
-    User userObject = User.takeInput(
-        userid: userid, password: password);
+    User userObject = User.takeInput(userid: userid, password: password);
     UserOperations opr = UserOperations();
     Message messageObject = await opr.read(userObject);
     createToast(messageObject.message, context);
     if (messageObject.code == Constants.SUCCESS) {
-      Navigator.pushNamed(context, RouteConstants.DASHBOARD,
+      Future.delayed(Duration(milliseconds:1500), () {
+              Navigator.pushNamed(context, RouteConstants.DASHBOARD,
           arguments: {'userid': useridCtrl.text});
+      });
+
     } else {
       createToast(messageObject.message, context);
     }
