@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
-import '../../../../utils/animations/toast.dart';
+import 'package:shopping_seller_app/modules/widgets/custom_text.dart';
+import '../../../utils/widgets/toast.dart';
 import '../../../utils/models/message.dart';
 import '../models/user.dart';
 import '../services/user_operations.dart';
@@ -65,29 +66,8 @@ class _LoginState extends State<Login> {
               Column(
                 children: [
                   Image.network(Constants.LOGIN_IMAGE),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    child: TextField(
-                      controller: useridCtrl,
-                      decoration: InputDecoration(
-                          hintText: 'Type UserId here',
-                          prefixIcon: Icon(Icons.login),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    child: TextField(
-                      controller: passwordCtrl,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          hintText: 'Type Password here',
-                          prefixIcon: Icon(Icons.password),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                  ),
+                  CustomText(label: 'Type UserId here',tc: useridCtrl,prefixIcon: Icons.login),
+                  CustomText(label: 'Type Password here',tc: passwordCtrl,prefixIcon: Icons.password),
                   Container(
                       width: 200,
                       margin: EdgeInsets.all(5),

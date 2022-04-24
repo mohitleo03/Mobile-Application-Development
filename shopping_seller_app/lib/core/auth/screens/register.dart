@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/core/auth/services/user_operations.dart';
-import 'package:shopping_seller_app/utils/animations/toast.dart';
-
+import 'package:shopping_seller_app/utils/widgets/toast.dart';
 import '../../../../config/constants/AppConstants.dart';
+import '../../../modules/widgets/custom_text.dart';
 import '../../../utils/models/message.dart';
 import '../models/user.dart';
 
@@ -74,41 +74,9 @@ class _RegisterState extends State<Register> {
                     Constants.REGISTRATION_IMAGE,
                     height: 250,
                   ),
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    child: TextField(
-                      controller: useridCtrl,
-                      decoration: InputDecoration(
-                          hintText: 'Type UserId here',
-                          prefixIcon: Icon(Icons.app_registration),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    child: TextField(
-                      controller: passwordCtrl,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          hintText: 'Type Password here',
-                          prefixIcon: Icon(Icons.password),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    child: TextField(
-                      controller: appidCtrl,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          hintText: 'Type App Id here',
-                          prefixIcon: Icon(Icons.password),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                  ),
+                  CustomText(label: 'Type UserId here',tc: useridCtrl,prefixIcon: Icons.app_registration),
+                  CustomText(label: 'Type Password here',tc: passwordCtrl,prefixIcon: Icons.password),
+                  CustomText(label: 'Type AppId here',tc: appidCtrl,prefixIcon: Icons.password),
                   Container(
                       width: 200,
                       margin: EdgeInsets.all(3),

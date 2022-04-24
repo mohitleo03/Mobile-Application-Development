@@ -34,12 +34,12 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(),
       drawer: Drawer(
         child: UserAccountsDrawerHeader(
+          margin: EdgeInsets.zero,
           currentAccountPicture: CircleAvatar(
-            maxRadius: 40,
             backgroundImage: NetworkImage(
             'https://cdn5.vectorstock.com/i/1000x1000/51/99/icon-of-user-avatar-for-web-site-or-mobile-app-vector-3125199.jpg'),),
-          accountName: Text(userid.split("@")[0],style: TextStyle(fontSize: 30)),
-          accountEmail: Text(userid,style: TextStyle(fontSize: 30)))
+          accountName: Text(userid.split("@")[0],style: TextStyle(fontSize: 25)),
+          accountEmail: Text(userid,style: TextStyle(fontSize: 20)))
       ),
       body: SafeArea(child: _allPages[currentPage]['page']),
       bottomNavigationBar: BottomNavigationBar(

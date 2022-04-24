@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/modules/models/product.dart';
 import 'package:shopping_seller_app/modules/repository/product_repo.dart';
 import 'package:shopping_seller_app/modules/widgets/custom_text.dart';
-import 'package:shopping_seller_app/utils/animations/toast.dart';
+import 'package:shopping_seller_app/utils/widgets/toast.dart';
 
 class AddPrduct extends StatelessWidget {
   TextEditingController nameCtrl = TextEditingController();
@@ -32,11 +32,12 @@ class AddPrduct extends StatelessWidget {
       child: Column(
         children: [
           Text('ADD PRODUCT', style: TextStyle(fontSize: 40)),
-          CustomText(label: 'Type Name Here', tc: nameCtrl),
+          CustomText(label: 'Type Name Here', tc: nameCtrl,prefixIcon: Icons.text_snippet),
           CustomText(
             label: 'Type Description Here',
             tc: descCtrl,
             isMultiLine: true,
+            prefixIcon: Icons.text_snippet,
           ),
           Slider(
               value: priceValue,
@@ -44,7 +45,7 @@ class AddPrduct extends StatelessWidget {
                 priceValue = currentValue;
               }),
           //Image Upload
-          CustomText(label: 'Type Quantity Here', tc: qtyCtrl),
+          CustomText(label: 'Type Quantity Here', tc: qtyCtrl,prefixIcon: Icons.production_quantity_limits,),
           ElevatedButton(
               onPressed: () {
                 _addProduct();
