@@ -30,17 +30,20 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
     String userid = arguments['userid'];
+    // String arguments = ModalRoute.of(context)!.settings.arguments as String; // we can also use any other data type but map is standard form of sending data becuas ewe just have to call the key we don't have to remember the index of data member
+    // String userid = arguments;
     return Scaffold(
       appBar: AppBar(),
       drawer: Drawer(
-        child: UserAccountsDrawerHeader(
-          margin: EdgeInsets.zero,
-          currentAccountPicture: CircleAvatar(
-            backgroundImage: NetworkImage(
-            'https://cdn5.vectorstock.com/i/1000x1000/51/99/icon-of-user-avatar-for-web-site-or-mobile-app-vector-3125199.jpg'),),
-          accountName: Text(userid.split("@")[0],style: TextStyle(fontSize: 25)),
-          accountEmail: Text(userid,style: TextStyle(fontSize: 20)))
-      ),
+          child: UserAccountsDrawerHeader(
+              margin: EdgeInsets.zero,
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    'https://cdn5.vectorstock.com/i/1000x1000/51/99/icon-of-user-avatar-for-web-site-or-mobile-app-vector-3125199.jpg'),
+              ),
+              accountName:
+                  Text(userid.split("@")[0], style: TextStyle(fontSize: 25)),
+              accountEmail: Text(userid, style: TextStyle(fontSize: 20)))),
       body: SafeArea(child: _allPages[currentPage]['page']),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentPage,

@@ -32,6 +32,8 @@ class _LoginState extends State<Login> {
       Future.delayed(Duration(milliseconds:1000), () {
               Navigator.pushReplacementNamed(context, RouteConstants.DASHBOARD,
           arguments: {'userid': useridCtrl.text});
+          // arguments: useridCtrl.text); //we can also send any other data type
+
       });
 
     } else {
