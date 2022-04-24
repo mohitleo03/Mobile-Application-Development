@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/core/auth/services/user_operations.dart';
 import 'package:shopping_seller_app/utils/widgets/toast.dart';
 import '../../../../config/constants/AppConstants.dart';
-import '../../../modules/widgets/custom_text.dart';
+import '../../../utils/widgets/custom_text.dart';
 import '../../../utils/models/message.dart';
 import '../models/user.dart';
 

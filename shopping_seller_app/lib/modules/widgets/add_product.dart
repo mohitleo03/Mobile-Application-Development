@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/modules/models/product.dart';
 import 'package:shopping_seller_app/modules/repository/product_repo.dart';
-import 'package:shopping_seller_app/modules/widgets/custom_text.dart';
+import 'package:shopping_seller_app/utils/widgets/custom_text.dart';
 import 'package:shopping_seller_app/utils/widgets/toast.dart';
 
 class AddPrduct extends StatelessWidget {

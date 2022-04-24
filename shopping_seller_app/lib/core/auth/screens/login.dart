@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
-import 'package:shopping_seller_app/modules/widgets/custom_text.dart';
+import 'package:shopping_seller_app/utils/widgets/custom_text.dart';
 import '../../../utils/widgets/toast.dart';
 import '../../../utils/models/message.dart';
 import '../models/user.dart';
@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
     createToast(messageObject.message, context);
     if (messageObject.code == Constants.SUCCESS) {
       Future.delayed(Duration(milliseconds:1500), () {
-              Navigator.pushNamed(context, RouteConstants.DASHBOARD,
+              Navigator.pushReplacementNamed(context, RouteConstants.DASHBOARD,
           arguments: {'userid': useridCtrl.text});
       });
 
