@@ -32,7 +32,7 @@ class _RegisterState extends State<Register> {
       Message messageObject = await opr.add(userObject);
       createToast(messageObject.message, context);
       if (messageObject.code == Constants.SUCCESS) {
-        Future.delayed(Duration(milliseconds: 1500), () {
+        Future.delayed(Duration(milliseconds: 1000), () {
           _moveToLogin();
         });
       }

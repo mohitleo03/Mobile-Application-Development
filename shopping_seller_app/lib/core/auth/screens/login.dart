@@ -29,7 +29,7 @@ class _LoginState extends State<Login> {
     Message messageObject = await opr.read(userObject);
     createToast(messageObject.message, context);
     if (messageObject.code == Constants.SUCCESS) {
-      Future.delayed(Duration(milliseconds:1500), () {
+      Future.delayed(Duration(milliseconds:1000), () {
               Navigator.pushReplacementNamed(context, RouteConstants.DASHBOARD,
           arguments: {'userid': useridCtrl.text});
       });
