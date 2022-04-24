@@ -32,7 +32,10 @@ class AddPrduct extends StatelessWidget {
       child: Column(
         children: [
           Text('ADD PRODUCT', style: TextStyle(fontSize: 40)),
-          CustomText(label: 'Type Name Here', tc: nameCtrl,prefixIcon: Icons.text_snippet),
+          CustomText(
+              label: 'Type Name Here',
+              tc: nameCtrl,
+              prefixIcon: Icons.text_snippet),
           CustomText(
             label: 'Type Description Here',
             tc: descCtrl,
@@ -45,7 +48,11 @@ class AddPrduct extends StatelessWidget {
                 priceValue = currentValue;
               }),
           //Image Upload
-          CustomText(label: 'Type Quantity Here', tc: qtyCtrl,prefixIcon: Icons.production_quantity_limits,),
+          CustomText(
+            label: 'Type Quantity Here',
+            tc: qtyCtrl,
+            prefixIcon: Icons.production_quantity_limits,
+          ),
           ElevatedButton(
               onPressed: () {
                 _addProduct();
