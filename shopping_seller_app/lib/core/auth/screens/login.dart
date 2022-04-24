@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
                 children: [
                   Image.network(Constants.LOGIN_IMAGE),
                   CustomText(label: 'Type UserId here',tc: useridCtrl,prefixIcon: Icons.login),
-                  CustomText(label: 'Type Password here',tc: passwordCtrl,prefixIcon: Icons.password),
+                  CustomText(label: 'Type Password here',tc: passwordCtrl,prefixIcon: Icons.password,isObscureText: true),
                   Container(
                       width: 200,
                       margin: EdgeInsets.all(5),

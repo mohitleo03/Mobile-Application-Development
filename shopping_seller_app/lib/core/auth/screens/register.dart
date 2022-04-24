@@ -75,8 +75,8 @@ class _RegisterState extends State<Register> {
                     height: 250,
                   ),
                   CustomText(label: 'Type UserId here',tc: useridCtrl,prefixIcon: Icons.app_registration),
-                  CustomText(label: 'Type Password here',tc: passwordCtrl,prefixIcon: Icons.password),
-                  CustomText(label: 'Type AppId here',tc: appidCtrl,prefixIcon: Icons.password),
+                  CustomText(label: 'Type Password here',tc: passwordCtrl,prefixIcon: Icons.password,isObscureText: true),
+                  CustomText(label: 'Type AppId here',tc: appidCtrl,prefixIcon: Icons.password,isObscureText: true),
                   Container(
                       width: 200,
                       margin: EdgeInsets.all(3),
