@@ -51,7 +51,7 @@ class _DashboardState extends State<Dashboard> {
           items: _allPages
               .map((element) => BottomNavigationBarItem(
                   icon: Icon(element['icon']),
-                  label: _allPages[0]['page'].toString()))
+                  label: element['page'].toString()))
               .toList()
           // [
           // BottomNavigationBarItem(icon: Icon(Icons.add),label: _allPages[0]['page'].toString()),
