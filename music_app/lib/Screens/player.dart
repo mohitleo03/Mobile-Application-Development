@@ -285,7 +285,7 @@ class _PlayerState extends State<Player> {
             ],
           ),
           SizedBox(height: 20),
-          Wave()
+          Wave(height:deviceSize.height*2.5/7 - 130 )
         ],
       ),
       floatingActionButton: FloatingActionButton(

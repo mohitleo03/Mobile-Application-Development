@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/modules/widgets/add_product.dart';
 import 'package:shopping_seller_app/modules/widgets/view_product.dart';
+import 'package:shopping_seller_app/my_attempt/add_prod.dart';
+import 'package:shopping_seller_app/my_attempt/view_prod.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -10,10 +12,16 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  // List<Map<String, dynamic>> _loadAllPages() {
+  //   return [
+  //     {'page': AddPrduct(), 'title': 'Add Product', 'icon': Icons.add},
+  //     {'page': ViewProduct(), 'title': 'View Product', 'icon': Icons.list}
+  //   ];
+  // }
   List<Map<String, dynamic>> _loadAllPages() {
     return [
-      {'page': AddPrduct(), 'title': 'Add Product', 'icon': Icons.add},
-      {'page': ViewProduct(), 'title': 'View Product', 'icon': Icons.list}
+      {'page': add_product(), 'title': 'Add Product', 'icon': Icons.add},
+      {'page': view_products(), 'title': 'View Product', 'icon': Icons.list}
     ];
   }
 
