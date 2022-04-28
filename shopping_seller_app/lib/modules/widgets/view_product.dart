@@ -30,7 +30,7 @@ class ViewProduct extends StatelessWidget {
               itemBuilder: (BuildContext ctx, int index) {
                 return ListTile(
                   leading: Container(
-                    width: deviceSize.width/5,
+                    width: deviceSize.width/5.2,
                     child: Image.network(snapshot.data![index].url)
                     ),
                   title: Text(snapshot.data![index].name),
@@ -39,14 +39,14 @@ class ViewProduct extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(snapshot.data![index].desc),
-                      Text("Product Quantity : ${snapshot.data![index].qty}")
+                      Text("Quantity : ${snapshot.data![index].qty}")
                     ],
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(onPressed: (){}, icon: Icon(Icons.edit)),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.delete))
+                      IconButton(onPressed: (){}, icon: Icon(Icons.delete,color: Colors.red,))
                     ],
                   )
                   

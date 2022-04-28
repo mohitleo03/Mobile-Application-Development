@@ -20,9 +20,18 @@ class _DashboardState extends State<Dashboard> {
   // }
   List<Map<String, dynamic>> _loadAllPages() {
     return [
-      {'page': AddPrduct(), 'title': 'Add Product', 'icon': Icons.add},
+      {
+        'page': AddPrduct(refreshChild),
+        'title': 'Add Product',
+        'icon': Icons.add
+      },
       {'page': ViewProduct(), 'title': 'View Product', 'icon': Icons.list}
     ];
+  }
+
+  refreshChild() {
+    print("calling setstate");
+    setState(() {});
   }
 
   int currentPage = 0;
