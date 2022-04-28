@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Product {
   late String id;
   late String name;
@@ -16,7 +18,7 @@ class Product {
       required this.qty,
       this.url = "abcd.jpg"}) {
   }
-  Product.fromJSON(Map<String, dynamic> map) {
+  Product.fromJSON(QueryDocumentSnapshot map) {
     // id = map['documentID'];
     name = map['name'];
     url = map['url'];

@@ -14,6 +14,6 @@ Map<String,WidgetBuilder>getRoutes() {
     //when 
     RouteConstants.REGISTER:(context) => const Register(),
     RouteConstants.DASHBOARD:(context) => const Dashboard(),
-    RouteConstants.VIEW_PRODUCTS:(context) => const view_products()
+    // RouteConstants.VIEW_PRODUCTS:(context) => const view_products()
   };
 }
