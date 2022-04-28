@@ -16,19 +16,19 @@ class Product {
       required this.desc,
       required this.price,
       required this.qty,
-      this.url = "abcd.jpg"}) {
+      required this.url}) {
   }
-  Product.fromJSON(QueryDocumentSnapshot map) {
-    // id = map['documentID'];
-    name = map['name'];
-    url = map['url'];
-    desc = map['desc'];
-    price = map['price'];
-    qty = map['qty'];
+  Product.fromJSON(QueryDocumentSnapshot doc) {
+    id = doc.id;
+    name = doc['name'];
+    url = doc['url'];
+    desc = doc['desc'];
+    price = doc['price'];
+    qty = doc['qty'];
   }
   @override
   String toString() {
-    return "Product name is $name , Product Description is $desc , Product Price is $price , Product Quantity is $qty";
+    return "Product id is $id Product name is $name , Product Description is $desc , Product Price is $price , Product Quantity is $qty";
   }
 
   Map<String, dynamic> toJSON() {

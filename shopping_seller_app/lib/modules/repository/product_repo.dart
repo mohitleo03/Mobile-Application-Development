@@ -24,7 +24,7 @@ class ProductRepository {
   //   }).catchError((err) => {getError(err)});
   // }
 
-  Future<List<Product>>read() async {
+  Future<List<Product>> read() async {
     QuerySnapshot querySnapshot =
         await db.collection(Collections.PRODUCTS).get(); //read all the products
     List<QueryDocumentSnapshot> list = querySnapshot.docs;
