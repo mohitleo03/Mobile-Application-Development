@@ -54,11 +54,11 @@ class ProductRepository {
   //   }
   // }
 
-  // Future<dynamic> delete(Product product) async {
-  //   try {
-  //     await db.doc(product.id).delete();
-  //   } catch (err) {
-  //     return err;
-  //   }
-  // }
+  Future<dynamic> delete(Product product) async {
+    try {
+      await db.collection(Collections.PRODUCTS).doc(product.id).delete();
+    } catch (err) {
+      return err;
+    }
+  }
 }

@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping_seller_app/modules/models/product.dart';
 import 'package:shopping_seller_app/modules/repository/product_repo.dart';
+import 'package:shopping_seller_app/utils/helpers/upload.dart';
 import 'package:shopping_seller_app/utils/widgets/custom_text.dart';
 import 'package:shopping_seller_app/utils/widgets/toast.dart';
 
@@ -34,22 +36,33 @@ class AddPrduct extends StatelessWidget {
 
   final ImagePicker _picker = ImagePicker();
 
+  _uploadIt() {
+    UploadDownload obj = UploadDownload();
+    UploadTask upload = obj.uploadImage(fileName!);
+    upload.then((TaskSnapshot shot) async {
+      String URL = await obj.ref.getDownloadURL();
+      print("Download URL " + URL);
+    }).catchError((err) {});
+  }
+
   _showCameraOrGallery() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-          onPressed: () {
-            _showCamera();
+          onPressed: () async {
+            await _showCamera();
+            refreshChild();
+            _uploadIt();
           },
-          child: Text("Upload Image"),
+          child: Text("Image by Camera"),
         ),
         SizedBox(width: 10),
         ElevatedButton(
           onPressed: () {
             _showGallery();
           },
-          child: Text("Upload Image"),
+          child: Text("Image by Gallery"),
         ),
       ],
     );
@@ -58,7 +71,7 @@ class AddPrduct extends StatelessWidget {
   _showCamera() async {
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
     fileName = photo?.path;
-    refreshChild();
+    print(fileName);
   }
 
   _showGallery() async {
@@ -68,6 +81,7 @@ class AddPrduct extends StatelessWidget {
   late BuildContext ctx;
   @override
   Widget build(BuildContext context) {
+    print(fileName);
     this.ctx = context;
     return SingleChildScrollView(
       child: Column(
@@ -98,8 +112,7 @@ class AddPrduct extends StatelessWidget {
           fileName == ""
               ? Text("Choose File To Upload")
               : Container(
-                width: 150,
-                child: Image.file(File(fileName.toString()))),
+                  width: 150, child: Image.file(File(fileName.toString()))),
           ElevatedButton(
               onPressed: () {
                 _addProduct();
