@@ -75,6 +75,7 @@ class _view_productsState extends State<view_products> {
             ),
             Container(
               padding: EdgeInsets.only(top: 5),
+              width: deviceSize.width/2.4,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

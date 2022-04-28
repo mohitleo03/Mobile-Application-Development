@@ -28,7 +28,7 @@ class ProductRepository {
     try {
       QuerySnapshot<Map<String, dynamic>> products =
           await db.collection(Collections.PRODUCTS).get();
-      print(products.docs[0].data());
+      print(products.docs[1].data());
       List<Product> Products = products.docs
           .map((element) => Product.fromJSON(element.data()))
           .toList();

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class Product {
   late String id;
   late String name;
@@ -12,9 +14,10 @@ class Product {
       required this.desc,
       required this.price,
       required this.qty,
-      this.url = "abcd.jpg"});
+      this.url = "abcd.jpg"}) {
+  }
   Product.fromJSON(Map<String, dynamic> map) {
-    id = map['documentID'];
+    // id = map['documentID'];
     name = map['name'];
     url = map['url'];
     desc = map['desc'];

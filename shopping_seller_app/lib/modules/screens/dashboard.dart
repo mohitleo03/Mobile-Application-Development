@@ -20,8 +20,8 @@ class _DashboardState extends State<Dashboard> {
   // }
   List<Map<String, dynamic>> _loadAllPages() {
     return [
-      {'page': add_product(), 'title': 'Add Product', 'icon': Icons.add},
-      {'page': view_products(), 'title': 'View Product', 'icon': Icons.list}
+      {'page': AddPrduct(), 'title': 'Add Product', 'icon': Icons.add},
+      {'page': ViewProduct(), 'title': 'View Product', 'icon': Icons.list}
     ];
   }
 
