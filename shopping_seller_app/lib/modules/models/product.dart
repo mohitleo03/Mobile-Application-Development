@@ -16,8 +16,7 @@ class Product {
       required this.desc,
       required this.price,
       required this.qty,
-      required this.url}) {
-  }
+      required this.url});
   Product.fromJSON(QueryDocumentSnapshot doc) {
     id = doc.id;
     name = doc['name'];

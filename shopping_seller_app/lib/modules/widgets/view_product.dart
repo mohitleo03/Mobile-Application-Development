@@ -21,6 +21,7 @@ class ViewProduct extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
+            snapshot.
             return Center(
               child: Text('Some error in retrieving products'),
             );

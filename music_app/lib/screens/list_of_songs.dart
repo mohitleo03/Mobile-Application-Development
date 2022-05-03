@@ -244,7 +244,7 @@ class _ListOfSongsState extends State<ListOfSongs> {
             detector,
             pauseAllSongs,
             songs.length,
-            songsService))); //can't send songsService object from here??
+            songsService)));
   }
 
   pauseAllSongs() {

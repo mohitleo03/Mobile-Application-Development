@@ -25,11 +25,9 @@ class ProductRepository {
   // }
 
   Future<List<Product>> read() async {
-    QuerySnapshot querySnapshot =
-        await db.collection(Collections.PRODUCTS).get(); //read all the products
+    QuerySnapshot querySnapshot = await db.collection(Collections.PRODUCTS).get(); //read all the products
     List<QueryDocumentSnapshot> list = querySnapshot.docs;
-    List<Product> products =
-        list.map((QueryDocumentSnapshot doc) => Product.fromJSON(doc)).toList();
+    List<Product> products =list.map((QueryDocumentSnapshot doc) => Product.fromJSON(doc)).toList();
     return products;
   }
   // Future<dynamic> readByAwait() async {
