@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping_seller_app/modules/models/product.dart';
 import 'package:shopping_seller_app/modules/repository/product_repo.dart';
-import 'package:shopping_seller_app/utils/helpers/upload.dart';
+import 'package:shopping_seller_app/utils/services/upload.dart';
 import 'package:shopping_seller_app/utils/widgets/custom_text.dart';
 import 'package:shopping_seller_app/utils/widgets/toast.dart';
 
@@ -140,11 +140,9 @@ class AddPrduct extends StatelessWidget {
           ),
           _showCameraOrGallery(deviceSize),
           SizedBox(height: 15),
-          // fileName == null
-          //     ? Text("Choose File To Upload")
-          //     : 
-              Container(
-                  width: 150, child: Image.file(File(fileName.toString()))),
+          fileName == null
+              ? Text("Choose File To Upload")
+              : Container(width: 150, child: Image.file(File(fileName.toString()))),
           SizedBox(height: 15),
           ElevatedButton(
               onPressed: () {

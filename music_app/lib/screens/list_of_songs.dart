@@ -201,10 +201,14 @@ class _ListOfSongsState extends State<ListOfSongs> {
                 songs[index].isPlaying //display toast message accrodingly
                     ? toastMessage(
                         title: "Song is Playing",
-                        message: songs[index].trackName,context: ctx,)
+                        message: songs[index].trackName,
+                        context: ctx,
+                      )
                     : toastMessage(
                         title: "Song is Paused",
-                        message: songs[index].trackName,context: ctx,);
+                        message: songs[index].trackName,
+                        context: ctx,
+                      );
                 setState(() {});
               },
             ),
@@ -245,6 +249,9 @@ class _ListOfSongsState extends State<ListOfSongs> {
             pauseAllSongs,
             songs.length,
             songsService)));
+    songs.forEach((element) {
+      print("Song is ${element.isPlaying}");
+    });
   }
 
   pauseAllSongs() {
@@ -258,6 +265,9 @@ class _ListOfSongsState extends State<ListOfSongs> {
 
   @override
   Widget build(BuildContext context) {
+    songs.forEach((element) {
+      print("Song is ${element.isPlaying}");
+    });
     ctx = context;
     return Scaffold(
         appBar: AppBar(

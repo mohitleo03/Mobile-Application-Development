@@ -22,7 +22,6 @@ class Player extends StatefulWidget {
   Player(this.song, this.currentIndex, this.parent_detector, this.pauseAllSongs,
       this.songsLength, this.songService);
 
-
   @override
   State<Player> createState() => _PlayerState();
 }
@@ -35,7 +34,7 @@ class _PlayerState extends State<Player> {
   Duration? position;
   late int songPlayingMode;
   Random random = Random();
-    late BuildContext ctx;
+  late BuildContext ctx;
 
   @override
   void initState() {
@@ -86,7 +85,8 @@ class _PlayerState extends State<Player> {
   _play() {
     //if user press on play button
     widget.song.isPlaying = !widget.song.isPlaying;
-    toastMessage(title: "Playing Song", message: widget.song.trackName,context: ctx);
+    toastMessage(
+        title: "Playing Song", message: widget.song.trackName, context: ctx);
     player.play(widget.song.audio);
     setState(() {});
   }
@@ -94,7 +94,8 @@ class _PlayerState extends State<Player> {
   _pause() {
     //if user press on pause button
     widget.song.isPlaying = !widget.song.isPlaying;
-    toastMessage(title: "Song Paused", message: widget.song.trackName,context: ctx);
+    toastMessage(
+        title: "Song Paused", message: widget.song.trackName, context: ctx);
     player.pause();
     setState(() {});
   }
@@ -118,7 +119,10 @@ class _PlayerState extends State<Player> {
       widget.currentIndex = widget.songsLength - 1;
     }
     widget.song = widget.songService.getSong(widget.currentIndex);
-    toastMessage(title: "Playing Next Song", message: widget.song.trackName,context: ctx);
+    toastMessage(
+        title: "Playing Next Song",
+        message: widget.song.trackName,
+        context: ctx);
     player.play(widget.song.audio);
     _getDurationOfSong();
     widget.song.isPlaying =
@@ -253,7 +257,8 @@ class _PlayerState extends State<Player> {
                     _getSong(-1); //get previous song by passing -1
                     toastMessage(
                         title: "Playing Previous Song",
-                        message: widget.song.trackName,context: context);
+                        message: widget.song.trackName,
+                        context: context);
                   },
                   icon: Icon(
                     Icons.skip_previous,
@@ -275,7 +280,8 @@ class _PlayerState extends State<Player> {
                     _getSong(1); //call next song by passing 1
                     toastMessage(
                         title: "Playing Next Song",
-                        message: widget.song.trackName,context: context);
+                        message: widget.song.trackName,
+                        context: context);
                   },
                   icon: Icon(
                     Icons.skip_next,
@@ -285,7 +291,7 @@ class _PlayerState extends State<Player> {
             ],
           ),
           SizedBox(height: 20),
-          Wave(height:deviceSize.height*2.5/7 - 130 )
+          Wave(height: deviceSize.height * 2.5 / 7 - 130)
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -293,12 +299,20 @@ class _PlayerState extends State<Player> {
           onPressed: () {
             _changeSongPlayingMode();
             if (songPlayingMode == playingModeIs.linear) {
-              toastMessage(title: "Song Playing Mode", message: "Normal",context: context);
+              toastMessage(
+                  title: "Song Playing Mode",
+                  message: "Normal",
+                  context: context);
             } else if (songPlayingMode == playingModeIs.shuffle) {
-              toastMessage(title: "Song Playing Mode", message: "Shuffled",context: context);
+              toastMessage(
+                  title: "Song Playing Mode",
+                  message: "Shuffled",
+                  context: context);
             } else {
               toastMessage(
-                  title: "Song Playing Mode", message: "Repeat One Song",context: context);
+                  title: "Song Playing Mode",
+                  message: "Repeat One Song",
+                  context: context);
             }
           },
           child: Icon(_getFloatingActionButtonIcon(songPlayingMode))),
