@@ -21,7 +21,7 @@ class _DashboardState extends State<Dashboard> {
   List<Map<String, dynamic>> _loadAllPages() {
     return [
       {
-        'page': AddPrduct(refreshChild,switchChild),
+        'page': AddPrduct(refreshChild, switchChild),
         'title': 'Add Product',
         'icon': Icons.add
       },
@@ -30,7 +30,7 @@ class _DashboardState extends State<Dashboard> {
   }
 
   switchChild() {
-    currentPage == 0 ? 1 : 0;
+    currentPage = currentPage == 0 ? 1 : 0;
     setState(() {});
   }
 
@@ -38,6 +38,8 @@ class _DashboardState extends State<Dashboard> {
     print("calling setstate");
     setState(() {});
   }
+
+  
 
   int currentPage = 0;
   late List<Map<String, dynamic>> _allPages;
@@ -67,11 +69,9 @@ class _DashboardState extends State<Dashboard> {
                   Text(userid.split("@")[0], style: TextStyle(fontSize: 25)),
               accountEmail: Text(userid, style: TextStyle(fontSize: 20)))),
       body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.only(top: 10),
-          child: _allPages[currentPage]['page']
-          )
-        ),
+          child: Container(
+              padding: EdgeInsets.only(top: 10),
+              child: _allPages[currentPage]['page'])),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentPage,
           onTap: (int currentPageIndex) {

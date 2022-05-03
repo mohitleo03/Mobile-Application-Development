@@ -74,8 +74,8 @@ class AddPrduct extends StatelessWidget {
                   icon: Icon(Icons.camera)),
               IconButton(
                   iconSize: 50,
-                  onPressed: () {
-                    _showGallery();
+                  onPressed: () async {
+                    await _showGallery();
                     refreshChild();
                     _uploadIt();
                   },
@@ -95,10 +95,14 @@ class AddPrduct extends StatelessWidget {
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
     fileName = photo?.path;
     print("File name is $fileName");
+    refreshChild();
   }
 
   _showGallery() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    fileName = image?.path;
+    print("File name is $fileName");
+    refreshChild();
   }
 
   late BuildContext ctx;
@@ -136,9 +140,10 @@ class AddPrduct extends StatelessWidget {
           ),
           _showCameraOrGallery(deviceSize),
           SizedBox(height: 15),
-          fileName == null
-              ? Text("Choose File To Upload")
-              : Container(
+          // fileName == null
+          //     ? Text("Choose File To Upload")
+          //     : 
+              Container(
                   width: 150, child: Image.file(File(fileName.toString()))),
           SizedBox(height: 15),
           ElevatedButton(

@@ -21,7 +21,8 @@ class ViewProduct extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
-            snapshot.
+            print("Error is ...");
+            print(snapshot.error);
             return Center(
               child: Text('Some error in retrieving products'),
             );
@@ -30,36 +31,31 @@ class ViewProduct extends StatelessWidget {
             return ListView.builder(
               itemBuilder: (BuildContext ctx, int index) {
                 return ListTile(
-                  leading: Container(
-                    width: deviceSize.width/5.2,
-                    child: Image.network(snapshot.data![index].url)
+                    leading: Container(
+                        width: deviceSize.width / 5.2,
+                        child: Image.network(snapshot.data![index].url)),
+                    title: Text(snapshot.data![index].name),
+                    // subtitle: Text(snapshot.data![index].desc),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(snapshot.data![index].desc),
+                        Text("Quantity : ${snapshot.data![index].qty}")
+                      ],
                     ),
-                  title: Text(snapshot.data![index].name),
-                  // subtitle: Text(snapshot.data![index].desc),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(snapshot.data![index].desc),
-                      Text("Quantity : ${snapshot.data![index].qty}")
-                    ],
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.edit)),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.delete,color: Colors.red,))
-                    ],
-                  )
-                  
-                // trailing: Expanded(
-                //   child: Row(
-                //     children: [
-                //       IconButton(onPressed: (){}, icon: Icon(Icons.edit)),
-                //       IconButton(onPressed: (){}, icon: Icon(Icons.delete))
-                //     ],
-                //   ),
-                
-                );
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,//without this it takes main axis size as size which overflow and gives error
+                      children: [
+                        IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ))
+                      ],
+                    )
+                    );
               },
               itemCount: snapshot.data!.length,
             );
