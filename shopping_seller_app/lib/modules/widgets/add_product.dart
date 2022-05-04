@@ -77,6 +77,8 @@ class AddPrduct extends StatelessWidget {
                   onPressed: () async {
                     await _showGallery();
                     refreshChild();
+                    // switchChild();
+                    // switchChild();
                     _uploadIt();
                   },
                   icon: Icon(Icons.folder)),
@@ -108,6 +110,8 @@ class AddPrduct extends StatelessWidget {
   late BuildContext ctx;
   @override
   Widget build(BuildContext context) {
+    print("calling build");
+    print("File name is $fileName");
     Size deviceSize = MediaQuery.of(context).size;
     ctx = context;
     return SingleChildScrollView(
@@ -142,7 +146,8 @@ class AddPrduct extends StatelessWidget {
           SizedBox(height: 15),
           fileName == null
               ? Text("Choose File To Upload")
-              : Container(width: 150, child: Image.file(File(fileName.toString()))),
+              : Container(
+                  width: 150, child: Image.file(File(fileName.toString()))),
           SizedBox(height: 15),
           ElevatedButton(
               onPressed: () {
