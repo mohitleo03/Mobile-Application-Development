@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/modules/repository/product_repo.dart';
 
@@ -5,6 +6,7 @@ import '../models/product.dart';
 
 class ViewProduct extends StatelessWidget {
   ProductRepository repo = ProductRepository();
+  late Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +14,12 @@ class ViewProduct extends StatelessWidget {
     return Container(
         child: StreamBuilder(
             stream: repo.readRealTime(),
-            builder: ((BuildContext ctx, AsyncSnapshot snapshot){
+            builder:
+                ((BuildContext ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
               ConnectionState state = snapshot.connectionState;
-              if(state == ConnectionState.waiting){
+              if (state == ConnectionState.waiting) {
                 return Center(
-                child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(),
                 );
               }
               if (snapshot.hasError) {
@@ -25,21 +28,23 @@ class ViewProduct extends StatelessWidget {
                 return Center(
                   child: Text('Some error in retrieving products'),
                 );
-              }
-              else {
+              } else {
                 return ListView.builder(
+                  // scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext ctx, int index) {
+                    var doc = snapshot.data!.docs[index].data();
+                    product = Product.fromMap(doc);
                     return ListTile(
                         leading: Container(
                             width: deviceSize.width / 5.2,
-                            child: Image.network(snapshot.data![index].url)),
-                        title: Text(snapshot.data![index].name),
+                            child: Image.network(product.url)),
+                        title: Text(product.name),
                         // subtitle: Text(snapshot.data![index].desc),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(snapshot.data![index].desc),
-                            Text("Quantity : ${snapshot.data![index].qty}")
+                            Text(product.desc),
+                            Text("Quantity : ${product.qty}")
                           ],
                         ),
                         trailing: Row(
@@ -57,13 +62,10 @@ class ViewProduct extends StatelessWidget {
                           ],
                         ));
                   },
-                  itemCount: snapshot.data!.length,
+                  itemCount: snapshot.data!.docs.length,
                 );
               }
-            }
-            )
-        )
-    );
+            })));
   }
 
   // Widget build(BuildContext context) {

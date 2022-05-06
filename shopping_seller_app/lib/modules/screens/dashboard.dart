@@ -18,10 +18,12 @@ class _DashboardState extends State<Dashboard> {
   //     {'page': ViewProduct(), 'title': 'View Product', 'icon': Icons.list}
   //   ];
   // }
+  int flag = 0;
   List<Map<String, dynamic>> _loadAllPages() {
+    print("Calling load all pages");
     return [
       {
-        'page': AddPrduct(refreshChild, switchChild),
+        'page': AddPrduct(refreshChild, switchChild, flag),
         'title': 'Add Product',
         'icon': Icons.add
       },
@@ -35,19 +37,38 @@ class _DashboardState extends State<Dashboard> {
   }
 
   refreshChild() {
+    flag++;
     print("calling setstate");
     setState(() {});
   }
 
-  
-
   int currentPage = 0;
+  final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
   late List<Map<String, dynamic>> _allPages;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _allPages = _loadAllPages();
+  }
+
+  openBottomDialog() {
+    scaffoldkey.currentState?.showBottomSheet((context) {
+      return Container(
+        height: 200,
+        color: Colors.lightBlueAccent,
+        child: Column(children: [
+          ListTile(
+            leading: Icon(Icons.phone),
+            title: Text('Phone Calls'),
+          ),
+          ListTile(
+            leading: Icon(Icons.phone),
+            title: Text('Phone Calls'),
+          )
+        ]),
+      );
+    });
   }
 
   @override
@@ -57,7 +78,16 @@ class _DashboardState extends State<Dashboard> {
     // String arguments = ModalRoute.of(context)!.settings.arguments as String; // we can also use any other data type but map is standard form of sending data becuas ewe just have to call the key we don't have to remember the index of data member
     // String userid = arguments;
     return Scaffold(
-      appBar: AppBar(),
+      key: scaffoldkey,
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                openBottomDialog();
+              },
+              icon: Icon(Icons.abc))
+        ],
+      ),
       drawer: Drawer(
           child: UserAccountsDrawerHeader(
               margin: EdgeInsets.zero,
@@ -71,7 +101,7 @@ class _DashboardState extends State<Dashboard> {
       body: SafeArea(
           child: Container(
               padding: EdgeInsets.only(top: 10),
-              child: _allPages[currentPage]['page'])),
+              child: _loadAllPages()[currentPage]['page'])),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentPage,
           onTap: (int currentPageIndex) {

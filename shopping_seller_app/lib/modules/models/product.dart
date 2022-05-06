@@ -25,6 +25,14 @@ class Product {
     price = doc['price'];
     qty = doc['qty'];
   }
+  Product.fromMap(dynamic doc) {
+    // id = doc.id;
+    name = doc['name'];
+    url = doc['url'];
+    desc = doc['desc'];
+    price = doc['price'];
+    qty = doc['qty'];
+  }
   @override
   String toString() {
     return "Product id is $id Product name is $name , Product Description is $desc , Product Price is $price , Product Quantity is $qty";

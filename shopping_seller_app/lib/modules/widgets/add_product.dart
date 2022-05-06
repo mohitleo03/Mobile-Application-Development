@@ -14,7 +14,10 @@ class AddPrduct extends StatelessWidget {
   late String URL;
   Function refreshChild;
   Function switchChild;
-  AddPrduct(this.refreshChild, this.switchChild);
+  int flag;
+  AddPrduct(this.refreshChild, this.switchChild,this.flag){
+    print("Flag is $flag");
+  }
   String? fileName;
   TextEditingController nameCtrl = TextEditingController();
   TextEditingController descCtrl = TextEditingController();
