@@ -1,4 +1,5 @@
 import 'package:firstapp/screens/animatedContainer.dart';
+import 'package:firstapp/screens/another_widget_with_listview.dart';
 import 'package:firstapp/screens/appbar.dart';
 import 'package:firstapp/screens/circle_avatar.dart';
 import 'package:firstapp/screens/circle_img.dart';
@@ -64,7 +65,8 @@ void main() {
     // home: temp2(),
     // home: heroWidget(),
     // home: Animatedcontainer(),
-    home: pageView(),
+    // home: pageView(),
+    home: list(),
 
   ));
 }

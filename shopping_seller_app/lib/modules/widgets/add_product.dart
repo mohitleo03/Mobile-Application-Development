@@ -15,7 +15,7 @@ class AddPrduct extends StatelessWidget {
   Function refreshChild;
   Function switchChild;
   int flag;
-  AddPrduct(this.refreshChild, this.switchChild,this.flag){
+  AddPrduct(this.refreshChild, this.switchChild, this.flag) {
     print("Flag is $flag");
   }
   String? fileName;
@@ -40,6 +40,7 @@ class AddPrduct extends StatelessWidget {
         descCtrl.clear();
         qtyCtrl.clear();
         priceValue = 1;
+        fileName = null;
         switchChild();
       });
     }).catchError((err) {
