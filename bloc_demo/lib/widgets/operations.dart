@@ -8,14 +8,22 @@ class Operations extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CounterCubit cubit = BlocProvider.of<CounterCubit>(context);
-    return Container(
-      child: ElevatedButton(
-        child: Text("Plus"),
-        onPressed: () {
-          //call Cubit
-          cubit.plus();
-        },
-      ),
+    return Column(
+      children: [
+        ElevatedButton(
+          child: Text("Cubit Plus"),
+          onPressed: () {
+            //call Cubit
+            cubit.plus();
+          },
+        ),
+        ElevatedButton(
+          child: Text("Bloc Plus"),
+          onPressed: () {
+            
+          },
+        )
+      ],
     );
   }
 }
