@@ -21,7 +21,7 @@ class ProductRepo {
       List<dynamic> list = map['Vegetarian'];
       List<Product> products =
           list.map((product) => Product.FromJSON(product)).toList();
-      print(products);
+      // print(products);
       getProducts(products);
     }).catchError((error) => getError(error));
   }

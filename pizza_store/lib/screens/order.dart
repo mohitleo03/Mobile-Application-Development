@@ -1,10 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pizza_store/config/app_constants.dart';
+import 'package:pizza_store/cubit/cartState.dart';
 import 'package:pizza_store/repository/product_repo.dart';
+import 'package:pizza_store/screens/place_order.dart';
 import 'package:pizza_store/widgets/product_card.dart';
 
+import '../cubit/cart_item_cubit.dart';
 import '../models/product.dart';
 
 class Order extends StatefulWidget {
@@ -37,7 +41,7 @@ class _OrderState extends State<Order> {
   _productList(Size deviceSize) {
     List<Widget> list = products.map((product) => card(product)).toList();
     return Container(
-      height: deviceSize.height/1.4,
+      height: deviceSize.height / 1.5,
       child: SingleChildScrollView(
         child: Column(
           children: list,
@@ -95,9 +99,13 @@ class _OrderState extends State<Order> {
                         children: [
                           Container(
                             decoration: BoxDecoration(),
-                            child: Text("My Cart $cartItems",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16)),
+                            child: BlocBuilder<CartItemCubit, cartState>(
+                                builder: (ctx, state) {
+                              return Text(
+                                'My Cart ${state.count} ',
+                                style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                              );
+                            }),
                           ),
                           // ElevatedButton(
 
@@ -108,7 +116,13 @@ class _OrderState extends State<Order> {
                           //             fontSize: 16)),
                           //   ),
                           Container(
-                            child: Text("$amount Total"),
+                            child: BlocBuilder<CartItemCubit, cartState>(
+                                builder: (ctx, state) {
+                              return Text(
+                                '${state.price} Total',
+                                style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                              );
+                            }),
                           )
                         ],
                       ),
@@ -136,7 +150,10 @@ class _OrderState extends State<Order> {
                     //         );
                     //       }
                     //     })
-                    products.isEmpty ? _loading() : _productList(deviceSize)
+                    products.isEmpty ? _loading() : _productList(deviceSize),
+                    ElevatedButton(onPressed: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => placeOrder()));
+                    }, child: Text("Place Order"))
                   ],
                 ),
               ),
