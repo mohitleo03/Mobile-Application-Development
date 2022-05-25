@@ -9,7 +9,6 @@ class wrapWidget extends StatelessWidget {
       appBar: AppBar(),
       body: Center(child: Column(
         children: [
-          ElevatedButton(onPressed: (){}, child: Text("Show Hide")),
           Container(
               // alignment: Alignment.center,
               color: Colors.cyanAccent,
@@ -19,34 +18,6 @@ class wrapWidget extends StatelessWidget {
             ),
         ],
       )),
-      // body: Wrap(
-      //   children: [
-      //     ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //     ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //     ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //     ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //     ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //     ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //     ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //     ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //     ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //   ],
-      // ),
-      // body: FittedBox(
-      //   child: Row(
-      //     children: [
-      //       ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //       ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //       ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //       ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //       ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //       ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //       ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //       ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //       ElevatedButton(onPressed: (){}, child: Text("Button")),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

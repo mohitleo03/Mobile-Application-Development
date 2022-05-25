@@ -2,32 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class Animatedcontainer extends StatefulWidget {
-  const Animatedcontainer({Key? key}) : super(key: key);
+class AnimatedcontainerExample extends StatefulWidget {
+  const AnimatedcontainerExample({Key? key}) : super(key: key);
 
   @override
-  State<Animatedcontainer> createState() => _AnimatedcontainerState();
+  State<AnimatedcontainerExample> createState() => _AnimatedcontainerExampleState();
 }
 
-class _AnimatedcontainerState extends State<Animatedcontainer> {
-  changeAnimation() {
-    while (true) {
-      Future.delayed(Duration(seconds: 1), () {
-        print("object");
-        _width = random.nextInt(200).toDouble();
-        _height = random.nextInt(200).toDouble();
-        _color = Color.fromRGBO(
-          random.nextInt(256),
-          random.nextInt(256),
-          random.nextInt(256),
-          1,
-        );
-        _borderRadius = random.nextInt(20).toDouble();
-        setState(() {});
-      });
-    }
-  }
-
+class _AnimatedcontainerExampleState extends State<AnimatedcontainerExample> {
   var random = Random();
   double _width = 70;
   double _height = 70;

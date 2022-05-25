@@ -8,9 +8,9 @@ class pageView extends StatelessWidget {
     final PageController controller = PageController();
     return Scaffold(
       body: PageView(
-        scrollDirection: Axis.vertical,
-        /// [PageView.scrollDirection] defaults to [Axis.horizontal].
-        /// Use [Axis.vertical] to scroll vertically.
+        scrollDirection:
+            Axis.vertical, // Use [Axis.vertical] to scroll vertically.
+        // [PageView.scrollDirection] defaults to [Axis.horizontal].
         controller: controller,
         children: const <Widget>[
           Center(

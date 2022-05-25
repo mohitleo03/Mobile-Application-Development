@@ -52,9 +52,13 @@ class ViewProduct extends StatelessWidget {
                               .min, //without this it takes main axis size as size which overflow and gives error
                           children: [
                             IconButton(
-                                onPressed: () {}, icon: Icon(Icons.edit)),
+                                onPressed: () {
+                                  //update the product
+                                }, icon: Icon(Icons.edit)),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  //delete the product
+                                },
                                 icon: Icon(
                                   Icons.delete,
                                   color: Colors.red,

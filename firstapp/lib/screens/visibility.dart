@@ -7,16 +7,7 @@ class visibility extends StatefulWidget {
 
 class _visibilityState extends State<visibility> {
   bool isVisible = false;
-  final List<Widget> listOfWidgets = [
-    Text("data"),
-    Text("data"),
-    Text("data"),
-    Text("data"),
-    Text("data"),
-    Text("data"),
-    Text("data"),
-    Text("data"),
-  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +19,16 @@ class _visibilityState extends State<visibility> {
           ElevatedButton(
               onPressed: () {
                 setState(() {
-                  // print(isVisible);
                   isVisible = !isVisible;
-                  // print(isVisible);
+
                 });
               },
-              child: Text("Show Hide")),
+              child: Text(isVisible?"Hide":"Show")),
           Visibility(
             visible: isVisible,
             child: Column(
               children: [
                 Container(
-                  // alignment: Alignment.center,
                   color: Colors.cyanAccent,
                   height: 200,
                   width: double.infinity,
@@ -49,8 +38,7 @@ class _visibilityState extends State<visibility> {
                     textAlign: TextAlign.center,
                   )),
                 ),
-                // for(),
-                ...listOfWidgets
+
               ],
             ),
           ),

@@ -28,7 +28,9 @@ class home extends StatelessWidget {
         title: Text("Header"),
       ),
       backgroundColor: Colors.white,
-      body:Container(
+      body:Hero(
+        tag: "NatureImage",
+        child: Container(
         width: 300,
         height: 300,
         
@@ -45,7 +47,7 @@ class home extends StatelessWidget {
             
             ),
         child: Center(child: Text("Conatiner",style:TextStyle(fontSize: 30),)),
-      )
+      ))
       //body: Image.network("https://upload.wikimedia.org/wikipedia/en/b/bd/Doraemon_character.png")
       // SafeArea(
       //     child: Center(

@@ -7,14 +7,12 @@ class RichTextExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-          child: RichText(
-              text: TextSpan(
-                  children: [
-                    TextSpan(text: "hello", style: TextStyle(color: Colors.black)),
-                    TextSpan(text: "world", style: TextStyle(color: Colors.red,fontSize: 30)),
-                    ],
-                  )
+      body: RichText(
+          text: TextSpan(
+              children: [
+                TextSpan(text: "hello", style: TextStyle(color: Colors.black)),
+                TextSpan(text: "world", style: TextStyle(color: Colors.red,fontSize: 30)),
+                ],
               )
           ),
     );
