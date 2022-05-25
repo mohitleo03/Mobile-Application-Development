@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/modules/widgets/add_product.dart';
 import 'package:shopping_seller_app/modules/widgets/view_product.dart';
-import 'package:shopping_seller_app/my_attempt/add_prod.dart';
-import 'package:shopping_seller_app/my_attempt/view_prod.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
