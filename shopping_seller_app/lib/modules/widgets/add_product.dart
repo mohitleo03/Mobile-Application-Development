@@ -22,14 +22,21 @@ class AddPrduct extends StatelessWidget {
   TextEditingController nameCtrl = TextEditingController();
   TextEditingController descCtrl = TextEditingController();
   TextEditingController qtyCtrl = TextEditingController();
+  TextEditingController categoryCtrl = TextEditingController();
   double priceValue = 1;
 
   _addProduct() {
     String name = nameCtrl.text;
     String desc = descCtrl.text;
     double qty = double.parse(qtyCtrl.text);
+    String category = categoryCtrl.text;
     Product product = Product.takeProduct(
-        name: name, desc: desc, price: priceValue, qty: qty, url: URL);
+        name: name,
+        desc: desc,
+        price: priceValue,
+        qty: qty,
+        url: URL,
+        category: category);
     ProductRepository product_repo = ProductRepository();
     Future<DocumentReference> future = product_repo.add(product);
 
@@ -39,6 +46,7 @@ class AddPrduct extends StatelessWidget {
         nameCtrl.clear();
         descCtrl.clear();
         qtyCtrl.clear();
+        categoryCtrl.clear();
         priceValue = 1;
         fileName = null;
         switchChild();
@@ -72,7 +80,7 @@ class AddPrduct extends StatelessWidget {
                   iconSize: 50,
                   onPressed: () async {
                     await _showCamera();
-                    refreshChild();
+                    // refreshChild();
                     _uploadIt();
                   },
                   icon: Icon(Icons.camera)),
@@ -80,9 +88,7 @@ class AddPrduct extends StatelessWidget {
                   iconSize: 50,
                   onPressed: () async {
                     await _showGallery();
-                    refreshChild();
-                    // switchChild();
-                    // switchChild();
+                    // refreshChild();
                     _uploadIt();
                   },
                   icon: Icon(Icons.folder)),
@@ -101,14 +107,14 @@ class AddPrduct extends StatelessWidget {
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
     fileName = photo?.path;
     print("File name is $fileName");
-    refreshChild();
+    // refreshChild();
   }
 
   _showGallery() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     fileName = image?.path;
     print("File name is $fileName");
-    refreshChild();
+    // refreshChild();
   }
 
   late BuildContext ctx;
@@ -130,6 +136,11 @@ class AddPrduct extends StatelessWidget {
             label: 'Type Description Here',
             tc: descCtrl,
             isMultiLine: true,
+            prefixIcon: Icons.text_snippet,
+          ),
+          CustomText(
+            label: 'Type Category Here',
+            tc: categoryCtrl,
             prefixIcon: Icons.text_snippet,
           ),
           Slider(

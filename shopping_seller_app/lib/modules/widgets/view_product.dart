@@ -33,7 +33,9 @@ class ViewProduct extends StatelessWidget {
                   // scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext ctx, int index) {
                     var doc = snapshot.data!.docs[index].data();
-                    product = Product.fromMap(doc);
+                    String id = snapshot.data!.docs[index].id;
+                    product = Product.fromMap(doc,id);
+                    print(product);
                     return ListTile(
                         leading: Container(
                             width: deviceSize.width / 5.2,
@@ -54,7 +56,8 @@ class ViewProduct extends StatelessWidget {
                             IconButton(
                                 onPressed: () {
                                   //update the product
-                                }, icon: Icon(Icons.edit)),
+                                },
+                                icon: Icon(Icons.edit)),
                             IconButton(
                                 onPressed: () {
                                   //delete the product
