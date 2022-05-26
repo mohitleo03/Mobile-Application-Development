@@ -42,7 +42,7 @@ class _FormScreenState extends State<FormScreen> {
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
                 Colors.black.withOpacity(0.4), BlendMode.dstATop),
-            image: const AssetImage("assets/images/background.jpeg"),
+            image: const NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqsxxaxqiaQIAmKC3_PJo1Bgi2MXMcN8X0nQ&usqp=CAU"),
           ),
         ),
         child: Material(
@@ -60,12 +60,12 @@ class _FormScreenState extends State<FormScreen> {
                       const SizedBox(height: 20),
                       CircleAvatar(
                         radius: 74,
-                        backgroundColor: Colors.pink,
+                        backgroundColor: Colors.lightBlue,
                         child: CircleAvatar(
                           radius: 70,
-                          backgroundColor: Colors.pink.shade100,
+                          backgroundColor: Colors.lightBlue.shade100,
                           child: const Text(
-                            "A",
+                            "M",
                             style: TextStyle(
                               fontSize: 50,
                               fontWeight: FontWeight.w600,
@@ -90,28 +90,28 @@ class _FormScreenState extends State<FormScreen> {
                         decoration: InputDecoration(
                           suffixIcon: Icon(
                             Icons.account_circle_outlined,
-                            color: Colors.pink.shade200,
+                            color: Colors.lightBlue.shade200,
                             size: 30,
                           ),
                           labelText: "Name",
-                          labelStyle: const TextStyle(color: Colors.pink),
+                          labelStyle: const TextStyle(color: Colors.lightBlue),
                           hintText: "Enter your name",
                           hintStyle: TextStyle(
-                            color: Colors.pink.shade300,
+                            color: Colors.lightBlue.shade300,
                           ),
                           isDense: true,
                           filled: true,
                           fillColor: const Color(0xFF0E3311).withOpacity(0.5),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Colors.pink,
+                              color: Colors.lightBlue,
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(50),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Colors.pink,
+                              color: Colors.lightBlue,
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(50),
@@ -150,28 +150,28 @@ class _FormScreenState extends State<FormScreen> {
                           decoration: InputDecoration(
                             suffixIcon: Icon(
                               Icons.email,
-                              color: Colors.pink.shade200,
+                              color: Colors.lightBlue.shade200,
                               size: 30,
                             ),
                             labelText: "Email",
-                            labelStyle: const TextStyle(color: Colors.pink),
+                            labelStyle: const TextStyle(color: Colors.lightBlue),
                             hintText: "Enter your email",
                             hintStyle: TextStyle(
-                              color: Colors.pink.shade300,
+                              color: Colors.lightBlue.shade300,
                             ),
                             isDense: true,
                             filled: true,
                             fillColor: const Color(0xFF0E3311).withOpacity(0.5),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                color: Colors.pink,
+                                color: Colors.lightBlue,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(50),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                color: Colors.pink,
+                                color: Colors.lightBlue,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(50),
@@ -206,28 +206,28 @@ class _FormScreenState extends State<FormScreen> {
                           decoration: InputDecoration(
                             suffixIcon: Icon(
                               Icons.security,
-                              color: Colors.pink.shade200,
+                              color: Colors.lightBlue.shade200,
                               size: 30,
                             ),
                             labelText: "Password",
-                            labelStyle: const TextStyle(color: Colors.pink),
+                            labelStyle: const TextStyle(color: Colors.lightBlue),
                             hintText: "Enter your password",
                             hintStyle: TextStyle(
-                              color: Colors.pink.shade300,
+                              color: Colors.lightBlue.shade300,
                             ),
                             isDense: true,
                             filled: true,
                             fillColor: const Color(0xFF0E3311).withOpacity(0.5),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                color: Colors.pink,
+                                color: Colors.lightBlue,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(50),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                color: Colors.pink,
+                                color: Colors.lightBlue,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(50),
@@ -310,7 +310,7 @@ class _FormScreenState extends State<FormScreen> {
                             isDense: true,
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                color: Colors.pink,
+                                color: Colors.lightBlue,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(50),
@@ -346,7 +346,7 @@ class _FormScreenState extends State<FormScreen> {
                       ),
                       const SizedBox(height: 40),
                       RawMaterialButton(
-                        fillColor: Colors.pink,
+                        fillColor: Colors.lightBlue,
                         constraints: const BoxConstraints.expand(
                           width: double.infinity,
                           height: 40,
