@@ -38,17 +38,17 @@ class _OrderState extends State<Order> {
     return Center(child: CircularProgressIndicator());
   }
 
-  _productList(Size deviceSize) {
-    List<Widget> list = products.map((product) => card(product)).toList();
-    return Container(
-      height: deviceSize.height / 1.5,
-      child: SingleChildScrollView(
-        child: Column(
-          children: list,
-        ),
-      ),
-    );
-  }
+  // _productList(Size deviceSize) {
+  //   List<Widget> list = products.map((product) => card(product)).toList();
+  //   return Container(
+  //     height: deviceSize.height / 1.5,
+  //     child: SingleChildScrollView(
+  //       child: Column(
+  //         children: list,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   // List<Products> items = [];
   @override
@@ -56,7 +56,7 @@ class _OrderState extends State<Order> {
     int cartItems = 0; //just for initail
     double amount = 0; //just for initail
     Size deviceSize = MediaQuery.of(context).size;
-    product.getProducts(getProductsList, getError);
+    // product.getProducts(getProductsList, getError);
     return Scaffold(
       backgroundColor: Colors.yellow,
       body: Container(
@@ -103,7 +103,8 @@ class _OrderState extends State<Order> {
                                 builder: (ctx, state) {
                               return Text(
                                 'My Cart ${state.count} ',
-                                style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                               );
                             }),
                           ),
@@ -120,7 +121,8 @@ class _OrderState extends State<Order> {
                                 builder: (ctx, state) {
                               return Text(
                                 '${state.price} Total',
-                                style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
                               );
                             }),
                           )
@@ -128,32 +130,42 @@ class _OrderState extends State<Order> {
                       ),
                     ),
 
-                    // FutureBuilder(
-                    //     future: product.getProducts(),
-                    //     builder: (BuildContext ctx, AsyncSnapshot snap) {
-                    //       ConnectionState state = snap.connectionState;
-                    //       if (state == ConnectionState.waiting) {
-                    //         return Center(
-                    //           child: CircularProgressIndicator(),
-                    //         );
-                    //       } else if (snap.hasError) {
-                    //         return Center(
-                    //           child: Text(headings.ERROR),
-                    //         );
-                    //       } else {
-                    //         return Container(
-                    //           child: ListView.builder(itemBuilder: (BuildContext ctx,int index){
-                    //             return ListTile(
-                    //               leading: snap.data![index].,
-                    //             )
-                    //           }),
-                    //         );
-                    //       }
-                    //     })
-                    products.isEmpty ? _loading() : _productList(deviceSize),
-                    ElevatedButton(onPressed: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => placeOrder()));
-                    }, child: Text("Place Order"))
+                    FutureBuilder(
+                        future: product.getProducts(),
+                        builder: (BuildContext ctx, AsyncSnapshot snap) {
+                          ConnectionState state = snap.connectionState;
+                          if (state == ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else if (snap.hasError) {
+                            return Center(
+                              child: Text(headings.ERROR),
+                            );
+                          } else {
+                            String str = snap.data.toString();
+                            Map map = jsonDecode(str);
+                            List<dynamic> list = map['Vegetarian'];
+                            List<Product> products = list
+                                .map((product) => Product.FromJSON(product))
+                                .toList();
+                            return Container(
+                              height: 400,
+                              child: ListView.builder(
+                                  itemCount: products.length,
+                                  itemBuilder: (BuildContext ctx, int index) {
+                                    return card(products[index]);
+                                  }),
+                            );
+                          }
+                        }),
+                    // products.isEmpty ? _loading() : _productList(deviceSize),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) => placeOrder()));
+                        },
+                        child: Text("Place Order"))
                   ],
                 ),
               ),
