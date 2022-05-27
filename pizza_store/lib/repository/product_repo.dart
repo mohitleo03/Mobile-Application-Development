@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:pizza_store/config/api_path.dart';
-import 'package:pizza_store/models/product.dart';
 
 class ProductRepo {
   final URL = "${Apispath.URL}";
@@ -13,8 +10,8 @@ class ProductRepo {
   }
 
   Dio _dio = Dio();
-  getProducts() async {
-    Response response =await _dio.get(URL);
+  getProducts()  {
+    Future<Response> response =_dio.get(URL);
     return response;
     // response.then((response) {
     //   Map<String, dynamic> map = jsonDecode(response.data);
