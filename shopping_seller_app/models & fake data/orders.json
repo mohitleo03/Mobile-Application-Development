@@ -15,7 +15,8 @@
     "price": 27998.0,
     "order_status": "PENDING",
     "delivery_zone": "NORTH",
-    "delivered_by": "DeliveryGuy1"
+    "delivered_by": "DeliveryGuy1",
+    "date":"2022-05-26"
   },
   {
     "id": "UniqueId2",
@@ -29,7 +30,8 @@
     "price": 10000.0,
     "order_status": "PENDING",
     "delivery_zone": "NORTH",
-    "delivered_by": "DeliveryGuy1"
+    "delivered_by": "DeliveryGuy1",
+    "date":"2022-05-25"
   },
   {
     "id": "UniqueId1",
@@ -47,7 +49,8 @@
     "price": 29998.0,
     "order_status": "DELIVERED",
     "delivery_zone": "NORTH",
-    "delivered_by": "DeliveryGuy1"
+    "delivered_by": "DeliveryGuy1",
+    "date":"2022-05-24"
   },
   {
     "id": "UniqueId1",
@@ -61,7 +64,8 @@
     "price": 10000.0,
     "order_status": "DELIVERED",
     "delivery_zone": "NORTH",
-    "delivered_by": "DeliveryGuy1"
+    "delivered_by": "DeliveryGuy1",
+    "date":"2022-05-23"
   },
   {
     "id": "UniqueId1",
@@ -84,7 +88,8 @@
     "price": 57000.0,
     "order_status": "PENDING",
     "delivery_zone": "NORTH",
-    "delivered_by": "DeliveryGuy1"
+    "delivered_by": "DeliveryGuy1",
+    "date":"2022-05-23"
   },
   {
     "id": "UniqueId1",
@@ -98,7 +103,8 @@
     "price": 14000.0,
     "order_status": "DELIVERED",
     "delivery_zone": "NORTH",
-    "delivered_by": "DeliveryGuy1"
+    "delivered_by": "DeliveryGuy1",
+    "date":"2022-05-20"
   },
   {
     "id": "UniqueId1",
@@ -112,7 +118,8 @@
     "price": 13000.0,
     "order_status": "PENDING",
     "delivery_zone": "NORTH",
-    "delivered_by": "DeliveryGuy1"
+    "delivered_by": "DeliveryGuy1",
+    "date":"2022-05-15"
   },
   {
     "id": "UniqueId1",
@@ -126,6 +133,7 @@
     "price": 9999.0,
     "order_status": "CANCELLED",
     "delivery_zone": "NORTH",
-    "delivered_by": "DeliveryGuy1"
+    "delivered_by": "DeliveryGuy1",
+    "date":"2022-05-14"
   }
 ]
