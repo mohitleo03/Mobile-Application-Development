@@ -61,7 +61,7 @@ class Dashboard extends StatelessWidget {
                       return Text(Messages.ERROR);
                     } else {
                       List<dynamic> list = jsonDecode(snapshot.data.toString());
-                      List<Order> orders = list.map((order)=>})
+                      List<Order> orders = list.map((order)=>Order.FromJSON(order)).toList();
                       print(
                           "run time type of ${jsonDecode(snapshot.data.toString())}");
                       return Container(
