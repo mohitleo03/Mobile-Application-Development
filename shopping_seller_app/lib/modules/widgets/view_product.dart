@@ -34,11 +34,11 @@ class ViewProduct extends StatelessWidget {
                   itemBuilder: (BuildContext ctx, int index) {
                     var doc = snapshot.data!.docs[index].data();
                     String id = snapshot.data!.docs[index].id;
-                    product = Product.fromMap(doc,id);
+                    product = Product.fromMap(doc, id);
                     print(product);
                     return ListTile(
                         leading: Container(
-                            width: deviceSize.width / 5.2,
+                            width: deviceSize.width /5,
                             child: Image.network(product.url)),
                         title: Text(product.name),
                         // subtitle: Text(snapshot.data![index].desc),
@@ -46,7 +46,8 @@ class ViewProduct extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(product.desc),
-                            Text("Quantity : ${product.qty}")
+                            Text("Quantity : ${product.qty.toInt()}"),
+                            Text("Price : ${product.price.toStringAsFixed(2)}")
                           ],
                         ),
                         trailing: Row(

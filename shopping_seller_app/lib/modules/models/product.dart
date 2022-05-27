@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Product {
-   String id = "";
+  String id = "";
   late String name;
   late String desc;
   late double price;
@@ -22,7 +22,7 @@ class Product {
     name = doc['name'];
     url = doc['url'];
     desc = doc['desc'];
-    price = doc['price'];
+    price = double.parse(doc['price'].toString());
     qty = doc['qty'];
     category = doc['category'];
   }
@@ -30,7 +30,7 @@ class Product {
     name = doc['name'];
     url = doc['url'];
     desc = doc['desc'];
-    price = doc['price'];
+    price = double.parse(doc['price'].toString());
     qty = doc['qty'];
     category = doc["category"];
   }
@@ -40,6 +40,13 @@ class Product {
   }
 
   Map<String, dynamic> toJSON() {
-    return {'name': name, "desc": desc, "price": price, "qty": qty, "url": url, "category": category};
+    return {
+      'name': name,
+      "desc": desc,
+      "price": price,
+      "qty": qty,
+      "url": url,
+      "category": category
+    };
   }
 }

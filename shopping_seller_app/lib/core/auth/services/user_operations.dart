@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 import 'package:shopping_seller_app/utils/models/message.dart';
@@ -12,6 +13,7 @@ class UserOperations {
 
   //step 1 - create an instance of firebase auth service
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore db = FirebaseFirestore.instance;
   //register
   Future<Message> add(UserClass.User user) async {
     try {
@@ -31,9 +33,11 @@ class UserOperations {
   //login
   Future<Message> read(UserClass.User user) async {
     try {
+      
       UserCredential userCred = await _auth.signInWithEmailAndPassword(
           email: user.userid, password: user.password);
       print(userCred);
+      // db.collection("USERCOUNT").add({"email": user.userid});//to count number of users registered to our application
       return Message.takeMessage(
           message: 'Login Successful', code: Constants.SUCCESS);
     } catch (e) {

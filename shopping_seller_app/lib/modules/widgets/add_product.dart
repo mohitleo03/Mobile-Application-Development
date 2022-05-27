@@ -10,19 +10,29 @@ import 'package:shopping_seller_app/utils/services/upload.dart';
 import 'package:shopping_seller_app/utils/widgets/custom_text.dart';
 import 'package:shopping_seller_app/utils/widgets/toast.dart';
 
-class AddPrduct extends StatelessWidget {
-  late String URL;
+class AddPrduct extends StatefulWidget {
   Function refreshChild;
   Function switchChild;
   int flag;
-  AddPrduct(this.refreshChild, this.switchChild, this.flag) {
-    print("Flag is $flag");
-  }
+  AddPrduct(this.refreshChild, this.switchChild, this.flag) {}
+
+  @override
+  State<AddPrduct> createState() => _AddPrductState();
+}
+
+class _AddPrductState extends State<AddPrduct> {
+  late String URL;
+
   String? fileName;
+
   TextEditingController nameCtrl = TextEditingController();
+
   TextEditingController descCtrl = TextEditingController();
+
   TextEditingController qtyCtrl = TextEditingController();
+
   TextEditingController categoryCtrl = TextEditingController();
+
   double priceValue = 1;
 
   _addProduct() {
@@ -49,7 +59,7 @@ class AddPrduct extends StatelessWidget {
         categoryCtrl.clear();
         priceValue = 1;
         fileName = null;
-        switchChild();
+        widget.switchChild();
       });
     }).catchError((err) {
       print("Error is $err");
@@ -118,10 +128,9 @@ class AddPrduct extends StatelessWidget {
   }
 
   late BuildContext ctx;
+
   @override
   Widget build(BuildContext context) {
-    print("calling build");
-    print("File name is $fileName");
     Size deviceSize = MediaQuery.of(context).size;
     ctx = context;
     return SingleChildScrollView(
@@ -143,13 +152,27 @@ class AddPrduct extends StatelessWidget {
             tc: categoryCtrl,
             prefixIcon: Icons.text_snippet,
           ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20, top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text("0"), Text("10,000")],
+            ),
+          ),
           Slider(
               value: priceValue,
               max: 10000,
               min: 1,
               onChanged: (currentValue) {
                 priceValue = currentValue;
+                setState(() {});
               }),
+          Center(
+            child: Text(
+              "Price : ${priceValue.toStringAsFixed(2)}",
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
           //Image Upload
           CustomText(
             label: 'Type Quantity Here',
