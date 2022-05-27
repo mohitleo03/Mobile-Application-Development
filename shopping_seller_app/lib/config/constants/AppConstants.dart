@@ -31,3 +31,9 @@ abstract class Collections {
   static String PRODUCTS = 'products';
   static String USERCOUNT = 'USERCOUNT';
 }
+
+abstract class OrderStatus {
+  static String PENDING = "PENDING";
+  static String CANCELLED = "CANCELLED";
+  static String DELIVERED = "DELIVERED";
+}

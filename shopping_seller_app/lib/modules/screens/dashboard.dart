@@ -1,15 +1,12 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 import 'package:shopping_seller_app/modules/Services/dashboard_services.dart';
 import 'package:shopping_seller_app/modules/Services/drawer_options_list.dart';
-import 'package:shopping_seller_app/modules/models/orders.dart';
 import 'package:shopping_seller_app/modules/repository/orders_repo.dart';
 import 'package:shopping_seller_app/modules/repository/user_repo.dart';
 import 'package:shopping_seller_app/modules/widgets/drawer.dart';
-
+import 'package:shopping_seller_app/modules/widgets/pie_cart.dart';
 import '../models/drawer_option.dart';
 
 class Dashboard extends StatelessWidget {
@@ -63,9 +60,11 @@ class Dashboard extends StatelessWidget {
                       } else if (snapshot.hasError) {
                         return Text(Messages.ERROR);
                       } else {
-                        service.getOrdersCountByStatus(snapshot);
+                        service.converetOrders(snapshot);
+                        
                         return Container(
-                          child: Text("data"),
+                          margin: EdgeInsets.all(20),
+                          child: pie_chart(service.getOrdersCountByStatus(),"Orders"),
                         );
                       }
                     }),

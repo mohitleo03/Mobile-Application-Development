@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
-class chart extends StatelessWidget {
+class pie_chart extends StatelessWidget {
   Map<String, double> dataMap;
-  chart(this.dataMap);
+  String title;
+  pie_chart(this.dataMap,this.title);
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +13,11 @@ class chart extends StatelessWidget {
       animationDuration: Duration(milliseconds: 800),
       chartLegendSpacing: 32,
       chartRadius: MediaQuery.of(context).size.width / 3.2,
-      colorList: [Colors.red, Colors.blue],
+      colorList: [Colors.red, Colors.blue,Colors.green],
       initialAngleInDegree: 0,
       chartType: ChartType.ring,
       ringStrokeWidth: 32,
-      centerText: "Loan",
+      centerText: title,
       legendOptions: LegendOptions(
         showLegendsInRow: false,
         legendPosition: LegendPosition.bottom,
