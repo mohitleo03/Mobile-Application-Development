@@ -2,13 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 import 'package:shopping_seller_app/modules/Services/drawer_options_list.dart';
+import 'package:shopping_seller_app/modules/repository/orders_repo.dart';
 import 'package:shopping_seller_app/modules/repository/user_repo.dart';
 import 'package:shopping_seller_app/modules/widgets/drawer.dart';
 
 import '../models/drawer_option.dart';
 
 class Dashboard extends StatelessWidget {
-  UserRepository repo = UserRepository();
+  OrdersRepo orderRepo = OrdersRepo.getInstance();
+  UserRepository userRepo = UserRepository();
   DrawerOptionList list = DrawerOptionList();
   @override
   Widget build(BuildContext context) {
@@ -33,26 +35,35 @@ class Dashboard extends StatelessWidget {
           children: [
             Container(
               child: StreamBuilder(
-                  stream: repo.readRealTime(),
-                  builder: ((BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot) {
+                  stream: userRepo.readRealTime(),
+                  builder: ((BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       return Text(Messages.ERROR);
                     } else {
-                      return Text("Total Users : ${snapshot.data!.docs.length}");
+                      return Text(
+                          "Total Users : ${snapshot.data!.docs.length}");
                     }
-                  })
-              ),
+                  })),
             ),
-            // Container(
-            //   child: FutureBuilder(
-            //     future: ,
-            //     builder: (context, snapshot) {
-                
-            //     }
-            //   ),
-            // )
+            Container(
+              child: FutureBuilder(
+                  future: orderRepo.getOrders(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Text(Messages.ERROR);
+                    } else {
+                      
+                      return Container(
+                        child: ,
+                      );
+                    }
+                  }),
+            )
           ],
         ),
       ),

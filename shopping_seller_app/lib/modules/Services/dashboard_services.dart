@@ -1,0 +1,5 @@
+class DashboardServices{
+  Map getOrdersCountByStatus(){
+    
+  }
+}
