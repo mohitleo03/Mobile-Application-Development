@@ -47,7 +47,9 @@ class UserOperations {
   }
 
   //change password
-  update() {}
+  update() {
+    
+  }
   //account deactivate
   delete() {}
 }
