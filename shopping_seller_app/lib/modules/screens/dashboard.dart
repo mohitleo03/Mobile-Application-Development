@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
+import 'package:shopping_seller_app/modules/Services/dashboard_services.dart';
 import 'package:shopping_seller_app/modules/Services/drawer_options_list.dart';
 import 'package:shopping_seller_app/modules/models/orders.dart';
 import 'package:shopping_seller_app/modules/repository/orders_repo.dart';
@@ -14,6 +15,7 @@ import '../models/drawer_option.dart';
 class Dashboard extends StatelessWidget {
   OrdersRepo orderRepo = OrdersRepo.getInstance();
   UserRepository userRepo = UserRepository();
+  DashboardServices service = DashboardServices();
   DrawerOptionList list = DrawerOptionList();
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class Dashboard extends StatelessWidget {
                       } else if (snapshot.hasError) {
                         return Text(Messages.ERROR);
                       } else {
-                        
+                        service.getOrdersCountByStatus(snapshot);
                         return Container(
                           child: Text("data"),
                         );
