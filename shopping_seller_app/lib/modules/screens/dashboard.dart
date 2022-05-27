@@ -33,44 +33,43 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(AppBarTitle.DASHBOARD)),
       drawer: Drawer(child: myDrawer(userid, drawer_options_list)),
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-              child: StreamBuilder(
-                  stream: userRepo.readRealTime(),
-                  builder: ((BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return Text(Messages.ERROR);
-                    } else {
-                      return Text(
-                          "Total Users : ${snapshot.data!.docs.length}");
-                    }
-                  })),
-            ),
-            Container(
-              child: FutureBuilder(
-                  future: orderRepo.getOrders(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return Text(Messages.ERROR);
-                    } else {
-                      List<dynamic> list = jsonDecode(snapshot.data.toString());
-                      List<Order> orders = list.map((order)=>Order.FromJSON(order)).toList();
-                      print(
-                          "run time type of ${jsonDecode(snapshot.data.toString())}");
-                      return Container(
-                          // child: ,
-                          );
-                    }
-                  }),
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              Container(
+                child: StreamBuilder(
+                    stream: userRepo.readRealTime(),
+                    builder: ((BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Text(Messages.ERROR);
+                      } else {
+                        return Text(
+                            "Total Users : ${snapshot.data!.docs.length}");
+                      }
+                    })),
+              ),
+              Container(
+                child: FutureBuilder(
+                    future: orderRepo.getOrders(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Text(Messages.ERROR);
+                      } else {
+                        
+                        return Container(
+                          child: Text("data"),
+                        );
+                      }
+                    }),
+              )
+            ],
+          ),
         ),
       ),
     );

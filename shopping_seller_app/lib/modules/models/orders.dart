@@ -17,7 +17,7 @@ class Order {
       required this.delivery_zone,
       required this.delivered_by,
       required this.date});
-  Order.FromJSON(Map<String, dynamic> order) {
+  Order.FromJSON(dynamic order) {
     products = order["products"];
     user_emailid = order["user_emailid"];
     price = order["price"];
