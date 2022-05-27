@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 import 'package:shopping_seller_app/modules/Services/drawer_options_list.dart';
+import 'package:shopping_seller_app/modules/models/orders.dart';
 import 'package:shopping_seller_app/modules/repository/orders_repo.dart';
 import 'package:shopping_seller_app/modules/repository/user_repo.dart';
 import 'package:shopping_seller_app/modules/widgets/drawer.dart';
@@ -57,10 +60,13 @@ class Dashboard extends StatelessWidget {
                     } else if (snapshot.hasError) {
                       return Text(Messages.ERROR);
                     } else {
-                      
+                      List<dynamic> list = jsonDecode(snapshot.data.toString());
+                      List<Order> orders = list.map((order)=>})
+                      print(
+                          "run time type of ${jsonDecode(snapshot.data.toString())}");
                       return Container(
-                        child: ,
-                      );
+                          // child: ,
+                          );
                     }
                   }),
             )
