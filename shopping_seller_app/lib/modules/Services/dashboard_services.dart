@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 import 'package:shopping_seller_app/modules/models/sales_data.dart';
+import 'package:sortedmap/sortedmap.dart';
 
 import '../models/orders.dart';
+import '../models/product.dart';
 
 class DashboardServices {
   late List<Order> orders = [];
@@ -57,5 +59,38 @@ class DashboardServices {
       }
     }
     return data;
+  }
+
+  Map<String, double> getProductsSalesAnalysis(List<Product> products) {
+    Map<String, double> map = {};
+    products.forEach((element) {
+      map.putIfAbsent(element.category, () => 0);
+    });
+    orders.forEach((element) {
+      element.products_list.forEach((product) {
+        // print(product);
+        String category;
+        products.forEach((e) {
+          if (e.id == product['product_id']) {
+            map[e.category] = map[e.category]! + product['quantity'];
+          }
+        });
+      });
+    });
+    List<double> count = [];
+    map.forEach(((key, value) => count.add(value)));
+    count.sort();
+    count = count.reversed.toList();
+    Map<String, double> mapData = {};
+    double others = 0.0;
+    map.forEach((key, value) {
+      if (value > count[4]) {
+        mapData.putIfAbsent(key, () => value);
+      } else {
+        others += value;
+      }
+    });
+    mapData.putIfAbsent("Others",()=>others);
+    return mapData;
   }
 }

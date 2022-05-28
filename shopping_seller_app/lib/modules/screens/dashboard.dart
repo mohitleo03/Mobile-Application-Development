@@ -4,14 +4,17 @@ import 'package:shopping_seller_app/config/constants/AppConstants.dart';
 import 'package:shopping_seller_app/modules/Services/dashboard_services.dart';
 import 'package:shopping_seller_app/modules/Services/drawer_options_list.dart';
 import 'package:shopping_seller_app/modules/repository/orders_repo.dart';
+import 'package:shopping_seller_app/modules/repository/product_repo.dart';
 import 'package:shopping_seller_app/modules/repository/user_repo.dart';
 import 'package:shopping_seller_app/modules/widgets/drawer.dart';
 import 'package:shopping_seller_app/modules/widgets/graph.dart';
 import 'package:shopping_seller_app/modules/widgets/pie_cart.dart';
 import '../models/drawer_option.dart';
+import '../models/product.dart';
 
 class Dashboard extends StatelessWidget {
   OrdersRepo orderRepo = OrdersRepo.getInstance();
+  ProductRepository productRepo = ProductRepository();
   UserRepository userRepo = UserRepository();
   DashboardServices service = DashboardServices();
   DrawerOptionList list = DrawerOptionList();
@@ -57,31 +60,58 @@ class Dashboard extends StatelessWidget {
                     })),
               ),
               Container(
-                child: FutureBuilder(
-                    future: orderRepo.getOrders(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Text(Messages.ERROR);
-                      } else {
-                        service.converetOrders(snapshot);
-
-                        return Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.all(20),
-                              child: pie_chart(
-                                  service.getOrdersCountByStatus(), "Orders"),
-                            ),
-                            Container(
-                              child: myGraph(service.getSalesData()),
-                            )
-                          ],
-                        );
-                      }
-                    }),
-              ),
+                  child: FutureBuilder(
+                      future: orderRepo.getOrders(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Text(Messages.ERROR);
+                        } else {
+                          service.converetOrders(snapshot);
+                          return Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.all(20),
+                                child: pie_chart(
+                                    service.getOrdersCountByStatus(), "Orders",[Colors.blue,Colors.green,Colors.red]),
+                              ),
+                              Container(
+                                child: myGraph(service.getSalesData()),
+                              ),
+                              Container(
+                                  child: StreamBuilder(
+                                      stream: productRepo.readRealTime(),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<QuerySnapshot>
+                                              productsSnapshot) {
+                                        if (productsSnapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Center(
+                                              child:
+                                                  CircularProgressIndicator());
+                                        } else if (productsSnapshot.hasError) {
+                                          return Text(Messages.ERROR);
+                                        } else {
+                                          List<Product> products = productsSnapshot.data!.docs.map((doc) => Product.fromMap(doc.data(), doc.id)).toList();
+                                          return Column(
+                                            children: [
+                                              Container(
+                                                child: Text("Products Sold By Category",style: TextStyle(fontSize: 20),),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.all(30),
+                                                child:pie_chart(service.getProductsSalesAnalysis(products), "Categories",[Colors.purple,Colors.indigo,Colors.green,Colors.yellow,Colors.orange,Colors.red]),
+                                              ),
+                                            ],
+                                          );
+                                        }
+                                      })),
+                            ],
+                          );
+                        }
+                      }))
             ],
           ),
         ),

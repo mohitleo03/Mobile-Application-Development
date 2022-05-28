@@ -3,8 +3,9 @@ import 'package:pie_chart/pie_chart.dart';
 
 class pie_chart extends StatelessWidget {
   Map<String, double> dataMap;
+  List<Color> colors;
   String title;
-  pie_chart(this.dataMap,this.title);
+  pie_chart(this.dataMap, this.title,this.colors);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class pie_chart extends StatelessWidget {
       animationDuration: Duration(milliseconds: 800),
       chartLegendSpacing: 32,
       chartRadius: MediaQuery.of(context).size.width / 2.4,
-      colorList: [Colors.blue, Colors.green,Colors.red],
+      colorList: colors,
       initialAngleInDegree: 90,
       chartType: ChartType.ring,
       ringStrokeWidth: 40,

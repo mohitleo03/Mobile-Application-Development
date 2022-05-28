@@ -10,6 +10,7 @@ class products {
 class Order {
   String id = "";
   late List<dynamic> products_list;
+  // late List<products> products_list;
   late String user_id;
   late double price;
   late String order_status;
@@ -28,6 +29,9 @@ class Order {
       required this.date});
   Order.FromJSON(Map<String, dynamic> order) {
     products_list = order["products"].map((product)=>products.FromJSON(product)).toList();
+    //     List list =
+    //     order["products"].map((product) => products.FromJSON(product)).toList();
+    // products_list = list;
     products_list = order["products"];
     user_id = order["user_id"];
     price = order["price"];

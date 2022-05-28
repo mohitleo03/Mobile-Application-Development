@@ -30,7 +30,7 @@ class myGraph extends StatelessWidget {
                   name: 'Sales',
                   // Enable data label
                   dataLabelSettings: DataLabelSettings(isVisible: true))
-            ]),
+            ])
       ]),
     ));
   }
