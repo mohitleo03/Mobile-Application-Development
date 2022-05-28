@@ -1,4 +1,4 @@
-name: shopping_seller_app
+name: graph_demo
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -34,14 +34,6 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  firebase_core: ^1.14.1
-  firebase_auth: ^3.3.14
-  another_flushbar: ^1.10.28
-  cloud_firestore: ^3.1.12
-  image_picker: ^0.8.5
-  firebase_storage: ^10.2.14
-  dio: ^4.0.6
-  pie_chart: ^5.3.1
   syncfusion_flutter_charts: ^19.4.56
 
 dev_dependencies:

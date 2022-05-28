@@ -6,6 +6,7 @@ import 'package:shopping_seller_app/modules/Services/drawer_options_list.dart';
 import 'package:shopping_seller_app/modules/repository/orders_repo.dart';
 import 'package:shopping_seller_app/modules/repository/user_repo.dart';
 import 'package:shopping_seller_app/modules/widgets/drawer.dart';
+import 'package:shopping_seller_app/modules/widgets/graph.dart';
 import 'package:shopping_seller_app/modules/widgets/pie_cart.dart';
 import '../models/drawer_option.dart';
 
@@ -16,6 +17,7 @@ class Dashboard extends StatelessWidget {
   DrawerOptionList list = DrawerOptionList();
   @override
   Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
     List<DrawerOption> drawer_options_list = list.drawer_options;
     drawer_options_list = drawer_options_list.map((drawerOption) {
       if (drawerOption.name == AppBarTitle.DASHBOARD) {
@@ -46,8 +48,11 @@ class Dashboard extends StatelessWidget {
                       } else if (snapshot.hasError) {
                         return Text(Messages.ERROR);
                       } else {
-                        return Text(
-                            "Total Users : ${snapshot.data!.docs.length}");
+                        return Container(
+                          margin: EdgeInsets.all(10),
+                          child: Text(
+                              "Total Users : ${snapshot.data!.docs.length}"),
+                        );
                       }
                     })),
               ),
@@ -61,14 +66,16 @@ class Dashboard extends StatelessWidget {
                         return Text(Messages.ERROR);
                       } else {
                         service.converetOrders(snapshot);
-                        
+                        service.getSalesData();
                         return Container(
                           margin: EdgeInsets.all(20),
-                          child: pie_chart(service.getOrdersCountByStatus(),"Orders"),
+                          child: pie_chart(
+                              service.getOrdersCountByStatus(), "Orders"),
                         );
                       }
                     }),
-              )
+              ),
+
             ],
           ),
         ),
