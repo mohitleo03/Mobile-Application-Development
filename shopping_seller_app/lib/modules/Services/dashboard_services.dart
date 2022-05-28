@@ -41,8 +41,9 @@ class DashboardServices {
           0));
     }
     data = data.reversed.toList();
-    for(int i = 0 ; i < orders.length ; i++){
-      if (orders[i].date.isAfter(DateTime(currentDate.year,currentDate.month,currentDate.day-30)) &&
+    for (int i = 0; i < orders.length; i++) {
+      if (orders[i].date.isAfter(DateTime(
+              currentDate.year, currentDate.month, currentDate.day - 30)) &&
           orders[i].date.isBefore(data[0].date)) {
         data[0].sales += orders[i].price;
       } else if (orders[i].date.isBefore(data[1].date)) {
