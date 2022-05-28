@@ -66,16 +66,22 @@ class Dashboard extends StatelessWidget {
                         return Text(Messages.ERROR);
                       } else {
                         service.converetOrders(snapshot);
-                        service.getSalesData();
-                        return Container(
-                          margin: EdgeInsets.all(20),
-                          child: pie_chart(
-                              service.getOrdersCountByStatus(), "Orders"),
+
+                        return Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.all(20),
+                              child: pie_chart(
+                                  service.getOrdersCountByStatus(), "Orders"),
+                            ),
+                            Container(
+                              child: myGraph(service.getSalesData()),
+                            )
+                          ],
                         );
                       }
                     }),
               ),
-
             ],
           ),
         ),

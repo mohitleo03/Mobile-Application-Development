@@ -56,7 +56,6 @@ class DashboardServices {
         data[4].sales += orders[i].price;
       }
     }
-    print(data);
     return data;
   }
 }
