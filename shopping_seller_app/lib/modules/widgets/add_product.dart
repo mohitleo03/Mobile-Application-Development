@@ -161,7 +161,7 @@ class _AddPrductState extends State<AddPrduct> {
           ),
           Slider(
               value: priceValue,
-              max: 10000,
+              max: 30000,
               min: 1,
               onChanged: (currentValue) {
                 priceValue = currentValue;
