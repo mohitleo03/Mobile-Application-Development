@@ -81,16 +81,21 @@ class DashboardServices {
     map.forEach(((key, value) => count.add(value)));
     count.sort();
     count = count.reversed.toList();
+    print(count);
     Map<String, double> mapData = {};
     double others = 0.0;
     map.forEach((key, value) {
-      if (value > count[4]) {
-        mapData.putIfAbsent(key, () => value);
+      if (count.length > 5) {
+        if (value > count[5]) {
+          mapData.putIfAbsent(key, () => value);
+        } else {
+          others += value;
+        }
       } else {
-        others += value;
+        mapData = map;
       }
     });
-    mapData.putIfAbsent("Others",()=>others);
+    mapData.putIfAbsent("Others", () => others);
     return mapData;
   }
 }

@@ -11,21 +11,25 @@ class myGraph extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: Container(
-      margin: EdgeInsets.all(45),
+      margin: EdgeInsets.all(0),
       child: Column(children: [
         //Initialize the chart widget
         SfCartesianChart(
             primaryXAxis: CategoryAxis(),
-            // Chart title
-            title: ChartTitle(text: 'Sales Analysis Of Last 30 days'),
             // Enable legend
             legend: Legend(isVisible: true),
+            plotAreaBorderColor: Colors.deepPurple,
             // Enable tooltip
             tooltipBehavior: TooltipBehavior(enable: true),
             series: <ChartSeries<SalesData, String>>[
+            
               LineSeries<SalesData, String>(
+                color: Colors.deepPurple,
                   dataSource: data,
-                  xValueMapper: (SalesData sales, _) => sales.date.day.toString() +"/"+ sales.date.month.toString(),
+                  xValueMapper: (SalesData sales, _) =>
+                      sales.date.day.toString() +
+                      "/" +
+                      sales.date.month.toString(),
                   yValueMapper: (SalesData sales, _) => sales.sales,
                   name: 'Sales',
                   // Enable data label

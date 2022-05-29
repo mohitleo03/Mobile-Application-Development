@@ -21,14 +21,17 @@ class CustomText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin:  const EdgeInsets.all(10),
       child: TextField(
-        keyboardType: isDigitInput?TextInputType.number:TextInputType.text,
+        keyboardType: isDigitInput ? TextInputType.number : TextInputType.text,
         obscureText: isObscureText,
         controller: tc,
         maxLines: isMultiLine ? 4 : 1,
         decoration: InputDecoration(
-            prefixIcon: Icon(prefixIcon),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.deepPurple)),
+            prefixIcon: Icon(prefixIcon,color: Colors.deepPurple,),
             hintText: label,
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),

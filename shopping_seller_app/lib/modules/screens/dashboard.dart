@@ -47,14 +47,18 @@ class Dashboard extends StatelessWidget {
                     builder: ((BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
                         return Text(Messages.ERROR);
                       } else {
                         return Container(
                           margin: EdgeInsets.all(10),
                           child: Text(
-                              "Total Users : ${snapshot.data!.docs.length}"),
+                            "Total Users : ${snapshot.data!.docs.length}",
+                            style: const TextStyle(
+                                fontSize: 20,
+                                color: Color.fromARGB(255, 41, 11, 93)),
+                          ),
                         );
                       }
                     })),
@@ -72,13 +76,33 @@ class Dashboard extends StatelessWidget {
                           service.converetOrders(snapshot);
                           return Column(
                             children: [
+                              const Text(
+                                'Order status',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.deepPurple),
+                              ),
                               Container(
                                 margin: EdgeInsets.all(20),
                                 child: pie_chart(
-                                    service.getOrdersCountByStatus(), "Orders",[Colors.blue,Colors.green,Colors.red]),
+                                    service.getOrdersCountByStatus(),
+                                    "Orders", const [
+                                  Colors.purple,
+                                  Colors.deepPurpleAccent,
+                                  Color.fromARGB(255, 76, 41, 133)
+                                ]),
                               ),
                               Container(
-                                child: myGraph(service.getSalesData()),
+                                child: Column(children: [
+                                  const Text(
+                                    'Sales Analysis of Last 30 days',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.deepPurple),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  myGraph(service.getSalesData())
+                                ]),
                               ),
                               Container(
                                   child: StreamBuilder(
@@ -88,21 +112,48 @@ class Dashboard extends StatelessWidget {
                                               productsSnapshot) {
                                         if (productsSnapshot.connectionState ==
                                             ConnectionState.waiting) {
-                                          return Center(
+                                          return const Center(
                                               child:
                                                   CircularProgressIndicator());
                                         } else if (productsSnapshot.hasError) {
                                           return Text(Messages.ERROR);
                                         } else {
-                                          List<Product> products = productsSnapshot.data!.docs.map((doc) => Product.fromMap(doc.data(), doc.id)).toList();
+                                          List<Product> products =
+                                              productsSnapshot.data!.docs
+                                                  .map((doc) => Product.fromMap(
+                                                      doc.data(), doc.id))
+                                                  .toList();
                                           return Column(
                                             children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
                                               Container(
-                                                child: Text("Products Sold By Category",style: TextStyle(fontSize: 20),),
+                                                child: const Text(
+                                                  "Products Sold By Category",
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.deepPurple),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
                                               ),
                                               Container(
                                                 margin: EdgeInsets.all(30),
-                                                child:pie_chart(service.getProductsSalesAnalysis(products), "Categories",[Colors.purple,Colors.indigo,Colors.green,Colors.yellow,Colors.orange,Colors.red]),
+                                                child: pie_chart(
+                                                    service
+                                                        .getProductsSalesAnalysis(
+                                                            products),
+                                                    "Categories",
+                                                    const [
+                                                      Colors.purple,
+                                                      Colors.indigo,
+                                                      Colors.green,
+                                                      Colors.yellow,
+                                                      Colors.orange,
+                                                      Colors.red
+                                                    ]),
                                               ),
                                             ],
                                           );

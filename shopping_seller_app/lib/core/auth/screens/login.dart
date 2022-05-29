@@ -55,7 +55,8 @@ class _LoginState extends State<Login> {
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        centerTitle: true,
+        title: Text('Login',),
       ),
       body: SafeArea(
           child: SingleChildScrollView(
@@ -68,32 +69,38 @@ class _LoginState extends State<Login> {
               Column(
                 children: [
                   Image.network(Constants.LOGIN_IMAGE),
-                  CustomText(label: 'Type UserId here',tc: useridCtrl,prefixIcon: Icons.login),
+                  CustomText(label: 'Type UserId here',tc: useridCtrl,prefixIcon: Icons.login,),
                   CustomText(label: 'Type Password here',tc: passwordCtrl,prefixIcon: Icons.password,isObscureText: true),
                   Container(
                       width: 200,
                       margin: EdgeInsets.all(5),
                       child: ElevatedButton(
+                        
                           onPressed: () {
                             _login();
                           },
-                          child: Text('Login'))),
+                          child: Text('Login',style: TextStyle(fontSize: 20),),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.deepPurple,
+                            minimumSize: Size(100, 45)
+                          ),)),
                 ],
               ),
               Column(
                 children: [
-                  Text('If you are a new Seller you can Register'),
+                  const Text('If you are a new Seller you can Register'),
                   Container(
                       margin: EdgeInsets.only(top: 5),
                       child: ElevatedButton(
                         onPressed: () {
                           _moveToRegister();
                         },
-                        child: Text(
+                        child: const Text(
                           'Register',
-                          style: TextStyle(color: Colors.blue),
+                          style: TextStyle(color: Colors.deepPurple,fontSize: 20),
                         ),
-                        style: ElevatedButton.styleFrom(primary: Colors.white),
+                        style: ElevatedButton.styleFrom(primary: Colors.white
+                        ,minimumSize: Size(200, 45)),
                       )),
                 ],
               )

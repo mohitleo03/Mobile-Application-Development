@@ -1,7 +1,7 @@
 abstract class Constants {
-  static String LOGIN_IMAGE = 'https://www.go.ooo/img/bg-img/Login.jpg';
+  static String LOGIN_IMAGE = 'https://media.mktg.workday.com/is/image/workday/illustration-people-login?fmt=png-alpha&wid=1000';
   static String REGISTRATION_IMAGE =
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO_BYSwPB6OR5dfjXGUKAfVkmI62eyRXQhBg&usqp=CAU';
+      'https://www.allen.ac.in/apps2223/assets/images/reset-password.jpg';
   static String appId = 'A111';
   static int SUCCESS = 1;
   static int FAIL = 2;
