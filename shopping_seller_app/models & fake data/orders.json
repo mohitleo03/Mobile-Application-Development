@@ -136,6 +136,78 @@
     "delivery_zone": "NORTH",
     "delivered_by": "DeliveryGuy1",
     "date":"2022-05-05"
+  },
+  {
+    "id": "UniqueId1",
+    "products":[
+        {
+            "product_id": "3KZRc4o9777CtQ4qPdGK",
+            "quantity": 1
+        },
+        {
+          "product_id": "FBeWm11IR362Nro93qj0",
+          "quantity": 1
+      }
+    ],
+    "user_id": "userId1",
+    "price": 9853.99,
+    "order_status": "PENDING",
+    "delivery_zone": "NORTH",
+    "delivered_by": "DeliveryGuy1",
+    "date":"2022-05-25"
+  },
+  {
+    "id": "UniqueId1",
+    "products":[
+        {
+            "product_id": "O9VonSJEX15qCFukUhaJ",
+            "quantity": 2
+        },
+        {
+          "product_id": "QqkLWIEPDRy7cTv5x5zf",
+          "quantity": 1
+      }
+    ],
+    "user_id": "userId1",
+    "price": 30930.22,
+    "order_status": "DELIVERED",
+    "delivery_zone": "NORTH",
+    "delivered_by": "DeliveryGuy1",
+    "date":"2022-05-15"
+  },
+  {
+    "id": "UniqueId1",
+    "products":[
+        {
+            "product_id": "RxU9qpsuzdWTq8zPz6RY",
+            "quantity": 1
+        },
+        {
+          "product_id": "TfZ3Y2IktwXrILMzqAG5",
+          "quantity": 1
+      }
+    ],
+    "user_id": "userId1",
+    "price": 44938,
+    "order_status": "CANCELLED",
+    "delivery_zone": "NORTH",
+    "delivered_by": "DeliveryGuy1",
+    "date":"2022-05-06"
+  },
+  {
+    "id": "UniqueId1",
+    "products":[
+        {
+            "product_id": "rLt15j0LOiaPsKsGLKvK",
+            "quantity": 1
+        }
+    ],
+    "user_id": "userId1",
+    "price": 17932,
+    "order_status": "PENDING",
+    "delivery_zone": "NORTH",
+    "delivered_by": "DeliveryGuy1",
+    "date":"2022-05-06"
   }
 ]
 }

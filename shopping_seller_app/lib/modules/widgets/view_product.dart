@@ -35,9 +35,10 @@ class ViewProduct extends StatelessWidget {
                     var doc = snapshot.data!.docs[index].data();
                     String id = snapshot.data!.docs[index].id;
                     product = Product.fromMap(doc, id);
+                    print(product);
                     return ListTile(
                         leading: Container(
-                            width: deviceSize.width /5,
+                            width: deviceSize.width / 5,
                             child: Image.network(product.url)),
                         title: Text(product.name),
                         // subtitle: Text(snapshot.data![index].desc),
