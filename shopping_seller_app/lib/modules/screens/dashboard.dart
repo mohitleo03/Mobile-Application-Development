@@ -98,9 +98,9 @@ class Dashboard extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: 20, color: Colors.deepPurple),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
+                                  // const SizedBox(
+                                  //   height: 10,
+                                  // ),
                                   myGraph(service.getSalesData())
                                 ]),
                               ),

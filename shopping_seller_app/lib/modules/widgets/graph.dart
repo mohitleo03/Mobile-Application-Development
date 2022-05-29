@@ -11,7 +11,8 @@ class myGraph extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: Container(
-      margin: EdgeInsets.all(0),
+      width: 299,
+      // margin: EdgeInsets.symmetric(horizontal: 33),
       child: Column(children: [
         //Initialize the chart widget
         SfCartesianChart(
@@ -22,9 +23,8 @@ class myGraph extends StatelessWidget {
             // Enable tooltip
             tooltipBehavior: TooltipBehavior(enable: true),
             series: <ChartSeries<SalesData, String>>[
-            
               LineSeries<SalesData, String>(
-                color: Colors.deepPurple,
+                  color: Colors.deepPurple,
                   dataSource: data,
                   xValueMapper: (SalesData sales, _) =>
                       sales.date.day.toString() +
