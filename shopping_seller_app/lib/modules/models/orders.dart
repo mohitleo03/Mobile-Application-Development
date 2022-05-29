@@ -34,7 +34,7 @@ class Order {
     // products_list = list;
     products_list = order["products"];
     user_id = order["user_id"];
-    price = order["price"];
+    price = double.parse(order["price"].toString());
     order_status = order["order_status"];
     delivery_zone = order["delivery_zone"];
     delivered_by = order["delivered_by"];
