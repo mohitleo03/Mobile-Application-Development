@@ -8,11 +8,13 @@ import '../models/product.dart';
 
 class DashboardServices {
   late List<Order> orders = [];
-  converetOrders(dynamic orderData) {
+  convertOrders(dynamic orderData) {
     String str = orderData.data.toString();
     Map temp = jsonDecode(str);
     List<dynamic> list = temp["Orders"];
+    print(list);
     orders = list.map((order) => Order.FromJSON(order)).toList();
+    return orders;
   }
 
   Map<String, double> getOrdersCountByStatus() {

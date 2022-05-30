@@ -73,7 +73,7 @@ class Dashboard extends StatelessWidget {
                         } else if (snapshot.hasError) {
                           return Text(Messages.ERROR);
                         } else {
-                          service.converetOrders(snapshot);
+                          service.convertOrders(snapshot);
                           return Column(
                             children: [
                               const Text(
