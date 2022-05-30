@@ -16,4 +16,3 @@ void main(List<String> args) async {
     routes: getRoutes(), //all routes are loaded here
   ));
 }
-

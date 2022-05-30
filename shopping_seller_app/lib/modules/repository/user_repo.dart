@@ -7,7 +7,7 @@ class UserRepository {
   FirebaseFirestore db = FirebaseFirestore.instance;
   Stream<QuerySnapshot> readRealTime() {
     Stream<QuerySnapshot> stream =
-        db.collection(Collections.USERCOUNT).snapshots();
+        db.collection(Collections.USERS).snapshots();
     return stream;
   }
 }

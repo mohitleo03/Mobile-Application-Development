@@ -1,5 +1,6 @@
 abstract class Constants {
-  static String LOGIN_IMAGE = 'https://media.mktg.workday.com/is/image/workday/illustration-people-login?fmt=png-alpha&wid=1000';
+  static String LOGIN_IMAGE =
+      'https://media.mktg.workday.com/is/image/workday/illustration-people-login?fmt=png-alpha&wid=1000';
   static String REGISTRATION_IMAGE =
       'https://www.allen.ac.in/apps2223/assets/images/reset-password.jpg';
   static String appId = 'A111';
@@ -29,7 +30,7 @@ abstract class Messages {
 
 abstract class Collections {
   static String PRODUCTS = 'products';
-  static String USERCOUNT = 'USERCOUNT';
+  static String USERS = 'users';
 }
 
 abstract class OrderStatus {

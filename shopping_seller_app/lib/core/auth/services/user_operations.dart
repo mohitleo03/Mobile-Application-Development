@@ -33,13 +33,19 @@ class UserOperations {
   //login
   Future<Message> read(UserClass.User user) async {
     try {
-      
-      UserCredential userCred = await _auth.signInWithEmailAndPassword(
-          email: user.userid, password: user.password);
-      print(userCred);
-      // db.collection("USERCOUNT").add({"email": user.userid});//to count number of users registered to our application
-      return Message.takeMessage(
-          message: 'Login Successful', code: Constants.SUCCESS);
+      QuerySnapshot users = await db.collection(Collections.USERS).get();
+      List<String> userslist =
+          users.docs.map((e) => e['email'].toString()).toList();
+      if (userslist.contains(user.userid)) {
+        return Message.takeMessage(
+            message: 'Login Failed', code: Constants.FAIL);
+      } else {
+        UserCredential userCred = await _auth.signInWithEmailAndPassword(
+            email: user.userid, password: user.password);
+        print(userCred);
+        return Message.takeMessage(
+            message: 'Login Successful', code: Constants.SUCCESS);
+      }
     } catch (e) {
       print("Error is $e");
       return Message.takeMessage(message: 'Login Fail', code: Constants.FAIL);
@@ -47,9 +53,7 @@ class UserOperations {
   }
 
   //change password
-  update() {
-    
-  }
+  update() {}
   //account deactivate
   delete() {}
 }
