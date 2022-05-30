@@ -21,7 +21,14 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
-    List<DrawerOption> drawer_options_list = list.drawer_options;
+    drawer_options_list = drawer_options_list.map((drawerOption) {
+      if (drawerOption.name == AppBarTitle.DASHBOARD) {
+        drawerOption.isActive = true;
+        return drawerOption;
+      } else {
+        return drawerOption;
+      }
+    }).toList();
     drawer_options_list = drawer_options_list.map((drawerOption) {
       if (drawerOption.name == AppBarTitle.DASHBOARD) {
         drawerOption.isActive = true;

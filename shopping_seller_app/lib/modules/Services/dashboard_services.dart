@@ -12,7 +12,6 @@ class DashboardServices {
     String str = orderData.data.toString();
     Map temp = jsonDecode(str);
     List<dynamic> list = temp["Orders"];
-    print(list);
     orders = list.map((order) => Order.FromJSON(order)).toList();
     return orders;
   }
@@ -83,7 +82,6 @@ class DashboardServices {
     map.forEach(((key, value) => count.add(value)));
     count.sort();
     count = count.reversed.toList();
-    print(count);
     Map<String, double> mapData = {};
     double others = 0.0;
     map.forEach((key, value) {

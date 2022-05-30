@@ -23,7 +23,7 @@ class pie_chart extends StatelessWidget {
       legendOptions: const LegendOptions(
         showLegendsInRow: false,
         legendPosition: LegendPosition.bottom,
-        showLegends: false,
+        showLegends: true,
         legendShape: BoxShape.circle,
         legendTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.deepPurple),
       ),
