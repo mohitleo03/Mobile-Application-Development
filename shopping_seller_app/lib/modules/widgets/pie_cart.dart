@@ -5,7 +5,7 @@ class pie_chart extends StatelessWidget {
   Map<String, double> dataMap;
   List<Color> colors;
   String title;
-  pie_chart(this.dataMap, this.title, this.colors);
+  pie_chart({required this.dataMap,required this.title,required this.colors});
   @override
   Widget build(BuildContext context) {
     Size device_size = MediaQuery.of(context).size;
@@ -19,22 +19,29 @@ class pie_chart extends StatelessWidget {
       chartType: ChartType.ring,
       ringStrokeWidth: 55,
       centerText: title,
-      
+
       legendOptions: const LegendOptions(
-        showLegendsInRow: false,
+        showLegendsInRow: true,
         legendPosition: LegendPosition.bottom,
         showLegends: true,
         legendShape: BoxShape.circle,
-        legendTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.deepPurple),
+        legendTextStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            color: Colors.deepPurple
+            ),
       ),
       chartValuesOptions: const ChartValuesOptions(
-        showChartValueBackground: true,
-        showChartValues: true,
-        showChartValuesInPercentage: true,
-        showChartValuesOutside: false,
-        decimalPlaces: 1,
-        chartValueStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 17,color: Colors.deepPurple,)
-      ),
+          showChartValueBackground: true,
+          showChartValues: true,
+          showChartValuesInPercentage: true,
+          showChartValuesOutside: false,
+          decimalPlaces: 1,
+          chartValueStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+            color: Colors.deepPurple,
+          )),
       // gradientList: ---To add gradient colors---
       // emptyColorGradient: ---Empty Color gradient---
     );

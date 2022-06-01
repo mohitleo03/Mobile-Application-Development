@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
-import 'package:shopping_seller_app/modules/Services/dashboard_services.dart';
+import 'package:shopping_seller_app/modules/Services/services.dart';
 import 'package:shopping_seller_app/modules/Services/drawer_options_list.dart';
 import 'package:shopping_seller_app/modules/repository/orders_repo.dart';
 import 'package:shopping_seller_app/modules/repository/product_repo.dart';
@@ -13,22 +13,17 @@ import '../models/drawer_option.dart';
 import '../models/product.dart';
 
 class Dashboard extends StatelessWidget {
+  List<Color> order_status_colors = [Colors.purple,Colors.deepPurpleAccent,Color.fromARGB(255, 76, 41, 133)];
+  List<Color> categories_colors = [Colors.purple,Colors.indigo,Colors.green,Colors.yellow,Colors.orange,Colors.red];
   OrdersRepo orderRepo = OrdersRepo.getInstance();
   ProductRepository productRepo = ProductRepository();
   UserRepository userRepo = UserRepository();
-  DashboardServices service = DashboardServices();
+  Services service = Services();
   DrawerOptionList list = DrawerOptionList();
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
-    drawer_options_list = drawer_options_list.map((drawerOption) {
-      if (drawerOption.name == AppBarTitle.DASHBOARD) {
-        drawerOption.isActive = true;
-        return drawerOption;
-      } else {
-        return drawerOption;
-      }
-    }).toList();
+    List<DrawerOption> drawer_options_list = list.drawer_options;
     drawer_options_list = drawer_options_list.map((drawerOption) {
       if (drawerOption.name == AppBarTitle.DASHBOARD) {
         drawerOption.isActive = true;
@@ -81,23 +76,25 @@ class Dashboard extends StatelessWidget {
                           return Text(Messages.ERROR);
                         } else {
                           service.convertOrders(snapshot);
+                          Map<String,double> orderData = service.getOrdersCountByStatus();
                           return Column(
                             children: [
-                              const Text(
-                                'Order status',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.deepPurple),
+                              Column(
+                                children: [
+                                  Text(
+                                    'Order status',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.deepPurple),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.all(20),
+                                    child: pie_chart(
+                                    dataMap: orderData,
+                                    title: "Orders",colors:  order_status_colors),
+                                  ),
+                                ],
                               ),
-                              Container(
-                                margin: EdgeInsets.all(20),
-                                child: pie_chart(
-                                    service.getOrdersCountByStatus(),
-                                    "Orders", const [
-                                  Colors.purple,
-                                  Colors.deepPurpleAccent,
-                                  Color.fromARGB(255, 76, 41, 133)
-                                ]),
-                              ),
+                              
                               Container(
                                 child: Column(children: [
                                   const Text(
@@ -149,18 +146,11 @@ class Dashboard extends StatelessWidget {
                                               Container(
                                                 margin: EdgeInsets.all(30),
                                                 child: pie_chart(
-                                                    service
+                                                    dataMap: service
                                                         .getProductsSalesAnalysis(
                                                             products),
-                                                    "Categories",
-                                                    const [
-                                                      Colors.purple,
-                                                      Colors.indigo,
-                                                      Colors.green,
-                                                      Colors.yellow,
-                                                      Colors.orange,
-                                                      Colors.red
-                                                    ]),
+                                                    title: "Categories",
+                                                    colors:categories_colors),
                                               ),
                                             ],
                                           );

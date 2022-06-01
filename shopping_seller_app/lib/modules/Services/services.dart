@@ -6,7 +6,7 @@ import 'package:sortedmap/sortedmap.dart';
 import '../models/orders.dart';
 import '../models/product.dart';
 
-class DashboardServices {
+class Services {
   late List<Order> orders = [];
   convertOrders(dynamic orderData) {
     String str = orderData.data.toString();

@@ -38,6 +38,14 @@ class ProductRepository {
         db.collection(Collections.PRODUCTS).snapshots();
     return stream;
   }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> getSingleProduct(
+      String product_id) async {
+    DocumentSnapshot<Map<String, dynamic>> querysnapshot =
+        await db.collection(Collections.PRODUCTS).doc(product_id).get();
+    print(querysnapshot);
+    return querysnapshot;
+  }
   // Future<dynamic> readByAwait() async {
   //   try {
   //     QuerySnapshot<Map<String, dynamic>> products =

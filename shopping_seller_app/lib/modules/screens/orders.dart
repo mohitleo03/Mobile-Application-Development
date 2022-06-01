@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_seller_app/modules/Services/dashboard_services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shopping_seller_app/modules/Services/services.dart';
 import 'package:shopping_seller_app/modules/repository/orders_repo.dart';
+import 'package:shopping_seller_app/modules/repository/product_repo.dart';
 import 'package:shopping_seller_app/modules/widgets/drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../config/constants/AppConstants.dart';
@@ -15,20 +17,47 @@ class Orders extends StatefulWidget {
 
 class _OrdersState extends State<Orders> {
   OrdersRepo ordersRepo = OrdersRepo.getInstance();
+  ProductRepository productRepo = ProductRepository();
   DrawerOptionList list = DrawerOptionList();
-  DashboardServices service = DashboardServices();
+  Services service = Services();
 
-  dynamic dropdownValue = "ALL";
+  String dropdownValue = "ALL";
+  List<Order?> _getOrdersList(List<Order?> list) {
+    list = list.map((order) {
+      if (order!.order_status == dropdownValue) {
+        return order;
+      }
+    }).toList();
+    return list;
+  }
 
   List<DropdownMenuItem<String>> item_list = [
-    DropdownMenuItem(child: Text("PENDING"), value: "PENDING"),
-    DropdownMenuItem(child: Text("DELIVERED"), value: "DELIVERED"),
-    DropdownMenuItem(child: Text("CANCELLED"), value: "CANCELLED"),
-    DropdownMenuItem(child: Text("ALL"), value: "ALL")
+    DropdownMenuItem(
+        child: Text(OrderStatus.PENDING), value: OrderStatus.PENDING),
+    DropdownMenuItem(
+        child: Text(OrderStatus.DELIVERED), value: OrderStatus.DELIVERED),
+    DropdownMenuItem(
+        child: Text(OrderStatus.CANCELLED), value: OrderStatus.CANCELLED),
+    DropdownMenuItem(child: Text(OrderStatus.ALL), value: OrderStatus.ALL)
   ];
+
+  List<Widget> _getProducts(Order order) {
+    List<Widget> products = order.products_list
+        .map((product) => Container(
+              child: Column(
+                children: [
+                  Text(product['product_id']),
+                  Text("Quantity : ${product['quantity'].toString()}")
+                ],
+              ),
+            ))
+        .toList();
+    return products;
+  }
 
   @override
   Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
     List<DrawerOption> drawer_options_list = list.drawer_options;
     drawer_options_list = drawer_options_list.map((drawerOption) {
       if (drawerOption.name == AppBarTitle.ORDERS) {
@@ -61,119 +90,41 @@ class _OrdersState extends State<Orders> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Text("Some error has occured");
+                return Text(Messages.ERROR);
               } else {
                 List<Order> list = service.convertOrders(snapshot);
-
+                _getOrdersList(list);
                 return Expanded(
                   child: ListView.builder(
                       itemCount: list.length,
                       itemBuilder: (context, index) {
-                        if (list[index].order_status == dropdownValue) {
-                          return Padding(
-                            padding: EdgeInsets.fromLTRB(8, 20, 8, 10),
-                            child: Container(
-                                alignment: Alignment.center,
-                                height: 150,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                    color: Colors.blue[300],
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey,
-                                          blurRadius: 5,
-                                          spreadRadius: 2,
-                                          offset: Offset(5, 10))
-                                    ]),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 10),
-                                      child: Text(
-                                          "Order ID : ${list[index].id}",
-                                          style: GoogleFonts.lato(
-                                              fontSize: 23,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold)),
+                        if (list.isNotEmpty) {
+                          return Container(
+                            height: deviceSize.height - 100,
+                            child: ListView.builder(
+                                itemCount: list.length,
+                                itemBuilder: ((context, index) {
+                                  return Card(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          child: Text(list[index].order_status),
+                                        ),
+                                        Divider(height: 1),
+                                        Container(
+                                          child: Column(
+                                            children: _getProducts(list[index]),
+                                          ),
+                                        ),
+                                        Divider(height: 1),
+                                        Container(
+                                          child: Text(
+                                              "Amount : ${list[index].price}"),
+                                        )
+                                      ],
                                     ),
-                                    FittedBox(
-                                      child: Text(
-                                        "Product ID : " +
-                                            "${list[index].products_list[0]['product_id']}",
-                                        style: GoogleFonts.lato(
-                                            fontSize: 20, color: Colors.black),
-                                      ),
-                                    ),
-                                    Text("Price : " + "${list[index].price}",
-                                        style: GoogleFonts.lato(
-                                            fontSize: 20, color: Colors.black)),
-                                    Text(
-                                        "Status : " +
-                                            "${list[index].order_status}",
-                                        style: GoogleFonts.lato(
-                                            fontSize: 20, color: Colors.black)),
-                                    Text(
-                                        "Zone : " +
-                                            "${list[index].delivery_zone}",
-                                        style: GoogleFonts.lato(
-                                            fontSize: 20, color: Colors.black))
-                                  ],
-                                )),
-                          );
-                        } else if (dropdownValue == "ALL") {
-                          return Padding(
-                            padding: EdgeInsets.fromLTRB(8, 20, 8, 8),
-                            child: Container(
-                                alignment: Alignment.center,
-                                height: 150,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                    color: Colors.blue[300],
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey,
-                                          blurRadius: 5,
-                                          spreadRadius: 2,
-                                          offset: Offset(5, 10))
-                                    ]),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 5),
-                                      child: Text(
-                                          "Order ID : ${list[index].id}",
-                                          style: GoogleFonts.lato(
-                                              fontSize: 23,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold)),
-                                    ),
-                                    FittedBox(
-                                      child: Text(
-                                        "Product ID : " +
-                                            "${list[index].products_list[0]['product_id']}",
-                                        style: GoogleFonts.lato(
-                                            fontSize: 20, color: Colors.black),
-                                      ),
-                                    ),
-                                    Text("Price : " + "${list[index].price}",
-                                        style: GoogleFonts.lato(
-                                            fontSize: 20, color: Colors.black)),
-                                    Text(
-                                        "Status : " +
-                                            "${list[index].order_status}",
-                                        style: GoogleFonts.lato(
-                                            fontSize: 20, color: Colors.black)),
-                                    Text(
-                                        "Zone : " +
-                                            "${list[index].delivery_zone}",
-                                        style: GoogleFonts.lato(
-                                            fontSize: 20, color: Colors.black))
-                                  ],
-                                )),
+                                  );
+                                })),
                           );
                         } else {
                           return SizedBox.shrink();

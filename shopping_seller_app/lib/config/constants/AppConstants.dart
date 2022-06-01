@@ -34,6 +34,7 @@ abstract class Collections {
 }
 
 abstract class OrderStatus {
+  static String ALL = "ALL";
   static String PENDING = "PENDING";
   static String CANCELLED = "CANCELLED";
   static String DELIVERED = "DELIVERED";
