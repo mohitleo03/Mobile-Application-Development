@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping_seller_app/modules/Services/services.dart';
+import 'package:shopping_seller_app/modules/models/product.dart';
 import 'package:shopping_seller_app/modules/repository/orders_repo.dart';
 import 'package:shopping_seller_app/modules/repository/product_repo.dart';
 import 'package:shopping_seller_app/modules/widgets/drawer.dart';
@@ -46,8 +47,32 @@ class _OrdersState extends State<Orders> {
         .map((product) => Container(
               child: Column(
                 children: [
-                  Text(product['product_id']),
-                  Text("Quantity : ${product['quantity'].toString()}")
+                  FutureBuilder(
+                      future:
+                          productRepo.getSingleProduct(product['product_id']),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text(Messages.ERROR),
+                          );
+                        } else {
+                          var temp = snapshot.data["name"];
+                          print("Run time type is ${temp}}");
+                          
+                          return Container(
+                            child: Row(
+                              children: [
+                                Column(
+                                  children: [Text("Got Data")],
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                      })
                 ],
               ),
             ))

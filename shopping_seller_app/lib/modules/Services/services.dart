@@ -15,6 +15,9 @@ class Services {
     orders = list.map((order) => Order.FromJSON(order)).toList();
     return orders;
   }
+  convertProduct(dynamic product){
+    
+  }
 
   Map<String, double> getOrdersCountByStatus() {
     Map<String, double> map = {
