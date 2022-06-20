@@ -7,6 +7,7 @@ import '../models/university.dart';
 
 class Home extends ConsumerWidget {
   bool firstLoad = true;
+  bool loading = true;
   List<String> countries = [
     'India',
     'china',
