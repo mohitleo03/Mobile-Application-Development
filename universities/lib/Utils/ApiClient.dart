@@ -9,9 +9,9 @@ class ApiClient {
     return _Api;
   }
 
-  get(String url) async{
+  get(String url) {
     print("hitting $url");
-    Response future = await _dio.get(url);
+    Future<Response> future =  _dio.get(url);
     return future;
   }
 }
