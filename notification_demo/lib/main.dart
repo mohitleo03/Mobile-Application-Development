@@ -34,7 +34,7 @@ class ReceivedNotification {
   final String? title;
   final String? body;
   final String? payload;
-}
+}  
 
 String? selectedNotificationPayload;
 Future<void> main() async {
