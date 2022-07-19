@@ -91,7 +91,7 @@ class _manageProductsState extends State<manageProducts> {
     // String userid = arguments;
     return Scaffold(
       key: scaffoldkey,
-      appBar: AppBar(title: Text(AppBarTitle.MANAGE_PRODUCTS),),
+      appBar: AppBar(title: Text(AppBarTitle.MANAGE_PRODUCTS),actions: [],),
       drawer: Drawer(
           child: myDrawer(userid,drawer_options_list)
           ),
