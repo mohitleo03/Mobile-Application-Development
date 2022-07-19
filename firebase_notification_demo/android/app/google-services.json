@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:869648357618:android:9c48a319f4be127454186b",
+        "mobilesdk_app_id": "1:869648357618:android:edb12d01e885747e54186b",
         "android_client_info": {
           "package_name": "com.example.firebase_notification_demo"
         }
@@ -29,6 +29,13 @@
             {
               "client_id": "869648357618-0uk47878m5u02n6sjqvir3rq1brqt26r.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "869648357618-gc8sga94jcet7la6fqdq0hh3nlkgbb8p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebaseNotificationDemo2"
+              }
             }
           ]
         }

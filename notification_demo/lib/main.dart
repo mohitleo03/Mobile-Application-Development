@@ -34,7 +34,7 @@ class ReceivedNotification {
   final String? title;
   final String? body;
   final String? payload;
-}  
+}
 
 String? selectedNotificationPayload;
 Future<void> main() async {
@@ -137,7 +137,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController messageCtrl = TextEditingController();
-
+    final TextEditingController messageCtrl2 = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -174,30 +174,44 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) => MaterialApp(
         home: Scaffold(
           appBar: AppBar(
-            title: const Text('Plugin example app'),
+            title: const Text('Firebase Notification'),
           ),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Center(
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: messageCtrl,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  const BorderSide(color: Colors.deepPurple)),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    ElevatedButton(
-                        onPressed: () async {
-                          await _showNotificationWithNoTitle(messageCtrl.text);
-                        },
-                        child: Text('Get Notification With This Text'))
-                  ],
+                child: Container(
+                  height: 200,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextField(
+                        controller: messageCtrl,
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    const BorderSide(color: Colors.deepPurple)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                      ),
+                      TextField(
+                        controller: messageCtrl2,
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    const BorderSide(color: Colors.deepPurple)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                      ),
+                      ElevatedButton(
+                          onPressed: () async {
+                            await _showNotificationWithNoTitle(messageCtrl.text);
+                          },
+                          child: Text('Send'))
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -216,6 +230,6 @@ class _HomePageState extends State<HomePage> {
       android: androidPlatformChannelSpecifics,
     );
     await flutterLocalNotificationsPlugin
-        .show(0, null, message, platformChannelSpecifics, payload: 'item x');
+        .show(0, messageCtrl.text, messageCtrl2.text, platformChannelSpecifics, payload: 'item x');
   }
 }
