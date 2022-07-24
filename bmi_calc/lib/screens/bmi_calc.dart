@@ -13,8 +13,10 @@ class bmi_calc extends StatefulWidget {
 
 class _bmi_calcState extends State<bmi_calc> {
   Color Text_color = Color.fromARGB(171, 165, 167, 190);
-  int gender_button_pressed =0; //0 - non selected, 1 - male selected, 2 - female selected
+  int gender_button_pressed =
+      0; //0 - non selected, 1 - male selected, 2 - female selected
   String ButtonText = "CALCULATE";
+  String ButtonText2 = "";
   String _gender = "";
   int _height = 160;
   int _weight = 60;
@@ -26,24 +28,28 @@ class _bmi_calcState extends State<bmi_calc> {
     if (_gender == "MALE") gender_button_pressed = 1;
     if (_gender == "FEMALE") gender_button_pressed = 2;
     ButtonText = "CALCULATE";
+    ButtonText2 = "";
     setState(() {});
   }
 
   TaskeSliderValue(int value) {
     _height = value;
     ButtonText = "CALCULATE";
+    ButtonText2 = "";
     setState(() {});
   }
 
   changeWeight(int value) {
     _weight += value;
     ButtonText = "CALCULATE";
+    ButtonText2 = "";
     setState(() {});
   }
 
   changeAge(int value) {
     _age += value;
     ButtonText = "CALCULATE";
+    ButtonText2 = "";
     setState(() {});
   }
 
@@ -51,8 +57,21 @@ class _bmi_calcState extends State<bmi_calc> {
     _bmi = _weight / pow((_height / 100), 2);
     _bmi = double.parse(_bmi.toStringAsFixed(2));
     ButtonText = "Your BMI is $_bmi";
+    ButtonText2 = "You are " + _getResultText(_bmi);
     //calculate bmi
     setState(() {});
+  }
+
+  String _getResultText(bmi) {
+    if (bmi < 18.5) {
+      return 'Underweight';
+    } else if (bmi >= 18.5 && bmi < 24.9) {
+      return 'Healty Weight';
+    } else if (bmi >= 24.9 && bmi < 29.9) {
+      return 'Overweight';
+    } else {
+      return 'Obese';
+    }
   }
 
   @override
@@ -75,8 +94,8 @@ class _bmi_calcState extends State<bmi_calc> {
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.fromLTRB(12, 13, 0, 9),
-                  child: genderButton(Icons.male, "MALE", deviceSize,
-                      getGender, gender_button_pressed),
+                  child: genderButton(Icons.male, "MALE", deviceSize, getGender,
+                      gender_button_pressed),
                 )),
                 SizedBox(width: deviceSize.width / 25),
                 Expanded(
@@ -94,9 +113,9 @@ class _bmi_calcState extends State<bmi_calc> {
               padding: const EdgeInsets.fromLTRB(10, 6, 10, 5),
               child: Container(
                 decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color.fromARGB(255, 29, 30, 51),
-                    ),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Color.fromARGB(255, 29, 30, 51),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -133,7 +152,6 @@ class _bmi_calcState extends State<bmi_calc> {
               ),
             ),
           ),
-          
           Expanded(
             flex: 14,
             child: Row(
@@ -141,8 +159,7 @@ class _bmi_calcState extends State<bmi_calc> {
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.fromLTRB(12, 11, 0, 12),
-                  child:
-                      my_card("WEIGHT", _weight, deviceSize, changeWeight),
+                  child: my_card("WEIGHT", _weight, deviceSize, changeWeight),
                 )),
                 SizedBox(width: deviceSize.width / 25),
                 Expanded(
@@ -155,13 +172,26 @@ class _bmi_calcState extends State<bmi_calc> {
           ),
           ElevatedButton(
             onPressed: _calculate,
-            child: Text(ButtonText,
-                style:
-                    TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: ButtonText2 == ""
+                  ? [
+                      Text(ButtonText,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w700)),
+                    ]
+                  : [
+                      Text(ButtonText,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w700)),
+                      Text(ButtonText2,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w700))
+                    ],
+            ),
             style: ElevatedButton.styleFrom(
                 primary: Color.fromARGB(255, 235, 21, 85),
-                fixedSize: Size(deviceSize.width, 50)
-                ),
+                fixedSize: Size(deviceSize.width, 70)),
           ),
         ],
       ),
