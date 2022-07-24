@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:shopping_seller_app/config/constants/AppConstants.dart';
+import 'package:shopping_seller_app/modules/models/orders.dart';
+import 'package:shopping_seller_app/modules/models/product.dart';
 import 'package:shopping_seller_app/modules/models/sales_data.dart';
 import 'package:sortedmap/sortedmap.dart';
 
-import '../models/orders.dart';
-import '../models/product.dart';
 
 class Services {
   late List<Order> orders = [];

@@ -86,7 +86,7 @@ class _emi_calc_classState extends State<emi_calc_class> {
               icon: Icons.attach_money,
               tc: t1,
             ),
-            TextBox(label: 'ROI', icon: Icons.attach_money, tc: t2),
+            TextBox(label: 'ROI', icon: Icons.percent, tc: t2),
             TextBox(
               label: 'Tenure',
               icon: Icons.timelapse,

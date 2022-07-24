@@ -36,7 +36,7 @@ class Home extends ConsumerWidget {
           'Universities',
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Color.fromARGB(255, 253, 231, 233),
+        backgroundColor: Color.fromARGB(255, 98, 203, 255),
       ),
       drawer: Drawer(),
       body: Column(

@@ -156,12 +156,12 @@ class _AddPrductState extends State<AddPrduct> {
             padding: const EdgeInsets.only(left: 20.0, right: 20, top: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text("0"), Text("10,000")],
+              children: [Text("0"), Text("80,000")],
             ),
           ),
           Slider(
               value: priceValue,
-              max: 30000,
+              max: 80000,
               min: 1,
               onChanged: (currentValue) {
                 priceValue = currentValue;
