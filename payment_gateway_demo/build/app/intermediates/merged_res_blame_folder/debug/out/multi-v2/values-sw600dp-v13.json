@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\mohit\\Visual Studio code\\Mobile Application Development\\payment_gateway_demo\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\mohit\\.gradle\\caches\\transforms-3\\4dd2a10d6671f3b5cc74c27a4644766d\\transformed\\jetified-checkout-1.6.26\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,93",
+                        "endLines": "2,13",
+                        "endColumns": "37,12",
+                        "endOffsets": "88,745"
+                    }
+                }
+            ]
+        }
+    ]
+}
