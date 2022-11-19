@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "754055097050",
+    "project_id": "electric-queuing",
+    "storage_bucket": "electric-queuing.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754055097050:android:bc61c3799642ba1a7693e3",
+        "android_client_info": {
+          "package_name": "com.example.electric_queuing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "754055097050-5fub1s1nlm3ivet8k7lvo1ki0j6c5m4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvwCXChxcrC2CPHinqkVFUy0pKd3C4Cxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "754055097050-5fub1s1nlm3ivet8k7lvo1ki0j6c5m4s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
