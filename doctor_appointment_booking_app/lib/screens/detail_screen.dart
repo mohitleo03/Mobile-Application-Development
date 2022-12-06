@@ -6,13 +6,7 @@ import 'package:flutter_health_care_app/theme/theme.dart';
 import 'package:flutter_health_care_app/widgets/progress_widget.dart';
 import 'package:flutter_health_care_app/widgets/rating_star_widget.dart';
 import 'package:flutter_health_care_app/theme/extention.dart';
-
-/*
-Title:DetailScreen
-Purpose:DetailScreen
-Created By:Kalpesh Khandla
-Created Date: 30 April 2021
-*/
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class DetailScreen extends StatefulWidget {
   final DoctorModel model;
@@ -209,7 +203,15 @@ class _DetailPageState extends State<DetailScreen> {
                                   color: Theme.of(context).primaryColor,
                                   borderRadius: BorderRadius.circular(10)),
                               child: TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Alert(
+                                    buttons: [],
+                                    context: context,
+                                    title: "Your Appoinment is Booked",
+                                    // desc:
+                                    //     "Flutter is more awesome with RFlutter Alert.",
+                                  ).show();
+                                },
                                 child: Text(
                                   "Make an appointment",
                                   style: TextStyles.titleNormal.white,

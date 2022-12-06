@@ -7,12 +7,7 @@ import 'package:flutter_health_care_app/theme/text_styles.dart';
 import 'package:flutter_health_care_app/theme/extention.dart';
 import 'package:flutter_health_care_app/theme/theme.dart';
 
-/*
-Title:HomePageScreen
-Purpose:HomePageScreen
-Created By:Kalpesh Khandla
-Created Date: 30 April 2021
-*/
+
 
 class HomePageScreen extends StatefulWidget {
   HomePageScreen({

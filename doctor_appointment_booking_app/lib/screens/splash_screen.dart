@@ -4,14 +4,6 @@ import 'package:flutter_health_care_app/theme/light_color.dart';
 import 'package:flutter_health_care_app/theme/text_styles.dart';
 import 'package:flutter_health_care_app/theme/extention.dart';
 
-/*
-Title:SplashScreen
-Purpose:SplashScreen
-Created By:Kalpesh Khandla
-Created Date: 30 April 2021
-*/
-
-
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key key}) : super(key: key);
 
