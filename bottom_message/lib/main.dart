@@ -7,6 +7,21 @@ void main() {
   ));
 }
 
+class CustomSnackBar {
+  CustomSnackBar(BuildContext context, Widget content,
+      {SnackBarAction? snackBarAction, Color backgroundColor = Colors.blue}) {
+    final SnackBar snackBar = SnackBar(
+        backgroundColor: backgroundColor,
+        content: content,
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 2),
+        );
+
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+}
+
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -25,23 +40,20 @@ class Home extends StatelessWidget {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Message')));
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(content: Text('Message')));
                   },
                   child: const Text("1")),
-              ElevatedButton(onPressed: () {
-                      Fluttertoast.showToast(msg: 'Message');
-
-              }, child: const Text("2")),
-              ElevatedButton(onPressed: () {}, child: const Text("3")),
-              ElevatedButton(onPressed: () {}, child: const Text("4")),
-              ElevatedButton(onPressed: () {}, child: const Text("5")),
-              ElevatedButton(onPressed: () {}, child: const Text("6")),
-              ElevatedButton(onPressed: () {}, child: const Text("7")),
-              ElevatedButton(onPressed: () {}, child: const Text("8")),
-              ElevatedButton(onPressed: () {}, child: const Text("9")),
-              ElevatedButton(onPressed: () {}, child: const Text("10")),
-              ElevatedButton(onPressed: () {}, child: const Text("11")),
+              ElevatedButton(
+                  onPressed: () {
+                    Fluttertoast.showToast(msg: 'Message');
+                  },
+                  child: const Text("2")),
+              ElevatedButton(
+                  onPressed: () {
+                    CustomSnackBar(context, const Text('Message'));
+                  },
+                  child: const Text("3")),
             ],
           ),
         ),
