@@ -1,4 +1,4 @@
-import 'package:animated_login/data/messages.dart';
+import '../../data/messages.dart';
 import 'package:flutter/material.dart';
 
 class MessagesList extends StatefulWidget {

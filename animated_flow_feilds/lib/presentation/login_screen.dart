@@ -1,7 +1,7 @@
-import 'package:animated_login/presentation/widgets/email_field.dart';
-import 'package:animated_login/presentation/widgets/get_started_button.dart';
-import 'package:animated_login/presentation/widgets/messages_screen.dart';
-import 'package:animated_login/presentation/widgets/password_field.dart';
+import '../../presentation/widgets/email_field.dart';
+import '../../presentation/widgets/get_started_button.dart';
+import '../../presentation/widgets/messages_screen.dart';
+import '../../presentation/widgets/password_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {

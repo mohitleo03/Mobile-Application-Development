@@ -1,4 +1,4 @@
-import 'package:animated_login/models/message.dart';
+import '../models/message.dart';
 
 List<Message> staticMessages = [
   Message(

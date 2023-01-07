@@ -1,4 +1,4 @@
-import 'package:animated_login/presentation/login_screen.dart';
+import '../../presentation/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
